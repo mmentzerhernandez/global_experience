@@ -625,10 +625,26 @@
 		}
 
 		.education-section {
+			max-height: 400px;
+			overflow-y: auto;
 			padding: 1rem;
 			border-radius: 12px;
 			background: rgba(255, 255, 255, 0.7);
 			border: 1px solid rgba(255, 255, 255, 0.8);
+		}
+
+		.education-section::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		.education-section::-webkit-scrollbar-track {
+			background: rgba(255, 255, 255, 0.3);
+			border-radius: 4px;
+		}
+
+		.education-section::-webkit-scrollbar-thumb {
+			background: #667eea;
+			border-radius: 4px;
 		}
 
 		.education-section ul {
@@ -1022,12 +1038,12 @@
 					<div class="profile-content">
 						<div class="profile-text">
 							<h2 style="color: #000000;">Education Across Borders and Complexity</h2>
-							<h4 style="margin-left: 20px;">From teaching in active conflict zones to the Global Learning
-								Operations team at Meta,
-								my career has spanned the most demanding environments imaginable.</h4>
-							<p style="margin-left: 20px;">
+							<h4>From teaching in active conflict zones to contributing to the
+								Global Learning Operations team at Meta, I have had the privilege of working in some of
+								the most challenging and rewarding educational environments.</h4>
+							<!-- <p style="margin-left: 20px;">
 								<i>What's next?</i> Teaching everyone to use AI.
-							</p>
+							</p> -->
 						</div>
 						<div class="profile-image">
 							<img alt="World map showing countries lived, worked, and visited" class="map-image"
@@ -1154,6 +1170,14 @@
 								</ul>
 							</li>
 							<li>
+								<strong>Security Certifications</strong>
+								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
+									<li>CompTIA Security+ (In-Process)</li>
+									<li>AWS Certified Solutions Architect - Associate (In-Process)</li>
+
+								</ul>
+							</li>
+							<li>
 								<strong>Instructional Design Certifications</strong>
 								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
 									<li><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr"
@@ -1227,40 +1251,34 @@
 			<!-- Project 1: WritingTrace -->
 			<div class="project">
 				<div class="project-details">
-					<h3>Chrome Extension - WritingTrace - Check if AI is Used in a Document</h3>
+					<h3>WriteTrace - Full-Stack Application & Chrome Extension</h3>
 					<div class="project-image">
 						<img alt="WritingTrace Mockup" data-full="img/writingtrace_mockup.png" onclick="openModal(this)"
 							src="img/writingtrace_mockup.png" style="cursor: pointer;">
 					</div>
 					<p><em>March 2026 – Present</em></p>
-					<p style="font-size: 1rem; margin-top: 0.5rem; color: #666;">A privacy-first Chrome Extension that
-						captures and replays the complete writing journey of Google Docs documents to provide behavioral
-						evidence of authenticity.</p>
+					<p style="font-size: 1rem; margin-top: 0.5rem; color: #666;">A full-stack web platform and privacy-first Chrome Extension that captures and replays the writing journey, integrating real-time document analysis with a scalable serverless backend and freemium subscription model.</p>
 
 					<div class="outcome-blocks">
 						<div class="outcome-card">
-							<span class="icon"><i data-lucide="play"></i></span>
-							<h4>Process Replay</h4>
-							<p>Watch the document being written in real-time with a visual timeline scrubber and
-								multi-collaborator tracking.</p>
-						</div>
-						<div class="outcome-card">
 							<span class="icon"><i data-lucide="shield-check"></i></span>
-							<h4>Privacy-First</h4>
-							<p>100% browser-based and FERPA compliant. All processing happens locally with no external
-								data transmission.</p>
+							<h4>Privacy-First & Compliant</h4>
+							<p>FERPA/GDPR verified. Document processing happens locally in-browser with secure access control via HTTPS callable Cloud Functions.</p>
 						</div>
 						<div class="outcome-card">
-							<span class="icon"><i data-lucide="file-down"></i></span>
-							<h4>Offline Export</h4>
-							<p>Generates highly compressed (~200 KB) standalone HTML files that play back writing
-								sessions entirely offline.</p>
+							<span class="icon"><i data-lucide="credit-card"></i></span>
+							<h4>Freemium Model & Stripe</h4>
+							<p>Automated subscription management and real-time database synchronization via Firebase Stripe Extension and secure webhooks.</p>
 						</div>
 						<div class="outcome-card">
-							<span class="icon"><i data-lucide="binary"></i></span>
-							<h4>Stealth Detection</h4>
-							<p>Captures raw keystroke streams at the browser level, bypassing "Version History"
-								manipulation or manual typo-injecting.</p>
+							<span class="icon"><i data-lucide="server"></i></span>
+							<h4>Serverless Architecture</h4>
+							<p>Next.js frontend seamlessly integrated with Cloud Firestore and Firebase Auth for transactional consistency and low-latency updates.</p>
+						</div>
+						<div class="outcome-card">
+							<span class="icon"><i data-lucide="play"></i></span>
+							<h4>Timeline Analytics & Export</h4>
+							<p>Real-time playback of document revisions with timeline scrubbing, generating highly compressed offline HTML/GIF exports.</p>
 						</div>
 					</div>
 
@@ -1271,37 +1289,35 @@
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="zap"></i></span>
 							<h4>Velocity & Bursts</h4>
-							<p>Flags 20+ word instantaneous bursts and inhuman sustained speeds (>120 WPM) that indicate
-								external pasting.</p>
+							<p>Flags instantaneous bursts and inhuman sustained speeds (>120 WPM) that indicate external copy-pasting or AI generation.</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="eraser"></i></span>
 							<h4>Revision Density</h4>
-							<p>Monitors deletion rates; human writing averages 15-25%, while &lt;5% suggests
-								pre-generated drafts.</p>
+							<p>Monitors deletion rates using diff-matching algorithms; human writing averages 15-25%, while <5% suggests pre-generated drafts.</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="history"></i></span>
 							<h4>Session Continuity</h4>
-							<p>Uses OT API metadata to detect session gaps and discrepancies between document growth and
-								active tab time.</p>
+							<p>Uses OT API metadata to detect session gaps and discrepancies between document growth and active browser tab usage time.</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="users"></i></span>
 							<h4>Author Forensics</h4>
-							<p>Color-codes Author IDs to identify shadow contributors and visualize equitable
-								contribution in group work.</p>
+							<p>Leverages Google OAuth integration to identify precise contributors, surfacing shadow ghostwriters and tracking group work equity.</p>
 						</div>
 					</div>
 
 					<div class="tech-stack-section">
 						<div class="tech-stack-heading">Built With:</div>
 						<div class="tech-stack-grid">
-							<span class="tech-badge">Chrome Manifest V3</span>
-							<span class="tech-badge">Vite</span>
+							<span class="tech-badge">Next.js 16 & React 19</span>
 							<span class="tech-badge">TypeScript</span>
-							<span class="tech-badge">Pako (Zlib) Compression</span>
-							<span class="tech-badge">Vanilla JavaScript</span>
+							<span class="tech-badge">Tailwind CSS v4</span>
+							<span class="tech-badge">Firebase & Cloud Functions</span>
+							<span class="tech-badge">Stripe API</span>
+							<span class="tech-badge">Chrome Manifest V3</span>
+							<span class="tech-badge">Pako Compression</span>
 							<span class="tech-badge">Google Docs OT API</span>
 						</div>
 					</div>
@@ -1321,7 +1337,7 @@
 			<!-- Project 2: Automated Contract Discovery -->
 			<div class="project">
 				<div class="project-details">
-					<h3>Web Application - Automated Contract Discovery &amp; Qualification System</h3>
+					<h3>Local Application - Automated Contract Discovery &amp; Qualification System</h3>
 					<div class="project-image">
 						<img alt="Automated Contract Discovery &amp; Qualification System Workflow Diagram"
 							data-full="img/Port2.png" onclick="openModal(this)" src="img/Port2.png"
