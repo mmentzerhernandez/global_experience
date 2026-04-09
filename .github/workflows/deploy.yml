@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+ename: Deploy to GitHub Pages
 
 on:
   push:
@@ -28,6 +28,7 @@ jobs:
         run: |
           sed -i 's/YOUR_MAPBOX_ACCESS_TOKEN/${{ secrets.MAPBOX_ACCESS_TOKEN }}/g' map.html
 
+          grep "pk." map.html || echo "Token not found in map.html!"
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
