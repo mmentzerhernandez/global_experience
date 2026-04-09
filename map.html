@@ -476,8 +476,8 @@
 
   <script>
     // ── Mapbox Configuration ──
-    // Replace the placeholder below with your Mapbox Access Token.
-    // Note: If you push a token to GitHub, secret scanning may block it unless unblocked in repository settings.
+    // This token is securely injected during deployment via GitHub Actions.
+    // To update the token, change the MAPBOX_ACCESS_TOKEN secret in your GitHub repository settings.
     mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
 
     // ── Connection Line GeoJSON ──
