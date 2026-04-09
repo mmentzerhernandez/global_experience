@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — M. Mentzer-Hernández</title>
+  <meta property="og:title" content="Global Perspective Map — M. Mentzer-Hernández">
+  <meta property="og:description"
+    content="An interactive map of the countries that shaped a career in global education.">
+  <meta property="og:url" content="https://m-mentzer.github.io/global_experience/map.html">
+
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+
+  <style>
+    /* ── Reset & Base ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #D1CFCD;
+      color: #333;
+    }
+
+    /* ── Map (always full viewport, fixed behind scroll) ── */
+    #map {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      transition: filter 1s ease-in-out;
+    }
+
+    #map.planet-blur {
+      filter: blur(12px) brightness(0.95);
+    }
+
+    #map-transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      background: #D1CFCD;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    /* ── Story scroll container ── */
+    #story {
+      position: relative;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* ── Individual chapter wrapper ── */
+    .chapter {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 5vw;
+      flex-direction: row;
+      /* Default for single panels */
+    }
+
+    .chapter.left {
+      justify-content: flex-start;
+      align-items: flex-start;
+      /* Horizontal alignment when flex-direction: column */
+      padding-top: 10vh;
+      /* Give some room when aligned to top-left */
+    }
+
+    .chapter.right {
+      justify-content: flex-end;
+    }
+
+    .chapter.stacked {
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+      /* Still centers vertically */
+      padding-top: 5vh;
+      padding-bottom: 5vh;
+    }
+
+    /* Styles for merged panels */
+    .panel-divider {
+      border: 0;
+      border-top: 1px solid rgba(103, 126, 234, 0.1);
+      margin: 24px 0;
+    }
+
+    .panel-section {
+      width: 100%;
+    }
+
+    .chapter.center {
+      justify-content: center;
+    }
+
+    /* ── Story panel — mirrors .outcome-card / .project glass cards ── */
+    .story-panel {
+      pointer-events: all;
+      background: rgba(248, 249, 251, 0.96);
+      /* Cleaner light grey for primary cards */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 1);
+      border-radius: 40px;
+      /* Highly rounded as seen in image */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 400px;
+      padding: 34px 38px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #334155;
+    }
+
+    .story-panel.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hover lift — matches .section:hover */
+    .story-panel:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.13);
+    }
+
+    /* ── Category tag — pill shape matching .button ── */
+    .category-tag {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 50px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .tag-lived-worked {
+      background: rgba(232, 132, 106, 0.15);
+      color: #b84a2e;
+      border: 1px solid rgba(232, 132, 106, 0.3);
+    }
+
+    .tag-lived {
+      background: rgba(232, 160, 32, 0.15);
+      color: #946800;
+      border: 1px solid rgba(232, 160, 32, 0.3);
+    }
+
+    .tag-visited {
+      background: rgba(0, 47, 167, 0.10);
+      color: #002fa7;
+      border: 1px solid rgba(0, 47, 167, 0.2);
+    }
+
+    /* ── Chapter heading — matches .project-details h3 ── */
+    .story-panel h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #5c6bc0;
+      /* Vibrant blue-violet from the image */
+      margin: 0 0 8px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Stop number (matches .category-tag styling) ── */
+    .story-panel .stop-number {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #667eea;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    /* ── Year line — matches <em>2024 – Present</em> ── */
+    .story-panel .year-line {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-style: italic;
+      margin: 0 0 18px;
+      font-weight: 500;
+    }
+
+    .story-panel p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #555;
+      margin: 0 0 14px;
+    }
+
+    /* ── Role chips — mirrors .tech-badge exactly ── */
+    .role-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .role-chip {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(103, 126, 234, 0.15);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #2c3e50;
+      white-space: nowrap;
+    }
+
+    /* ── Intro panel (full-width centered) ── */
+    .story-panel.intro-panel {
+      max-width: 520px;
+      text-align: center;
+    }
+
+    .story-panel.intro-panel h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0 0 8px;
+    }
+
+    .story-panel.intro-panel .subtitle {
+      font-size: 0.85rem;
+      color: #667eea;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .story-panel.intro-panel p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* ── Legend inside intro panel ── */
+    .legend {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── Chapter progress nav — pill container matching .top-header-bar ── */
+    #chapter-nav {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50px;
+      padding: 14px 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    #chapter-nav button {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    #chapter-nav button.active {
+      background: #002fa7;
+      transform: scale(1.5);
+    }
+
+    #chapter-nav button:hover:not(.active) {
+      background: #667eea;
+      transform: scale(1.3);
+    }
+
+    /* ── Back to portfolio button ── */
+    #back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 200;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #333;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    #back-btn:hover {
+      background: #000;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ── Outro / closing chapter ── */
+    .story-panel.outro-panel {
+      max-width: 460px;
+      text-align: center;
+    }
+
+    .outro-panel .cta-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 28px;
+      background: #002fa7;
+      color: white;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 47, 167, 0.25);
+    }
+
+    .outro-panel .cta-btn:hover {
+      background: #1F5EFF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(31, 94, 255, 0.4);
+      color: white;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .story-panel {
+        max-width: 90vw;
+        padding: 20px 22px;
+      }
+
+      .chapter {
+        padding: 0 5vw;
+      }
+
+      .chapter.right {
+        justify-content: flex-start;
+      }
+
+      #chapter-nav {
+        right: 10px;
+        padding: 10px 7px;
+      }
+
+      #chapter-nav button {
+        width: 7px;
+        height: 7px;
+      }
+
+      #back-btn {
+        top: 12px;
+        left: 12px;
+        font-size: 0.72rem;
+        padding: 6px 14px;
+      }
+    }
+
+    /* ── Floating Map Legend ── */
+    #map-legend {
+      position: fixed;
+      bottom: 30px;
+      left: 5vw;
+      z-index: 150;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      padding: 16px 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(15px);
+    }
+
+    #map-legend.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #444;
+      line-height: 1;
+    }
+
+    .legend-box {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div id="map-transition-overlay"></div>
+  <div id="story"></div>
+  <nav id="chapter-nav" aria-label="Chapter navigation"></nav>
+  <a id="back-btn" href="index.html">← Portfolio</a>
+
+  <div id="map-legend">
+    <div class="legend-item">
+      <div class="legend-box" style="background: #E8846A;"></div>
+      <span>Lived &amp; Worked</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-box" style="background: #E8A020;"></div>
+      <span>Lived</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-box" style="background: #002fa7;"></div>
+      <span>Visited</span>
+    </div>
+  </div>
+
+  <script>
+    // ── Mapbox Configuration ──
+    // Replace the placeholder below with your Mapbox Access Token.
+    // Note: If you push a token to GitHub, secret scanning may block it unless unblocked in repository settings.
+    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+
+    // ── Connection Line GeoJSON ──
+    // Defines paths for pulsing connection lines (e.g., Baghdad to Austin)
+    const connectionLineGeoJSON = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          properties: { id: 'borderless', name: 'Baghdad to Austin' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [[44.361, 33.312], [-97.743, 30.267]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { id: 'dublin', name: 'Dublin to Austin' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [[-6.26, 53.35], [-97.743, 30.267]]
+          }
+        }
+      ]
+    };
+
+    // ── Pulsing Points GeoJSON ──
+    // Defines coordinates for city markers that pulse during specific chapters
+    const pulsatingPointsGeoJSON = {
+      type: 'FeatureCollection',
+      features: [
+        { type: 'Feature', properties: { stepId: 'hofuf' }, geometry: { type: 'Point', coordinates: [49.591, 25.293] } },
+        { type: 'Feature', properties: { stepId: 'sulaimaniya' }, geometry: { type: 'Point', coordinates: [45.567, 35.585] } },
+        { type: 'Feature', properties: { stepId: 'kabul' }, geometry: { type: 'Point', coordinates: [69.175, 34.529] } },
+        { type: 'Feature', properties: { stepId: 'borderless' }, geometry: { type: 'Point', coordinates: [44.361, 33.312] } },
+        { type: 'Feature', properties: { stepId: 'borderless' }, geometry: { type: 'Point', coordinates: [-97.743, 30.267] } },
+        { type: 'Feature', properties: { stepId: 'dublin' }, geometry: { type: 'Point', coordinates: [-6.26, 53.35] } },
+        { type: 'Feature', properties: { stepId: 'dublin' }, geometry: { type: 'Point', coordinates: [-97.743, 30.267] } }
+      ]
+    };
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [30, 25],
+      zoom: 1.8,
+      pitch: 0,
+      bearing: 0,
+      projection: 'globe',
+      attributionControl: false
+    });
+    map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+    map.scrollZoom.disable();
+
+    // ── Interaction Flags & Autoscroll (Globe Spin) ──
+    let currentMapStyle = 'mapbox://styles/mapbox/light-v11';
+    let spinEnabled = false;
+    let userInteracting = false;
+    const secondsPerRevolution = 120;
+    const distancePerSecond = 360 / secondsPerRevolution;
+
+    // Slowly rotates the globe when idle and intro is active
+    function spinGlobe() {
+      if (spinEnabled && !userInteracting) {
+        const center = map.getCenter();
+        center.lng -= distancePerSecond;
+        map.easeTo({ center, duration: 1000, easing: (n) => n });
+      }
+    }
+
+    map.on('mousedown', () => { userInteracting = true; });
+    map.on('mouseup', () => { userInteracting = false; spinGlobe(); });
+    map.on('dragstart', () => { userInteracting = true; });
+    map.on('dragend', () => { userInteracting = false; spinGlobe(); });
+    map.on('pitchend', () => { userInteracting = false; spinGlobe(); });
+    map.on('rotateend', () => { userInteracting = false; spinGlobe(); });
+    map.on('moveend', () => { if (spinEnabled && !userInteracting) spinGlobe(); });
+
+    // ── Chapter Data ──
+    // Each chapter represents a scroll step on the map.
+    // Properties:
+    // - id: Matches element IDs and step categories
+    // - alignment: 'left', 'right', or 'center' for story panel positioning
+    // - location: Mapbox camera settings (center, zoom, pitch, bearing)
+    // - isStacked: If true, allows multiple experience cards in one chapter
+    const chapters = [
+      {
+        id: 'intro',
+        alignment: 'center',
+        location: { center: [20, 20], zoom: 1.8, pitch: 0, bearing: 0 },
+        duration: 2500,
+      },
+      {
+        id: 'hofuf',
+        alignment: 'left',
+        category: 'lived-worked',
+        stopNumber: '01 / 07',
+        title: 'Hofuf, Saudi Arabia',
+        year: 'Sep 2014 – Apr 2016',
+        description: 'Developed Academic Skills curriculum and taught Medical English curriculum at King Faisal University.',
+        roles: ['Curriculum Design', 'Chronemics', 'Cross-Cultural Communication', 'LMS Admin'],
+        location: { center: [49.591, 25.293], zoom: 4, pitch: 65, bearing: 0 },
+        duration: 3500,
+      },
+      {
+        id: 'sulaimaniya',
+        alignment: 'right',
+        category: 'lived-worked',
+        stopNumber: '02 / 07',
+        title: 'Sulaimaniya, Iraq',
+        year: 'May 2016 – May 2018',
+        description: 'Digital Media Education Lead at American University of Iraq. Designed and taught digital literacy 12 week curriculum.',
+        roles: ['Conflict Resolution', ' Digital Media Literacy', 'Educational Leadership'],
+        location: { center: [45.567, 35.585], zoom: 6, pitch: 70, bearing: 25 },
+        duration: 3500,
+      },
+      {
+        id: 'kabul',
+        alignment: 'left',
+        category: 'lived-worked',
+        stopNumber: '03 / 07',
+        title: 'Kabul, Afghanistan',
+        year: 'Jun 2018 – Jun 2019',
+        description: 'Senior Development Specialist at Raytheon for NATO Resolute Support). 6 hours of daily instruction in an active conflict zone.',
+        roles: ['High-Pressure Instruction', 'Low-Resource Education', 'Crisis Leadership'],
+        location: { center: [69.175, 34.529], zoom: 6, pitch: 65, bearing: 15 },
+        duration: 4000,
+      },
+      {
+        id: 'borderless',
+        alignment: 'left',
+        category: 'lived-worked',
+        stopNumber: '04 / 07',
+        title: 'Baghdad To Austin',
+        year: 'Sep 2019 - Jan 2022',
+        description: 'Consulted with AUIB on curriculum design and worked as an instructional designer at Austin Community College.',
+        roles: ['Quality Matters Framework', 'Curriculum Design', 'Instructional Design'],
+        location: { center: [10, 20], zoom: 10, pitch: 20, bearing: 0 },
+        duration: 5000,
+      },
+      {
+        id: 'dublin',
+        alignment: 'left',
+        category: 'lived-worked',
+        stopNumber: '05 / 07',
+        title: 'Austin & Dublin',
+        year: 'May 2022 – Jul 2025',
+        description: 'Instructional Design Lead at Meta between Austin and Dublin offices. Led global malicious actor silo training group for company-wide trust & safety and emergency policy initiatives.',
+        roles: ['Global Training Strategy', 'Rapid Global Comprehension', 'Crisis Communication'],
+        location: { center: [-45, 42], zoom: 1.8, pitch: 20, bearing: 0 },
+        duration: 4000,
+      },
+      {
+        id: 'remote-ventures',
+        alignment: 'left',
+        isStacked: true,
+        location: { center: [20, 20], zoom: 1.8, pitch: 0, bearing: 0 },
+        duration: 3800,
+        panels: [
+          {
+            id: 'structuresense',
+            stopNumber: '06 / 07',
+            title: 'Remote - StructureSense.ai',
+            year: 'Jul 2025 – Present',
+            description: 'AI & Adoption Consultant. Engineered automated grant discovery system for automation of finding RFPs and RFIs.',
+            roles: ['AI Adoption', 'IoT', 'LoRaWAN'],
+            category: null
+          },
+          {
+            id: 'datasov',
+            stopNumber: '07 / 07',
+            title: 'Remote - Engage-AI.org',
+            year: 'Feb 2026 – Present',
+            description: 'AI Policy & Adoption Consultant. Published whitepaper on Data Sovereignty and advising global entities on AI policy.',
+            roles: ['AI Policy', 'Governance', 'International Advising'],
+            category: null
+          }
+        ]
+      },
+      {
+        id: 'outro',
+        alignment: 'center',
+        location: { center: [20, 20], zoom: 1.8, pitch: 0, bearing: 0 },
+        duration: 2500,
+      },
+    ];
+
+    // ── Panel HTML Builder ──
+    // Dynamically generates the inner HTML for each chapter's story panel based on its data.
+    // Handles special cases like the 'intro', 'outro', and 'stacked' multi-panel cards.
+    function buildPanelHTML(ch) {
+      if (ch.id === 'intro') {
+        return `
+          <div class="story-panel intro-panel" id="panel-${ch.id}">
+            <p class="subtitle">Michael Mentzer-Hernández</p>
+            <h2>Global Perspective Map</h2>
+            <div class="legend">
+              <div class="legend-item">
+                <div class="legend-dot" style="background:#E8846A;"></div>
+                Lived &amp; Worked
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background:#E8A020;"></div>
+                Lived
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background:#002fa7;"></div>
+                Visited
+              </div>
+            </div>
+            <p style="font-size: 0.9rem; color: #667eea; margin-top: 16px; font-weight: 600;">Scroll to explore ↓</p>
+          </div>`;
+      }
+
+      if (ch.id === 'outro') {
+        return `
+          <div class="story-panel outro-panel" id="panel-${ch.id}">
+            <h3>A Decade of Global Learning</h3>
+            <p><strong>From active conflict zones to global consultation.</strong></p>
+            <a class="cta-btn" href="index.html">← View Detailed Portfolio</a>
+          </div>`;
+      }
+
+      if (ch.id === 'borderless') {
+        const chips = ch.roles.length
+          ? `<div class="role-chips">${ch.roles.map(r =>
+            `<span class="role-chip">${r}</span>`).join('')}</div>`
+          : '';
+
+        const tagMap = {
+          'lived-worked': 'tag-lived-worked',
+          'lived': 'tag-lived',
+          'visited': 'tag-visited'
+        };
+        const tagLabel = {
+          'lived-worked': 'Lived & Worked',
+          'lived': 'Lived',
+          'visited': 'Visited'
+        };
+
+        const tagHTML = ch.category
+          ? `<span class="category-tag ${tagMap[ch.category]}">${tagLabel[ch.category]}</span>`
+          : '';
+
+        return `
+          <div class="story-panel" id="panel-${ch.id}">
+            <span class="stop-number">${ch.stopNumber}</span>
+            ${tagHTML}
+            <h3>${ch.title}</h3>
+            <p class="year-line">${ch.year}</p>
+            <p>${ch.description}</p>
+            ${chips}
+          </div>`;
+      }
+
+      if (ch.isStacked) {
+        const panelsHTML = ch.panels.map((p, i) => {
+          const chips = p.roles && p.roles.length
+            ? `<div class="role-chips">${p.roles.map(r =>
+              `<span class="role-chip">${r}</span>`).join('')}</div>`
+            : '';
+          const tagMap = { 'lived-worked': 'tag-lived-worked', 'lived': 'tag-lived', 'visited': 'tag-visited' };
+          const tagLabel = { 'lived-worked': 'Lived & Worked', 'lived': 'Lived', 'visited': 'Visited' };
+          const tagHTML = p.category ? `<span class="category-tag ${tagMap[p.category]}">${tagLabel[p.category]}</span>` : '';
+
+          return `
+            <div class="panel-section">
+              ${i > 0 ? '<hr class="panel-divider">' : ''}
+              <span class="stop-number">${p.stopNumber}</span>
+              ${tagHTML}
+              <h3>${p.title}</h3>
+              <p class="year-line">${p.year}</p>
+              <p>${p.description}</p>
+              ${chips}
+            </div>`;
+        }).join('');
+
+        return `
+          <div class="story-panel" id="panel-${ch.id}">
+            ${panelsHTML}
+          </div>`;
+      }
+
+      const tagMap = {
+        'lived-worked': 'tag-lived-worked',
+        'lived': 'tag-lived',
+        'visited': 'tag-visited'
+      };
+      const tagLabel = {
+        'lived-worked': 'Lived & Worked',
+        'lived': 'Lived',
+        'visited': 'Visited'
+      };
+
+      const chips = ch.roles && ch.roles.length
+        ? `<div class="role-chips">${ch.roles.map(r =>
+          `<span class="role-chip">${r}</span>`).join('')}</div>`
+        : '';
+
+      const tagHTML = ch.category
+        ? `<span class="category-tag ${tagMap[ch.category]}">${tagLabel[ch.category]}</span>`
+        : '';
+
+      return `
+        <div class="story-panel" id="panel-${ch.id}">
+          <span class="stop-number">${ch.stopNumber}</span>
+          ${tagHTML}
+          <h3>${ch.title}</h3>
+          <p class="year-line">${ch.year}</p>
+          <p>${ch.description}</p>
+          ${chips}
+        </div>`;
+    }
+
+    // ── Story DOM Builder ──
+    function buildStory() {
+      const story = document.getElementById('story');
+      chapters.forEach(ch => {
+        const div = document.createElement('div');
+        div.className = `chapter ${ch.alignment} ${ch.isStacked ? 'stacked' : ''}`;
+        div.id = ch.id;
+        div.innerHTML = buildPanelHTML(ch);
+        story.appendChild(div);
+      });
+    }
+
+    // ── Nav Dots Builder ──
+    function buildNav() {
+      const nav = document.getElementById('chapter-nav');
+      chapters.forEach((ch, i) => {
+        const btn = document.createElement('button');
+        btn.dataset.index = i;
+        btn.title = ch.title || (ch.id === 'intro' ? 'Introduction' : 'Closing');
+        btn.addEventListener('click', () => {
+          document.getElementById(ch.id)
+            .scrollIntoView({ behavior: 'smooth' });
+        });
+        nav.appendChild(btn);
+      });
+    }
+
+    // ── IntersectionObserver Scroll Engine ──
+    function initScroll() {
+      // ── Layer Visibility & Style Management ──
+    // Controls which features (dots, lines) are visible based on the current scroll step.
+    function updateLayerVisibility(ch) {
+        if (!map.getStyle()) return;
+
+        // Toggle Connection Line Visibility
+        if (map.getLayer('connection-line')) {
+          if (ch.id === 'borderless' || ch.id === 'dublin') {
+            map.setLayoutProperty('connection-line', 'visibility', 'visible');
+            map.setFilter('connection-line', ['==', 'id', ch.id]);
+          } else {
+            map.setLayoutProperty('connection-line', 'visibility', 'none');
+          }
+        }
+
+        // Toggle Pulsating Dots Visibility
+        if (map.getLayer('projects-pulse')) {
+          const visibleSteps = ['hofuf', 'sulaimaniya', 'kabul', 'borderless', 'dublin'];
+          if (visibleSteps.includes(ch.id)) {
+            map.setLayoutProperty('projects-pulse', 'visibility', 'visible');
+            map.setLayoutProperty('projects', 'visibility', 'visible');
+            map.setFilter('projects-pulse', ['==', 'stepId', ch.id]);
+            map.setFilter('projects', ['==', 'stepId', ch.id]);
+          } else {
+            map.setLayoutProperty('projects-pulse', 'visibility', 'none');
+            map.setLayoutProperty('projects', 'visibility', 'none');
+          }
+        }
+      }
+
+      let activeIndex = -1;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          const idx = chapters.findIndex(c => c.id === entry.target.id);
+          if (idx === activeIndex) return;
+          activeIndex = idx;
+
+          const ch = chapters[idx];
+          spinEnabled = false;
+
+          const targetStyle = idx === 0 ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/standard';
+
+          // Apply specifically for the planet blur on intro
+          const mapEl = document.getElementById('map');
+          if (idx === 0) {
+            mapEl.classList.add('planet-blur');
+          } else {
+            mapEl.classList.remove('planet-blur');
+          }
+
+          function performFly() {
+            if (ch.id === 'borderless') {
+              // First fly to Baghdad
+              map.flyTo({
+                center: [44.361, 33.312],
+                zoom: 3,
+                pitch: 20,
+                bearing: 0,
+                duration: 2000,
+                essential: true
+              });
+
+              // Then rotate over to Austin
+              setTimeout(() => {
+                if (activeIndex === idx) {
+                  map.flyTo({
+                    center: [-97.743, 30.267],
+                    zoom: 3,
+                    pitch: 20,
+                    bearing: 0,
+                    duration: 4000,
+                    essential: true
+                  });
+                }
+              }, 2100);
+            } else {
+              map.flyTo({
+                center: ch.location.center,
+                zoom: ch.location.zoom,
+                pitch: ch.location.pitch,
+                bearing: ch.location.bearing,
+                duration: ch.duration || 3000,
+                essential: true
+              });
+              if (ch.id === 'structuresense' || ch.id === 'datasov') {
+                map.once('moveend', () => {
+                  if (chapters[activeIndex].id === ch.id) {
+                    spinEnabled = true;
+                    spinGlobe();
+                  }
+                });
+              }
+            }
+          }
+
+          if (currentMapStyle !== targetStyle) {
+            currentMapStyle = targetStyle;
+            const overlay = document.getElementById('map-transition-overlay');
+            if (overlay) overlay.style.opacity = '1';
+
+            setTimeout(() => {
+              map.setStyle(targetStyle);
+              map.once('style.load', () => {
+                updateLayerVisibility(ch);
+                performFly();
+
+                // Allow a brief moment for new map tiles to fetch before fading out
+                setTimeout(() => {
+                  if (overlay) overlay.style.opacity = '0';
+                }, 300);
+              });
+            }, 500); // Wait for the 0.5s CSS fade to complete
+          } else {
+            updateLayerVisibility(ch);
+            performFly();
+          }
+
+          // Toggle Floating Legend Visibility
+          const legend = document.getElementById('map-legend');
+          if (legend) {
+            const isCountryStep = idx > 0 && idx < chapters.length - 1;
+            legend.classList.toggle('visible', isCountryStep);
+          }
+
+          document.querySelectorAll('.story-panel').forEach(p => p.classList.remove('active'));
+          const chapterEl = document.getElementById(ch.id);
+          if (chapterEl) {
+            const panels = chapterEl.querySelectorAll('.story-panel');
+            panels.forEach((p, i) => {
+              setTimeout(() => p.classList.add('active'), 300 + (i * 150));
+            });
+          }
+
+          document.querySelectorAll('#chapter-nav button').forEach((btn, i) => {
+            btn.classList.toggle('active', i === idx);
+          });
+        });
+      }, { threshold: 0.5 });
+
+      chapters.forEach(ch => {
+        observer.observe(document.getElementById(ch.id));
+      });
+    }
+
+    // ── Map Data Layers ──
+    // Sets up terrain, country highlights, and narrative markers.
+    // This is called on map 'load' and subsequent 'style.load' events to ensure layers persist.
+    function addMapOverlays() {
+      if (!map.getSource('mapbox-dem')) {
+        map.addSource('mapbox-dem', {
+          type: 'raster-dem',
+          url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+          tileSize: 512,
+          maxzoom: 14
+        });
+      }
+      map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
+
+      if (!map.getSource('countries')) {
+        map.addSource('countries', {
+          type: 'vector',
+          url: 'mapbox://mapbox.country-boundaries-v1'
+        });
+      }
+
+      // Lived & Worked — salmon
+      if (!map.getLayer('fill-lived-worked')) {
+        map.addLayer({
+          id: 'fill-lived-worked',
+          type: 'fill',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: { 'fill-color': '#E8846A', 'fill-opacity': 0.55 },
+          filter: ['in', 'iso_3166_1', 'US', 'IE', 'AF', 'IQ', 'SA', 'KR']
+        });
+      }
+      if (!map.getLayer('outline-lived-worked')) {
+        map.addLayer({
+          id: 'outline-lived-worked',
+          type: 'line',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: { 'line-color': '#c0513a', 'line-width': 1, 'line-opacity': 0.50 },
+          filter: ['in', 'iso_3166_1', 'US', 'IE', 'AF', 'IQ', 'SA', 'KR']
+        });
+      }
+
+      // Lived Long Term — gold
+      if (!map.getLayer('fill-lived')) {
+        map.addLayer({
+          id: 'fill-lived',
+          type: 'fill',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: { 'fill-color': '#E8A020', 'fill-opacity': 0.55 },
+          filter: ['in', 'iso_3166_1', 'GB', 'MX']
+        });
+      }
+      if (!map.getLayer('outline-lived')) {
+        map.addLayer({
+          id: 'outline-lived',
+          type: 'line',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: { 'line-color': '#a07010', 'line-width': 1, 'line-opacity': 0.50 },
+          filter: ['in', 'iso_3166_1', 'GB', 'MX']
+        });
+      }
+
+      // Visited — portfolio blue
+      if (!map.getLayer('fill-visited')) {
+        map.addLayer({
+          id: 'fill-visited',
+          type: 'fill',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: { 'fill-color': '#002fa7', 'fill-opacity': 0.38 },
+          filter: ['in', 'iso_3166_1', 'CN', 'ES', 'JP', 'IN', 'FR', 'IS', 'NZ', 'TZ', 'KW', 'BH', 'QA', 'AE', 'GR', 'CH']
+        });
+      }
+      if (!map.getLayer('outline-visited')) {
+        map.addLayer({
+          id: 'outline-visited',
+          type: 'line',
+          source: 'countries',
+          'source-layer': 'country_boundaries',
+          paint: { 'line-color': '#002fa7', 'line-width': 0.8, 'line-opacity': 0.35 },
+          filter: ['in', 'iso_3166_1', 'CN', 'ES', 'JP', 'IN', 'FR', 'IS', 'NZ', 'TZ', 'KW', 'BH', 'QA', 'AE', 'GR', 'CH']
+        });
+      }
+
+      // ── Connection Line Layer ──
+      if (!map.getSource('connection-line-src')) {
+        map.addSource('connection-line-src', { type: 'geojson', data: connectionLineGeoJSON });
+      }
+      if (!map.getLayer('connection-line')) {
+        map.addLayer({
+          id: 'connection-line',
+          type: 'line',
+          source: 'connection-line-src',
+          paint: {
+            'line-color': '#667eea',
+            'line-width': 3,
+            'line-opacity': 0.65
+          },
+          layout: { visibility: 'none' }
+        });
+      }
+
+      // ── Pulsating Dots Layer ──
+      if (!map.getSource('projects')) {
+        map.addSource('projects', {
+          'type': 'geojson',
+          'data': pulsatingPointsGeoJSON
+        });
+      }
+
+      if (!map.getLayer('projects-pulse')) {
+        map.addLayer({
+          'id': 'projects-pulse',
+          'type': 'circle',
+          'source': 'projects',
+          'paint': {
+            'circle-radius': 6,
+            'circle-color': '#888888'
+          },
+          'layout': { 'visibility': 'none' }
+        });
+      }
+
+      if (!map.getLayer('projects')) {
+        map.addLayer({
+          'id': 'projects',
+          'type': 'circle',
+          'source': 'projects',
+          'paint': {
+            'circle-radius': 4,
+            'circle-color': '#FFFFFF'
+          },
+          'layout': { 'visibility': 'none' }
+        });
+      }
+    }
+
+    // Attach layers on style load so they persist across style changes
+    map.on('style.load', addMapOverlays);
+
+    // ── Initialize on Map Load ──
+    map.on('load', () => {
+      // Set atmospheric fog for a premium globe look
+      map.setFog({
+        'range': [0.5, 10],
+        'color': '#f8f9fa',
+        'high-color': '#adb5bd',
+        'space-color': '#ced4da',
+        'horizon-blend': 0.03
+      });
+
+      // ── Pulsing City Markers Animation ──
+      var framesPerSecond = 30;
+      var multiplier = 0.2;
+      var opacity = .1;
+      var circleRadius = 2;
+
+      function pulseMarker(timestamp) {
+        setTimeout(function () {
+          requestAnimationFrame(pulseMarker);
+          multiplier += .4;
+          opacity -= (1.2 / framesPerSecond);
+          circleRadius += (40 / framesPerSecond);
+
+          if (map.getLayer('projects-pulse')) {
+            map.setPaintProperty('projects-pulse', 'circle-opacity', opacity);
+            map.setPaintProperty('projects-pulse', 'circle-radius', circleRadius);
+          }
+
+          if (opacity <= 0.1) {
+            opacity = 1;
+            circleRadius = 2;
+          }
+
+        }, 1000 / framesPerSecond);
+      }
+      pulseMarker(0);
+
+      // ── Pulsing Connection Line Logic ──
+      // Slowly varies the opacity of the connection lines for a "breathing" effect.
+      let stepValue = 0;
+      function animateLine() {
+        stepValue += 0.05;
+        const opacity = 0.3 + (Math.sin(stepValue) + 1) * 0.35;
+        if (map.getLayer('connection-line')) {
+          map.setPaintProperty('connection-line', 'line-opacity', opacity);
+        }
+        requestAnimationFrame(animateLine);
+      }
+      animateLine();
+
+      buildStory();
+      buildNav();
+      initScroll();
+    });
+  </script>
+</body>
+
+</html>
