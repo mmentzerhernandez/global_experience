@@ -15,6 +15,10 @@
 
   <style>
     /* ── Reset & Base ── */
+    :root {
+      --side-margin: 5vw;
+    }
+
     *,
     *::before,
     *::after {
@@ -70,7 +74,7 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 0 5vw;
+      padding: 0 var(--side-margin);
       flex-direction: row;
       /* Default for single panels */
     }
@@ -324,7 +328,7 @@
     #back-btn {
       position: fixed;
       top: 20px;
-      left: 20px;
+      left: var(--side-margin);
       z-index: 200;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(10px);
@@ -380,7 +384,7 @@
       }
 
       .chapter {
-        padding: 0 5vw;
+        padding: 0 var(--side-margin);
       }
 
       .chapter.right {
@@ -399,7 +403,7 @@
 
       #back-btn {
         top: 12px;
-        left: 12px;
+        left: var(--side-margin);
         font-size: 0.72rem;
         padding: 6px 14px;
       }
@@ -409,7 +413,7 @@
     #map-legend {
       position: fixed;
       bottom: 30px;
-      left: 5vw;
+      left: var(--side-margin);
       z-index: 150;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
@@ -476,8 +480,7 @@
 
   <script>
     // ── Mapbox Configuration ──
-    // This token is securely injected during deployment via GitHub Actions.
-    // To update the token, change the MAPBOX_ACCESS_TOKEN secret in your GitHub repository settings.
+
     mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
 
     // ── Connection Line GeoJSON ──
@@ -530,6 +533,7 @@
       attributionControl: false
     });
     map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
     map.scrollZoom.disable();
 
     // ── Interaction Flags & Autoscroll (Globe Spin) ──
@@ -568,7 +572,7 @@
         id: 'intro',
         alignment: 'center',
         location: { center: [20, 20], zoom: 1.8, pitch: 0, bearing: 0 },
-        duration: 2500,
+        duration: 4000,
       },
       {
         id: 'hofuf',
@@ -579,8 +583,8 @@
         year: 'Sep 2014 – Apr 2016',
         description: 'Developed Academic Skills curriculum and taught Medical English curriculum at King Faisal University.',
         roles: ['Curriculum Design', 'Chronemics', 'Cross-Cultural Communication', 'LMS Admin'],
-        location: { center: [49.591, 25.293], zoom: 4, pitch: 65, bearing: 0 },
-        duration: 3500,
+        location: { center: [49.591, 25.293], zoom: 4, pitch: 50, bearing: 0 },
+        duration: 5000,
       },
       {
         id: 'sulaimaniya',
@@ -591,8 +595,9 @@
         year: 'May 2016 – May 2018',
         description: 'Digital Media Education Lead at American University of Iraq. Designed and taught digital literacy 12 week curriculum.',
         roles: ['Conflict Resolution', ' Digital Media Literacy', 'Educational Leadership'],
-        location: { center: [45.567, 35.585], zoom: 6, pitch: 70, bearing: 25 },
-        duration: 3500,
+        location: { center: [45.567, 35.585], zoom: 6, pitch: 70, bearing: 0 },
+
+        duration: 5000,
       },
       {
         id: 'kabul',
@@ -604,7 +609,7 @@
         description: 'Senior Development Specialist at Raytheon for NATO Resolute Support). 6 hours of daily instruction in an active conflict zone.',
         roles: ['High-Pressure Instruction', 'Low-Resource Education', 'Crisis Leadership'],
         location: { center: [69.175, 34.529], zoom: 6, pitch: 65, bearing: 15 },
-        duration: 4000,
+        duration: 5000,
       },
       {
         id: 'borderless',
@@ -628,7 +633,7 @@
         description: 'Instructional Design Lead at Meta between Austin and Dublin offices. Led global malicious actor silo training group for company-wide trust & safety and emergency policy initiatives.',
         roles: ['Global Training Strategy', 'Rapid Global Comprehension', 'Crisis Communication'],
         location: { center: [-45, 42], zoom: 1.8, pitch: 20, bearing: 0 },
-        duration: 4000,
+        duration: 5000,
       },
       {
         id: 'remote-ventures',
@@ -822,8 +827,8 @@
     // ── IntersectionObserver Scroll Engine ──
     function initScroll() {
       // ── Layer Visibility & Style Management ──
-    // Controls which features (dots, lines) are visible based on the current scroll step.
-    function updateLayerVisibility(ch) {
+      // Controls which features (dots, lines) are visible based on the current scroll step.
+      function updateLayerVisibility(ch) {
         if (!map.getStyle()) return;
 
         // Toggle Connection Line Visibility
