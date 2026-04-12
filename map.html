@@ -14,6 +14,8 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 
   <style>
+    /* Add this to your <style> section */
+
     /* ── Reset & Base ── */
     *,
     *::before,
@@ -30,6 +32,10 @@
       color: #333;
     }
 
+#panel-intro, #map.planet-blur {
+  display: none !important;
+  filter: none !important;
+}
     /* ── Map (always full viewport, fixed behind scroll) ── */
     #map {
       position: fixed;
@@ -708,8 +714,8 @@
       if (ch.id === 'outro') {
         return `
           <div class="story-panel outro-panel" id="panel-${ch.id}">
-            <h3>A Decade of Global Learning</h3>
-            <p><strong>From active conflict zones to global consultation.</strong></p>
+            <h3>Bridging Global Policy and Education</h3>
+            <p><strong> Clarity enables execution and I thrive betwwen the gap of complex topics and everyday understanding.</strong></p>
             <a class="cta-btn" href="index.html">← View Detailed Portfolio</a>
           </div>`;
       }
