@@ -1,0 +1,103 @@
+# Michael Mentzer-Hernández — Portfolio
+
+> Instructional Designer & AI Learning Consultant | Remote | Austin, Texas, USA
+
+## About
+
+Michael Mentzer-Hernández (M.Ed) is an experienced instructional designer and global adult educator
+with 10+ years designing learning programs for international, multicultural, and high-pressure
+environments. He specializes in AI integration into learning systems, rapid e-learning development,
+curriculum design, and knowledge management infrastructure. He has worked across tech (Meta),
+defense (Raytheon), higher education (Austin Community College), and conflict-zone contexts
+(Afghanistan, Iraq). Currently available for remote Instructional Designer, Learning Experience
+Designer, AI Enablement, L&D, EdTech, and Curriculum Design roles.
+
+## Contact
+
+- Email: m.mentzerhernandez@gmail.com
+- Phone: +1 512-348-6607
+- Portfolio: https://mmentzerhernandez.github.io/global_experience/
+- Location: Austin, Texas, USA (open to fully remote)
+- Passport: USA — eligible to work globally
+
+## Target Roles
+
+Instructional Designer, Senior Instructional Designer, Learning Experience Designer (LXD),
+Learning & Development (L&D) Specialist, AI Learning Consultant, AI Implementation Specialist,
+AI Enablement Manager, Curriculum Designer, Curriculum Developer, Digital Learning Designer,
+eLearning Developer, Online Learning Specialist, EdTech Specialist, Learning Solutions Partner,
+Training Designer, Learning Strategist, Corporate Trainer, Knowledge Management Specialist
+
+## Key Skills
+
+- Instructional design (ADDIE, SAM, backwards design)
+- E-learning authoring: Articulate Storyline, Articulate Rise, SCORM, xAPI
+- LMS administration (Canvas, Blackboard, Moodle)
+- AI integration into learning workflows (LangChain, OpenAI, Gemini)
+- Curriculum design and development for global adult audiences
+- Universal Design for Learning (UDL) and accessibility
+- Quality Matters (QM) framework
+- Rapid content development under tight timelines
+- Knowledge management systems and documentation infrastructure
+- Video production: Camtasia, screen capture, explainer videos
+- Cross-cultural facilitation and delivery
+- Trust & safety policy training
+- Data analysis and learning analytics
+
+## Work History
+
+### AI Educational Consultant — Engage-AI.org
+Feb 2026 – Present | Remote
+Researches AI's impact on global education policy focused on UN SDGs for gender equality and
+quality education. Published whitepaper on Data Sovereignty.
+
+### AI Education & Adoption Consultant — StructureSense.AI
+Jul 2025 – Present | Remote
+Engineered automated grant discovery system (Grants.gov API); leads AI training and knowledge
+infrastructure development; advises on global IoT learning strategy.
+
+### Learning Solutions Partner — Meta (Facebook | Instagram | Threads)
+May 2022 – Jul 2025 | Austin, TX & Dublin, Ireland
+Instructional Designer in Global Operations Learning Organization (Malicious Activity silo).
+Developed and launched emergency trust & safety policy initiatives. AI advisor for company-wide
+educational technologies. Trained global internal and external audiences on content policy updates.
+
+### Instructional Designer — Austin Community College
+Feb 2020 – Nov 2021 | Remote
+Oversaw course redesigns using Universal Design principles. Designed and launched 12-week
+"Digital Literacy for Faculty" curriculum. Delivered training on Quality Matters framework.
+
+### Senior Development Specialist — Raytheon
+Jun 2018 – Jun 2019 | Kabul & Bagram, Afghanistan
+Delivered 6 hours of daily instruction in active conflict zone supporting NATO Resolute Support
+Mission. Developed 16-week aviation maintenance curriculum with SME collaboration.
+
+### Digital Media Literacy Instructor — American University of Iraq, Sulaimani
+May 2016 – May 2018 | Sulaymaniyah, KRG, Iraq
+Designed and led 12-week "Digital Literacy and Personal Bias" curriculum. Built custom JavaScript
+onboarding application. Founded university Chess Club.
+
+## Education
+
+**Master of Arts — Education (Digital Media & Learning / TESOL)**
+University of San Francisco, San Francisco, CA, USA
+
+## Languages
+
+- English: Native
+- Spanish: Conversational
+- Sorani Kurdish, Arabic, Korean: Beginner
+
+## Current Projects
+
+- **GovConMaker.com** — AI-based government contracting proposal writing platform (Founder/Engineer)
+- **WriteTrace** — Full-stack writing analytics app and Chrome extension
+- **Automated Contract Discovery System** — Grants.gov API integration
+
+## Availability
+
+Open to fully remote roles globally. US citizen (Austin, TX). Immediate availability.
+
+## Pages
+
+- /index.html — Full portfolio, work history, projects, interactive map of global experience
