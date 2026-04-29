@@ -1,3 +1,5 @@
 map.local.html
 .env.local
 LOCAL_SETUP.md
+.DS_Store
+firebase-debug.log
