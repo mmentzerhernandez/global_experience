@@ -1311,12 +1311,11 @@
 								<span class="stat-chip"><span class="chip-num">10+</span> Years Experience</span>
 								<span class="stat-chip"><span class="chip-num">Meta & Raytheon</span></span>
 							</div>
-							<button class="button-black" id="email-btn" onclick="copyEmail(this)"
-								style="cursor: pointer;">
-								<span id="email-btn-label"><i data-lucide="mail"
-										style="display:inline;vertical-align:middle;width:16px;height:16px;margin-right:6px;"></i>Email
-									Me</span>
-							</button>
+							<a class="button-black" id="email-btn" href="https://calendly.com/m-mentzerhernandez/30min" target="_blank"
+								style="cursor: pointer; text-decoration: none;">
+								<span id="email-btn-label"><i data-lucide="calendar"
+										style="display:inline;vertical-align:middle;width:16px;height:16px;margin-right:6px;"></i>Schedule a Meeting</span>
+							</a>
 						</div>
 						<div class="profile-image">
 							<!-- Clicking the map image opens the high-resolution interactive storytelling map (map.html) in a new tab -->
@@ -1757,19 +1756,7 @@
 
 		lucide.createIcons();
 
-		function copyEmail(btn) {
-			navigator.clipboard.writeText('m.mentzerhernandez@gmail.com').then(function () {
-				const label = document.getElementById('email-btn-label');
-				const icon = label.querySelector('i');
-				const text = label.lastChild;
-				if (icon) { icon.setAttribute('data-lucide', 'check'); lucide.createIcons(); }
-				if (text && text.nodeType === Node.TEXT_NODE) text.textContent = 'Copied!';
-				setTimeout(function () {
-					if (icon) { icon.setAttribute('data-lucide', 'mail'); lucide.createIcons(); }
-					if (text && text.nodeType === Node.TEXT_NODE) text.textContent = 'Email Me';
-				}, 2000);
-			});
-		}
+
 
 		function toggleDropdown(event) {
 			event.stopPropagation();
