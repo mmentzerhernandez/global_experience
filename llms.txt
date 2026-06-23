@@ -90,6 +90,7 @@ University of San Francisco, San Francisco, CA, USA
 
 ## Current Projects
 
+- **Augmented Intelligence Pipeline (ID Skills)** — Six-stage multi-agent AI pipeline (Claude Code + RAG) that turns source material into fact-checked, compliance-ready training; collapses months of team curriculum work into hours
 - **GovConMaker.com** — AI-based government contracting proposal writing platform (Founder/Engineer)
 - **WriteTrace** — Full-stack writing analytics app and Chrome extension
 - **Automated Contract Discovery System** — Grants.gov API integration
