@@ -17,6 +17,11 @@ margin:1.5rem 2rem 0;padding:.85rem 1.75rem;border-radius:var(--pill);
 border:1px solid rgba(255,255,255,.8);box-shadow:0 4px 16px rgba(0,0,0,.08);
 display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;}
 header.bar h1{font-size:1.1rem;font-weight:700;color:#000;letter-spacing:-.01em;}
+#back-btn{display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,255,255,.92);
+border:1px solid rgba(255,255,255,.8);border-radius:var(--pill);padding:.45rem 1rem;
+font-size:.8rem;font-weight:600;color:#333;text-decoration:none;white-space:nowrap;
+box-shadow:0 4px 16px rgba(0,0,0,.08);transition:all var(--dur) ease;}
+#back-btn:hover{background:#000;color:#fff;transform:translateY(-2px);}
 header.bar .sub{font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);}
 .split{flex:1;display:grid;grid-template-columns:272px 1fr;gap:1.5rem;
 padding:1.5rem 2rem 2rem;min-height:0;}
@@ -74,7 +79,7 @@ display:flex;justify-content:center;align-items:flex-start;min-height:220px;over
 header.bar{margin:1rem 1rem 0;flex-direction:column;align-items:flex-start;gap:.4rem;}
 .index{max-height:300px;}.detail{padding:1.5rem;}}
 </style></head><body>
-<header class="bar"><h1>How Automating a Curriculum Development Pipeline Became a Business</h1>
+<header class="bar"><a id="back-btn" href="index.html">← Portfolio</a><h1>How Automating a Curriculum Development Pipeline Became a Business</h1>
 <span class="sub"> </span></header>
 <div class="split">
 <aside class="index"><div class="index-label">Diagrams</div><a class="box" href="#business-overview" style="--swatch:#283593"><h3>1 - Automating <br>Curriculum Development</h3><p>ierhub.com</p></a><a class="box" href="#content-development-workflow" style="--swatch:#00695C"><h3>2 - How a Course Is Made</h3><p>Building the Pipeline</p></a><a class="box box-parent" href="#pipeline-overview" onclick="toggleNest(this)" aria-expanded="false" style="--swatch:#283593"><h3>3 - Pipeline Overview</h3><p>Six Steps</p><span class="caret" aria-hidden="true">▶</span></a><div class="nest" id="pipeline-nest">
