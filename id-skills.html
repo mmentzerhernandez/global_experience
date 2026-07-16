@@ -371,6 +371,45 @@
           padding: 0.75rem;
         }
       }
+      @media (max-width: 640px) {
+        .path-table {
+          min-width: 0;
+          font-size: 0.9rem;
+        }
+        .path-table thead {
+          display: none;
+        }
+        .path-table tbody tr {
+          display: block;
+          padding: 0.8rem 0.9rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .path-table tbody tr:last-child {
+          border-bottom: none;
+        }
+        .path-table tbody td {
+          display: block;
+          padding: 0.15rem 0;
+          border-bottom: none;
+        }
+        .path-table .c-step,
+        .path-table .c-status,
+        .path-table .c-name {
+          text-align: left;
+          white-space: normal;
+        }
+        .path-table .c-step::before {
+          content: "Step ";
+        }
+        .path-table .c-step {
+          font-size: 0.72rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+        .path-table .c-name {
+          font-size: 1rem;
+        }
+      }
       /* ── Step 1 redesign: market facts, stepper, benefits (compact) ── */
       .section-label {
         font-size: 0.66rem;
