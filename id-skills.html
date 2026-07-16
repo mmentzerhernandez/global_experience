@@ -444,6 +444,57 @@
       .benefits li strong {
         color: var(--text-heading);
       }
+      /* ── Diagram zoom controls & hint (elements injected by mermaid-wiki-guard) ── */
+      .canvas {
+        position: relative;
+      }
+      .zoom-controls {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        z-index: 5;
+      }
+      .zoom-controls button {
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(0, 47, 167, 0.2);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--accent);
+        font-size: 1.15rem;
+        font-weight: 700;
+        font-family: var(--font);
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .zoom-controls button.reset {
+        font-size: 0.62rem;
+        letter-spacing: 0.05em;
+      }
+      .zoom-controls button:hover,
+      .zoom-controls button:active {
+        background: var(--chip-bg);
+      }
+      .zoom-hint {
+        position: absolute;
+        bottom: 0.6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(44, 62, 80, 0.75);
+        color: #fff;
+        font-size: 0.68rem;
+        padding: 0.25rem 0.7rem;
+        border-radius: var(--pill);
+        pointer-events: none;
+        white-space: nowrap;
+        z-index: 5;
+      }
+      .canvas.panning {
+        cursor: grabbing;
+      }
     </style>
   </head>
   <body>
