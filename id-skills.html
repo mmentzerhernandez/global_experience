@@ -12609,6 +12609,15 @@
           svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
           function apply() {
             svg.setAttribute("viewBox", vb.x + " " + vb.y + " " + vb.w + " " + vb.h);
+            syncTouchAction();
+          }
+          function isZoomed() {
+            return vb.w < orig.w - 0.5;
+          }
+          function syncTouchAction() {
+            // At the fitted view let the page scroll normally; while zoomed in,
+            // capture touches so one finger pans the diagram.
+            canvas.style.touchAction = isZoomed() ? "none" : "pan-y";
           }
 
           // Expand orig viewBox to the canvas's pixel aspect ratio (centered, no
@@ -12672,22 +12681,37 @@
             { passive: false },
           );
 
-          var down = false,
-            moved = false,
-            sx = 0,
-            sy = 0;
+          var pointers = new Map(); // pointerId -> {x, y}; supports mouse drag, touch pan, 2-finger pinch
+          var pinchDist = 0;
+          var moved = false;
+          syncTouchAction();
           canvas.addEventListener("pointerdown", function (e) {
-            if (e.button !== 0) return;
-            down = true;
+            if (e.pointerType === "mouse" && e.button !== 0) return;
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
             moved = false;
-            sx = e.clientX;
-            sy = e.clientY;
+            if (pointers.size === 2) {
+              var pts = Array.from(pointers.values());
+              pinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+            }
             canvas.classList.add("panning");
           });
           window.addEventListener("pointermove", function (e) {
-            if (!down) return;
-            var dx = e.clientX - sx,
-              dy = e.clientY - sy;
+            if (!pointers.has(e.pointerId)) return;
+            var prev = pointers.get(e.pointerId);
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            if (pointers.size === 2) {
+              var pts = Array.from(pointers.values());
+              var d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+              if (pinchDist > 0 && d > 0) {
+                zoomAt(d / pinchDist, (pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2);
+                moved = true;
+              }
+              pinchDist = d;
+              return;
+            }
+            if (e.pointerType === "touch" && !isZoomed()) return; // fitted view: leave the touch to page scroll
+            var dx = e.clientX - prev.x,
+              dy = e.clientY - prev.y;
             if (!moved && Math.abs(dx) + Math.abs(dy) > 4) moved = true;
             if (moved) {
               var r = svg.getBoundingClientRect();
@@ -12696,14 +12720,15 @@
                 vb.y -= (dy * vb.h) / r.height;
                 apply();
               }
-              sx = e.clientX;
-              sy = e.clientY;
             }
           });
-          window.addEventListener("pointerup", function () {
-            down = false;
-            canvas.classList.remove("panning");
-          });
+          function endPointer(e) {
+            pointers.delete(e.pointerId);
+            if (pointers.size < 2) pinchDist = 0;
+            if (pointers.size === 0) canvas.classList.remove("panning");
+          }
+          window.addEventListener("pointerup", endPointer);
+          window.addEventListener("pointercancel", endPointer);
           canvas.addEventListener(
             "click",
             function (e) {
@@ -12738,7 +12763,9 @@
 
           var hint = document.createElement("div");
           hint.className = "zoom-hint";
-          hint.textContent = "Scroll to zoom · drag to pan";
+          hint.textContent = window.matchMedia("(pointer: coarse)").matches
+            ? "Pinch to zoom · use FIT to reset"
+            : "Scroll to zoom · drag to pan";
           canvas.appendChild(hint);
 
           // Lazily un-clip + fit the first time the canvas has a real size (handles
