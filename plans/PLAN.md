@@ -610,7 +610,7 @@ EOF
 ```
 Expected: five `PASS` lines, no traceback.
 
-- [ ] **Step 3: GATE — human visual review**
+- [x] **Step 3: GATE — human visual review**
 
 GATE: Ask the human to review `http://127.0.0.1:8321/id-skills.html` in Chrome DevTools device emulation at 375×812 (iPhone), 768×1024 (iPad), and a normal desktop window, checking:
 1. Chip nav scrolls horizontally, sticks to the top, and every panel is reachable (including the six nested stages and RLO Taxonomy).
@@ -626,7 +626,7 @@ Do not push to `main` until the human approves. If running headless, write the g
 kill %1 2>/dev/null; pkill -f "http.server 8321" 2>/dev/null; echo stopped
 ```
 
-- [ ] **Step 5: Push after approval**
+- [x] **Step 5: Push after approval**
 
 ```bash
 cd /Users/rabies/global_experience && git push
