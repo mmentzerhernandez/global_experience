@@ -1,0 +1,58 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    LEARNER["Learner on a lesson page"]:::people
+
+    FOCUS{{"Tab focused, visible,<br/>active since last beat?"}}:::gate
+    SILENT["No beat sent<br/>idle credits nothing"]:::refuse
+    BEAT["Client beat<br/>about every 30 seconds"]:::access
+
+    NOTE["The client sends no duration.<br/>The server never trusts one."]:::note
+
+    CREDIT["Server computes credit<br/>min of gap and 75s grace,<br/>capped at time since first view"]:::enforce
+    CLAW["Clawback moves start time<br/>to strip anything beyond grace"]:::enforce
+    STORE["Credited seconds stored"]:::course
+
+    NAV["Learner requests the next page"]:::people
+    HOOK["after_config gate<br/>runs server-side every request"]:::enforce
+    EXEMPT{{"Has the exempt capability?<br/>auditors do not"}}:::gate
+    MET{{"Required seconds met<br/>for this page?"}}:::gate
+    REFUSE["Refused<br/>devtools cannot bypass it"]:::refuse
+    ADVANCE["Page advances"]:::course
+
+    DONE["Lesson total always<br/>3000 seconds, 50 minutes"]:::report
+
+    LEARNER --> FOCUS
+    FOCUS -->|"no"| SILENT
+    FOCUS -->|"yes"| BEAT
+    BEAT --> CREDIT
+    CREDIT --> CLAW
+    CLAW --> STORE
+    NOTE -.-> CREDIT
+
+    LEARNER --> NAV
+    NAV --> HOOK
+    HOOK --> EXEMPT
+    EXEMPT -->|"yes"| ADVANCE
+    EXEMPT -->|"no"| MET
+    MET -->|"no"| REFUSE
+    MET -->|"yes"| ADVANCE
+    STORE --> MET
+    ADVANCE --> DONE
+
+    classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef refuse fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
+    classDef note fill:#FFFDE7,stroke:#9E9D24,color:#000000

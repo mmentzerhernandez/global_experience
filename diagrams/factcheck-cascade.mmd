@@ -1,0 +1,46 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    CLAIM["One claim<br/>from the inventory"]:::intake
+    EXT{{"Marked external?"}}:::gate
+    NIS["NOT-IN-SOURCE<br/>goes to the gate list"]:::review
+
+    CHUNK["Section-aware chunks<br/>of fullsource.txt"]:::intake
+    HYBRID["Hybrid retrieval<br/>BM25 plus dense embeddings"]:::author
+    RERANK["Cross-encoder rerank"]:::author
+    FLOOR{{"Rerank score<br/>below 0.15?"}}:::gate
+    UNSUP["UNSUPPORTED<br/>blocks the stage"]:::fail
+    NLI["NLI judge<br/>entailment and contradiction"]:::author
+    SUP["SUPPORTED"]:::pass
+    CONTRA["CONTRADICTED<br/>blocks the stage"]:::fail
+    ESC["Escalation tier<br/>MiniCheck plus span detector"]:::sweep
+    NEEDS["NEEDS-REVIEW<br/>goes to the gate list"]:::review
+
+    CLAIM --> EXT
+    EXT -->|"yes"| NIS
+    EXT -->|"no"| CHUNK
+    CHUNK --> HYBRID
+    HYBRID --> RERANK
+    RERANK --> FLOOR
+    FLOOR -->|"yes, no NLI run"| UNSUP
+    FLOOR -->|"no"| NLI
+    NLI -->|"entail 0.60 or above"| SUP
+    NLI -->|"contra 0.60 or above"| CONTRA
+    NLI -->|"neither"| ESC
+    ESC --> NEEDS
+
+    classDef intake fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef author fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef sweep fill:#F3E5F5,stroke:#6A1B9A,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
+    classDef pass fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef fail fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef review fill:#FFF3E0,stroke:#E65100,color:#000000

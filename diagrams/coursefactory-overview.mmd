@@ -1,0 +1,40 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    SCAFFOLD["scaffold.py<br/>new course directory"]:::access
+
+    S0["Stage 0 - Intake<br/>raw sources to fullsource.txt"]:::intake
+    S1["Stage 1 - Groundwork<br/>structure, outline, claims"]:::author
+    G1{{"Gate 1<br/>human approves outline"}}:::gate
+    S2["Stage 2 - Author<br/>LESSON.md, timing, fact-check"]:::author
+    G2{{"Gate 2<br/>human approves lessons"}}:::gate
+    S3["Stage 3 - Package<br/>build the .mbz"]:::package
+    G3{{"Gate 3<br/>human restores to Moodle"}}:::gate
+    S4["Stage 4 - Sweep<br/>QA report, approval package"]:::sweep
+
+    SCAFFOLD --> S0
+    S0 -->|"source frozen"| S1
+    S1 --> G1
+    G1 -->|"writes gate1-approved.txt"| S2
+    S2 --> G2
+    G2 -->|"writes gate2-approved.txt"| S3
+    S3 --> G3
+    G3 -->|"timer and certificate verified"| S4
+
+    G1 -.->|"rework"| S1
+    G2 -.->|"rework"| S2
+
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef intake fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef author fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef package fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef sweep fill:#F3E5F5,stroke:#6A1B9A,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px

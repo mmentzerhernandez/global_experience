@@ -16,8 +16,23 @@ character.
 `index.html`. No build step, no runtime external requests.
 
 **Tech stack:** Plain HTML/CSS/vanilla JS. Diagrams authored as Mermaid and rendered
-offline with `npx @mermaid-js/mermaid-cli` (verified available, v11.15.0; requires
-`dangerouslyDisableSandbox: true` because npm needs to write its cache).
+offline with `npx @mermaid-js/mermaid-cli` (v11.15.0).
+
+**Diagram render recipe (already working, do not rediscover this).** All four diagram
+sources are authored and rendered; the SVGs are in `diagrams/rendered/`. To re-render:
+
+```
+npx -y @mermaid-js/mermaid-cli -i diagrams/<name>.mmd \
+  -o diagrams/rendered/<name>.svg --svgId <name>-svg \
+  -b transparent -p diagrams/puppeteer.json
+```
+
+Two gotchas already solved: the command needs `dangerouslyDisableSandbox: true` because
+npm writes its cache outside the sandbox, and mermaid-cli's bundled puppeteer asks for a
+Chrome build that is not installed, so `diagrams/puppeteer.json` pins it to the
+chrome-headless-shell already in `~/.cache/puppeteer`. If that path stops existing, list
+`~/.cache/puppeteer/chrome-headless-shell/` and update the config. `--svgId` is what
+produces the unique, self-scoped id the plan requires; never omit it.
 
 ## Global constraints
 

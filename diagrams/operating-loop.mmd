@@ -1,0 +1,36 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    OWNER["Owner<br/>sets the goal"]:::people
+    PLANS["10-Plans<br/>PLAN.md and HANDOFF-N"]:::access
+    WATERFALL["Session waterfall<br/>stop at 50%, hand off"]:::enforce
+    MANIFEST["Manifest<br/>durable decisions with dates"]:::report
+    WIKI["Three-tier wiki<br/>master, workstream, deep"]:::course
+    BRIEFING["Rendered briefing<br/>the whole business in one page"]:::course
+    WORK["Ten workstream folders<br/>numbered by concern"]:::access
+    MIRROR["Continuity mirror<br/>daily, sanitized"]:::enforce
+    DEADMAN["Dead-man check<br/>opens an issue after 7 quiet days"]:::report
+
+    OWNER --> PLANS
+    PLANS --> WATERFALL
+    WATERFALL -->|"decisions"| MANIFEST
+    WATERFALL -->|"next session reads the handoff"| PLANS
+    MANIFEST --> WIKI
+    MANIFEST --> WORK
+    WIKI --> BRIEFING
+    WORK --> MIRROR
+    MIRROR --> DEADMAN
+
+    classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
