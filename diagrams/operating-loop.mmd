@@ -7,79 +7,43 @@ config:
     primaryTextColor: "#2c3e50"
     lineColor: "#002fa7"
     fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+  flowchart:
+    nodeSpacing: 55
+    rankSpacing: 70
 ---
 flowchart TD
-    %% -- TIER 0: TRIGGER --
-    OWNER([<b>Goal is set</b>]):::people
+    OWNER["Goal is set"]:::people
 
-    %% -- TIER 1: INCEPTION --
-    subgraph PHASE1 ["Phase 1: Backlog and future planning"]
-        FUT["<b>FuturePlans/</b><br/>flat dated files<br/>YYYY-MM-DD-topic.md"]:::access
-    end
+    FUT["Phase 1 · FuturePlans/<br/>approved, not started<br/>flat dated files, YYYY-MM-DD-topic.md"]:::access
 
-    %% -- TIER 2: ACTIVE WORK --
-    subgraph PHASE2 ["Phase 2: Active execution"]
-        CUR["<b>CurrentPlans/&lt;set&gt;/</b><br/>PLAN.md plus HANDOFF-1..N<br/>one folder per plan set"]:::enforce
-        WATERFALL["<b>Session waterfall</b><br/>stop at 50%, write HANDOFF-N"]:::enforce
-        BOARD[/"<b>Tasks/WORK-STATUS.md</b><br/>standing board indexing the sets"/]:::access
-    end
+    CUR["Phase 2 · CurrentPlans/set/<br/>active work, one folder per plan set<br/>PLAN.md plus HANDOFF-1 to N"]:::enforce
 
-    %% -- TIER 3: QUALITY GATE --
-    subgraph PHASE3 ["Phase 3: Verification and gatekeeping"]
-        DOD{{"<b>Definition of done</b><br/>boxes checked, verification recorded,<br/>folder moved, map logged"}}:::gate
-        DRIFT["<b>check-drift.sh</b><br/>exits non-zero when a finished set<br/>is still sitting in CurrentPlans"]:::refuse
-    end
+    WATERFALL["Session waterfall<br/>stop at half context, write HANDOFF-N"]:::enforce
 
-    %% -- TIER 4: TERMINAL STATES --
-    subgraph PHASE4 ["Phase 4: Resolution and archival"]
-        PAST["<b>PastPlans/</b><br/>complete sets"]:::course
-        INACT["<b>InactivePlans/</b><br/>paused or superseded"]:::report
-    end
+    BOARD["Tasks/WORK-STATUS.md<br/>standing board indexing the active sets"]:::access
 
-    %% -- TIER 5: DOWNSTREAM ARTIFACTS --
-    subgraph PHASE5 ["Phase 5: Knowledge management and outputs"]
-        MAP[/"<b>MIGRATION-MAP.md</b><br/>every move logged"/]:::report
-        MANIFEST[/"<b>Manifest</b><br/>durable decisions with dates"/]:::report
-        WIKI[/"<b>Three-tier wiki</b><br/>main, workstream, deep"/]:::course
-        WORK["<b>Ten workstream folders</b>"]:::access
-        MIRROR[/"<b>Continuity mirror</b><br/>daily, sanitized"/]:::enforce
-    end
+    DOD{{"Phase 3 · Definition of done<br/>boxes checked, verification recorded,<br/>folder moved, map logged"}}:::gate
 
-    %% =======================
-    %% LIFECYCLE ROUTING
-    %% =======================
+    DRIFT["check-drift.sh<br/>exits non-zero when a finished set<br/>still sits in CurrentPlans"]:::refuse
 
-    %% Initiation
+    PAST["Phase 4 · PastPlans/<br/>complete sets, plan and handoff trail kept"]:::course
+
+    INACT["InactivePlans/<br/>paused or superseded"]:::report
+
+    MAP["MIGRATION-MAP.md<br/>every move logged"]:::report
+
     OWNER --> FUT
-    FUT -->|"kickoff moves the file"| CUR
-
-    %% Active work loop
+    FUT -->|"kickoff moves the file, never copies"| CUR
     CUR --> WATERFALL
-    WATERFALL -->|"next session reads handoff"| CUR
-    CUR -.->|"indexed by"| BOARD
-
-    %% Moving to verification
+    WATERFALL -->|"next session reads the handoff"| CUR
+    CUR -->|"indexed by"| BOARD
     CUR --> DOD
-
-    %% Validation and repair loop
-    DOD -.->|"not met but marked complete"| DRIFT
-    DRIFT -.->|"flagged for repair"| CUR
-
-    %% Resolution states
     DOD -->|"met"| PAST
     DOD -->|"parked"| INACT
-
-    %% Downstream artifacts
+    DOD -->|"marked complete but not met"| DRIFT
+    DRIFT -->|"flagged for repair"| CUR
     PAST --> MAP
 
-    WATERFALL -->|"decisions"| MANIFEST
-    MANIFEST --> WIKI
-    MANIFEST --> WORK
-    WORK --> MIRROR
-
-    %% =======================
-    %% STYLING CLASSES
-    %% =======================
     classDef people fill:#ECEFF1,stroke:#455A64,color:#000000,stroke-width:2px
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000,stroke-width:2px
     classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000,stroke-width:2px
