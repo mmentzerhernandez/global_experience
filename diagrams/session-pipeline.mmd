@@ -14,7 +14,7 @@ flowchart TD
     PLAN["Plan mode, stronger model<br/>gather requirements, write the plan"]:::author
     FORK{{"Genuine decision fork?"}}:::gate
     TOOLS["Deep research, decision process,<br/>or plan review<br/>only when the fork is real"]:::sweep
-    APPROVE{{"Human approves the plan"}}:::gate
+    APPROVE{{"Plan is approved"}}:::gate
     SWITCH["Switch model inside the same session<br/>context carries over, nothing re-derived"]:::access
     EXEC["Faster model executes the plan"]:::package
     CF["Hands off to CourseFactory v2"]:::course

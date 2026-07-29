@@ -13,11 +13,11 @@ flowchart TD
 
     S0["Stage 0 - Intake<br/>raw sources to fullsource.txt"]:::intake
     S1["Stage 1 - Groundwork<br/>structure, outline, claims"]:::author
-    G1{{"Gate 1<br/>human approves outline"}}:::gate
+    G1{{"Gate 1<br/>outline approved"}}:::gate
     S2["Stage 2 - Author<br/>LESSON.md, timing, fact-check"]:::author
-    G2{{"Gate 2<br/>human approves lessons"}}:::gate
+    G2{{"Gate 2<br/>lessons approved"}}:::gate
     S3["Stage 3 - Package<br/>build the .mbz"]:::package
-    G3{{"Gate 3<br/>human restores to Moodle"}}:::gate
+    G3{{"Gate 3<br/>Moodle LMS is restored"}}:::gate
     S4["Stage 4 - Sweep<br/>QA report, approval package"]:::sweep
 
     SCAFFOLD --> S0
