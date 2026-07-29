@@ -13,7 +13,6 @@ flowchart TD
     classDef moodle fill:#d4f4dd,stroke:#1a7f37,color:#0a3d1a;
     classDef app fill:#fff3cd,stroke:#b58900,color:#5c4400;
     classDef dormant fill:#f3e8ff,stroke:#8b5cf6,color:#4c1d95,stroke-dasharray:5 3;
-    classDef none fill:#eceff1,stroke:#90a4ae,color:#37474f,stroke-dasharray:4 3;
 
     %% LIVE TODAY
     subgraph LIVE["Live today: site payment-link funnel"]
@@ -43,8 +42,8 @@ flowchart TD
         lapse_hit -->|"local_recompletion"| Lreset3["CE-reset notice to BUYER"]:::moodle
     end
 
-    %% COMPLETION GAP
-    complete["Buyer finishes four modules,<br/>certificate issued"] --> GAP["Gap: copy promises an auto-emailed<br/>certificate, but no active sender<br/>exists yet, only the roster queue"]:::none
+    %% COMPLETION
+    complete["Buyer finishes four modules,<br/>certificate issued"] --> Lcert["Certificate email to BUYER"]:::moodle
 
     %% DORMANT
     subgraph DORM["Built but dormant: Moodle LMS payment gateway suite, endpoint not live"]
@@ -54,14 +53,10 @@ flowchart TD
         ddp["Webhook dispute"] -->|"send_dispute_alert"| Ddispute["Dispute alert to staff"]:::dormant
     end
 
-    %% SECURITY
-    login["Watched account signs in<br/>from a new device"] -->|"local_loginalert"| Salert["Login alert to the staff watch address"]:::app
-
     %% LEGEND
     subgraph LEGEND["Legend"]
         g1["Sent by Stripe, dashboard toggle"]:::stripe
         g2["Sent by Moodle LMS"]:::moodle
         g3["Sent by the application"]:::app
         g4["Built but dormant"]:::dormant
-        g5["No email, a known gap"]:::none
     end
