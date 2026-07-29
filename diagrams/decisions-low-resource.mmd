@@ -1,0 +1,24 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#ecfdf5"
+    primaryBorderColor: "#064E3B"
+    primaryTextColor: "#0F172A"
+    lineColor: "#065F46"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+graph TD
+    classDef excelCircle fill:#065F46,stroke:#064E3B,color:#FFFFFF,stroke-width:2.5px,font-weight:bold
+    classDef n8n fill:#E5E7EB,stroke:#475569,color:#0F172A,stroke-width:1.5px
+
+    Start((Start)):::excelCircle --> Q1["Have I defined the decision I need to make?"]:::n8n
+
+    Q1 -->|No| A1["Map it out."]:::n8n
+    Q1 -->|Yes| Q2["Have I identified what my values are and how they relate to my decision?"]:::n8n
+
+    Q2 -->|No| A2["Identify my values."]:::n8n
+    Q2 -->|Yes| Q3["Have I considered as many alternatives as possible?"]:::n8n
+
+    Q3 -->|No| A3["Think of alternatives."]:::n8n
+    Q3 -->|Yes| End((Decide)):::excelCircle

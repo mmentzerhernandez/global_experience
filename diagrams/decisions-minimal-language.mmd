@@ -1,0 +1,33 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#fffbeb"
+    primaryBorderColor: "#92400E"
+    primaryTextColor: "#0F172A"
+    lineColor: "#B45309"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+graph TD
+    classDef alertCircle fill:#FEF3C7,stroke:#92400E,color:#0F172A,stroke-width:2.5px,font-weight:bold
+    classDef n8n fill:#E5E7EB,stroke:#475569,color:#0F172A,stroke-width:1.5px
+
+    Start((Start)):::alertCircle --> Q1["Are you sure why you need a story?"]:::n8n
+
+    Q1 -->|No| A1["Ideate."]:::n8n
+    Q1 -->|Yes| Q2["Are you positive where to find your story or story ideas?"]:::n8n
+
+    Q2 -->|No| A2["Investigate."]:::n8n
+    Q2 -->|Yes| Q3["Are you sure about the point of view for the story?"]:::n8n
+
+    Q3 -->|No| A3["Create personas."]:::n8n
+    Q3 -->|Yes| Q4["Are you sure about the rationale for the story?"]:::n8n
+
+    Q4 -->|No| A4["Make a rationale."]:::n8n
+    Q4 -->|Yes| Q5["Are you sure about the direction of the story?"]:::n8n
+
+    Q5 -->|No| A5["Create a layout."]:::n8n
+    Q5 -->|Yes| Q6["Are you aware of problems that the personas will encounter during the story?"]:::n8n
+
+    Q6 -->|No| A6["Think of future problems."]:::n8n
+    Q6 -->|Yes| End((Start Writing)):::alertCircle

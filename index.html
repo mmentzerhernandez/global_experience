@@ -4,13 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<title>Portfolio - M. Mentzer-Hernández</title>
+	<title>Portfolio - M.P. Mentzer-Hernández</title>
 	<meta content="https://mmentzerhernandez.github.io/global_experience/img/og.png" property="og:image">
 	<meta content="https://mmentzerhernandez.github.io/global_experience/" property="og:url">
 	<meta content="website" property="og:type">
 	<meta content="Michael Mentzer-Hernández || M.Ed" property="og:description">
 	<meta name="description"
-		content="Michael Mentzer-Hernández, M.Ed, Instructional Designer &amp; AI Learning Consultant. Remote. International perspective that has designed systems for global learning programs at Meta.Specializes in AI integration, L&amp;D, eLearning, curriculum design, and EdTech.">
+		content="Michael Paul Mentzer-Hernández, M.Ed, Instructional Designer &amp; AI Learning Consultant. Remote. International perspective that has designed systems for global learning programs at Meta.Specializes in AI integration, L&amp;D, eLearning, curriculum design, and EdTech.">
 	<meta name="author" content="Michael Mentzer-Hernández">
 	<meta name="keywords"
 		content="Instructional Designer, Learning Experience Designer, AI Learning, L&amp;D, eLearning, EdTech, Curriculum Designer, AI Enablement, Online Education, Learning Consultant, Remote, Austin Texas, Instructional Design, Learning Development">
@@ -113,62 +113,123 @@
 	</script>
 	<script src="https://unpkg.com/lucide@0.511.0/dist/umd/lucide.min.js"></script>
 	<style>
+		*, *::before, *::after {
+			box-sizing: border-box;
+		}
+
+		img, svg {
+			max-width: 100%;
+			height: auto;
+		}
+
+		:root {
+			/* -- color tokens -- */
+			--c-ink: #0f172a;
+			--c-ink-soft: #475569;
+			--c-muted: #64748b;
+			--c-white: #ffffff;
+			--c-paper: #fafafa;
+			--c-bg-alt: #f4f4f2;
+			--c-border: #e5e7eb;
+			--c-border-soft: rgba(15, 23, 42, 0.08);
+
+			/* primary accent: navy, tied to the "unstructured contexts" diagram */
+			--c-navy: #002fa7;
+			--c-navy-deep: #001e6e;
+			--c-navy-tint: #f0f3ff;
+			--c-navy-tint-border: #c7d3f7;
+
+			/* supporting accents, each tied to one of the three decision diagrams */
+			--c-teal: #0f766e;
+			--c-teal-deep: #134e4a;
+			--c-teal-tint: #ecfeff;
+			--c-amber: #fef3c7;
+			--c-amber-border: #92400e;
+			--c-amber-ink: #78350f;
+			--c-emerald: #d1fae5;
+			--c-emerald-ink: #064e3b;
+			--c-indigo: #c7d2fe;
+			--c-indigo-border: #4338ca;
+			--c-indigo-ink: #1e1b4b;
+			--c-neutral: #e5e7eb;
+			--c-neutral-border: #475569;
+
+			/* -- type scale -- */
+			--font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			--fs-h1: clamp(2rem, 4.5vw, 3.25rem);
+			--fs-h2: clamp(1.5rem, 3.5vw, 2.1rem);
+			--fs-h3: clamp(1.1rem, 2vw, 1.3rem);
+			--fs-h4: 1rem;
+			--fs-body: 1rem;
+			--fs-small: 0.875rem;
+			--fs-tiny: 0.78rem;
+			--lh-body: 1.7;
+			--lh-tight: 1.25;
+
+			/* -- spacing scale (rem) -- */
+			--sp-1: 0.25rem;
+			--sp-2: 0.5rem;
+			--sp-3: 0.75rem;
+			--sp-4: 1rem;
+			--sp-5: 1.5rem;
+			--sp-6: 2rem;
+			--sp-7: 3rem;
+			--sp-8: 4rem;
+
+			--radius-sm: 8px;
+			--radius-md: 14px;
+			--radius-lg: 20px;
+			--ease: cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
 		body {
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			font-family: var(--font-base);
 			margin: 0;
 			padding: 0;
-			background: #002fa7;
-			color: #333;
+			background: var(--c-paper);
+			color: var(--c-ink-soft);
 			min-height: 100vh;
+			line-height: var(--lh-body);
+			overflow-x: hidden;
 		}
 
 		.container {
-			max-width: 1200px;
-			margin: 2rem auto;
+			max-width: 1100px;
+			margin: var(--sp-6) auto;
 			padding: 0;
 			position: relative;
 		}
 
 		.section {
 			position: relative;
-			margin: 0 2rem;
-			padding: 3rem 2rem;
-			background: white;
-			border-radius: 32px;
-			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-			border: 1px solid rgba(255, 255, 255, 0.8);
-			backdrop-filter: blur(10px);
-			margin-bottom: -40px;
+			margin: 0 var(--sp-6);
+			padding: var(--sp-7) var(--sp-6);
+			background: var(--c-white);
+			border-radius: var(--radius-lg);
+			box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+			border: 1px solid var(--c-border-soft);
+			margin-bottom: var(--sp-4);
 			z-index: 1;
-			transition: all 0.3s ease;
-		}
-
-		.section:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
 		}
 
 		.section:nth-of-type(1) {
 			z-index: 6;
-			background: white;
-			color: white;
+			background: var(--c-white);
+			color: var(--c-ink-soft);
 			text-align: center;
-			padding: 1.5rem 2rem 4rem 2rem;
-			margin-bottom: -50px;
+			padding: var(--sp-5) var(--sp-6) var(--sp-7) var(--sp-6);
 		}
 
 		.top-header-bar {
-			background: rgba(255, 255, 255, 0.95);
-			backdrop-filter: blur(10px);
-			border-radius: 50px;
-			padding: 0.75rem 1.5rem;
-			margin-bottom: 1.5rem;
-			color: #333;
-			border: 1px solid rgba(255, 255, 255, 0.8);
+			background: var(--c-white);
+			border-radius: 999px;
+			padding: var(--sp-3) var(--sp-5);
+			margin-bottom: var(--sp-5);
+			color: var(--c-ink);
+			border: 1px solid var(--c-border);
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 			position: relative;
 			z-index: 50;
 		}
@@ -181,15 +242,15 @@
 
 		.top-header-bar .name-section h1 {
 			margin: 0;
-			font-size: 0.75rem;
-			font-weight: 400;
-			color: #000;
+			font-size: var(--fs-tiny);
+			font-weight: 600;
+			color: var(--c-ink);
 		}
 
 		.top-header-bar .name-section h2 {
 			margin: 0;
 			font-size: 1.1rem;
-			color: #000;
+			color: var(--c-ink);
 			font-weight: 700;
 			text-align: left;
 		}
@@ -242,41 +303,34 @@
 		}
 
 		.section:nth-of-type(1) .header-card {
-			background: linear-gradient(135deg, #ffffff 0%, #fafaf8 100%);
-			backdrop-filter: blur(10px);
-			border-radius: 20px;
-			padding: 1rem 1.5rem 1.5rem 1.5rem;
-			color: #333;
-			border: 1px solid rgba(255, 255, 255, 0.3);
-			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-		}
-
-		.section:nth-of-type(1):hover {
-			transform: none;
-			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+			background: var(--c-white);
+			border-radius: var(--radius-md);
+			padding: var(--sp-4) var(--sp-5) var(--sp-5) var(--sp-5);
+			color: var(--c-ink-soft);
+			border: none;
 		}
 
 		.section:nth-of-type(2) {
 			z-index: 5;
-			background: #F6F6F6;
+			background: var(--c-paper);
 			padding-top: 4rem;
 		}
 
 		.section:nth-of-type(3) {
 			z-index: 4;
-			background: #EDEDEA;
+			background: var(--c-bg-alt);
 			padding-top: 4rem;
 		}
 
 		.section:nth-of-type(4) {
 			z-index: 3;
-			background: #F6F6F6;
+			background: var(--c-paper);
 			padding-top: 4rem;
 		}
 
 		.section:nth-of-type(5) {
 			z-index: 2;
-			background: #EDEDEA;
+			background: var(--c-bg-alt);
 			padding-top: 4rem;
 			margin-bottom: 2rem;
 		}
@@ -288,18 +342,16 @@
 		}
 
 		.header-card {
-			background: rgba(255, 255, 255, 0.95);
-			padding: 1.rem;
-			border-radius: 00px;
-			margin-top: 0.25rem;
-			backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.8);
+			background: var(--c-white);
+			padding: var(--sp-4);
+			margin-top: var(--sp-1);
+			border: none;
 		}
 
 		.profile-content {
 			display: grid;
 			grid-template-columns: 6fr 7fr;
-			gap: 2rem;
+			gap: var(--sp-6);
 			align-items: center;
 		}
 
@@ -340,8 +392,8 @@
 			text-align: left;
 			margin: 0 0 1rem 0;
 			font-weight: 500;
-			color: #555;
-			border-left: 3px solid #002fa7;
+			color: var(--c-ink-soft);
+			border-left: 3px solid var(--c-navy);
 			padding-left: 0.75rem;
 		}
 
@@ -356,9 +408,9 @@
 			display: inline-flex;
 			align-items: center;
 			gap: 0.35rem;
-			background: #f0f3ff;
-			color: #002fa7;
-			border: 1px solid #c7d3f7;
+			background: var(--c-navy-tint);
+			color: var(--c-navy);
+			border: 1px solid var(--c-navy-tint-border);
 			border-radius: 50px;
 			padding: 4px 12px;
 			font-size: 0.78rem;
@@ -382,9 +434,9 @@
 		}
 
 		.pipeline-chain .pipeline-step {
-			background: #f0f3ff;
-			color: #002fa7;
-			border: 1px solid #c7d3f7;
+			background: var(--c-navy-tint);
+			color: var(--c-navy);
+			border: 1px solid var(--c-navy-tint-border);
 			border-radius: 50px;
 			padding: 3px 11px;
 			font-size: 0.72rem;
@@ -404,7 +456,7 @@
 			right: -1.05rem;
 			top: 50%;
 			transform: translateY(-50%);
-			color: #9bb0e8;
+			color: var(--c-navy-tint-border);
 			font-weight: 600;
 			font-size: 0.8rem;
 		}
@@ -424,7 +476,7 @@
 
 		.profile-image {
 			display: flex;
-			justify-content: flex-end;
+			flex-direction: column;
 			align-items: center;
 			width: 100%;
 			align-self: center;
@@ -433,19 +485,19 @@
 		.map-container {
 			position: relative;
 			display: inline-block;
-			background-color: #2c3e50;
-			border-radius: 16px;
+			background-color: var(--c-ink);
+			border-radius: var(--radius-md);
 			padding: 0;
 			overflow: hidden;
-			box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-			transition: all 0.3s ease;
+			border: 1px solid var(--c-border-soft);
+			transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 			cursor: pointer;
-			max-width: 450px;
+			max-width: 100%;
 			width: 100%;
 		}
 
 		.map-container:hover {
-			box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+			box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
 			transform: translateY(-2px);
 		}
 
@@ -465,7 +517,7 @@
 			top: 16px;
 			right: 16px;
 			background: rgba(255, 255, 255, 0.95);
-			color: #1a1a1a;
+			color: var(--c-ink);
 			padding: 6px 14px;
 			border-radius: 20px;
 			font-size: 0.75rem;
@@ -484,7 +536,7 @@
 			display: block;
 			width: 6px;
 			height: 6px;
-			background-color: #002fa7;
+			background-color: var(--c-navy);
 			border-radius: 50%;
 			animation: pulse 0.75s infinite;
 		}
@@ -577,27 +629,28 @@
 			margin-bottom: 15px;
 			font-size: 1.2rem;
 			font-weight: 500;
-			color: #333;
+			color: var(--c-ink-soft);
 		}
 
 		.section h2 {
-			font-size: 2.5rem;
+			font-size: var(--fs-h2);
 			font-weight: 700;
-			margin-bottom: 2rem;
-			color: #2c3e50;
+			margin-bottom: var(--sp-6);
+			color: var(--c-ink);
 			text-align: center;
 			position: relative;
+			letter-spacing: -0.01em;
 		}
 
 		.section h2::after {
 			content: '';
 			position: absolute;
-			bottom: -10px;
+			bottom: -0.6rem;
 			left: 50%;
 			transform: translateX(-50%);
-			width: 60px;
-			height: 4px;
-			background: #000;
+			width: 40px;
+			height: 3px;
+			background: var(--c-navy);
 			border-radius: 2px;
 		}
 
@@ -657,72 +710,75 @@
 		}
 
 		.grid div {
-			background: rgba(255, 255, 255, 0.9);
-			padding: 2rem;
-			border-radius: 20px;
-			backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.8);
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-			transition: all 0.3s ease;
+			background: var(--c-white);
+			padding: var(--sp-5);
+			border-radius: var(--radius-md);
+			border: 1px solid var(--c-border);
+			transition: border-color 0.25s var(--ease);
 		}
 
 		.grid div:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+			border-color: var(--c-navy-tint-border);
+		}
+
+		.grid div ul {
+			margin: 0;
+			padding-left: 1.1rem;
+			color: var(--c-ink-soft);
+			line-height: var(--lh-body);
+		}
+
+		.grid div ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.grid div ul li:last-child {
+			margin-bottom: 0;
 		}
 
 		.grid div h3 {
 			margin-top: 0;
-			margin-bottom: 1.5rem;
-			color: #2c3e50;
-			font-size: 1.5rem;
+			margin-bottom: var(--sp-3);
+			color: var(--c-ink);
+			font-size: var(--fs-h3);
 			font-weight: 600;
-			text-align: center;
-			border-bottom: 2px solid #667eea;
-			padding-bottom: 0.5rem;
+			text-align: left;
+			border-bottom: none;
+			padding-bottom: 0;
 		}
 
 		.project {
-			background: rgba(255, 255, 255, 0.9);
-			border-radius: 20px;
-			padding: 2rem;
-			backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.8);
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-			transition: all 0.3s ease;
-		}
-
-		.project:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+			background: var(--c-white);
+			border-radius: var(--radius-md);
+			padding: var(--sp-6);
+			border: 1px solid var(--c-border);
 		}
 
 		.project-image {
-			margin-bottom: 2rem;
+			margin-bottom: var(--sp-6);
 		}
 
 		.project-image img {
 			width: 65%;
 			height: auto;
-			border-radius: 12px;
-			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+			border-radius: var(--radius-sm);
 			display: block;
 			margin: 0 auto;
 		}
 
 		.project-details h3 {
-			font-size: clamp(1.25rem, 5vw, 1.75rem);
-			margin: 0 0 1rem 0;
-			color: #2c3e50;
+			font-size: clamp(1.25rem, 5vw, 1.6rem);
+			margin: 0 0 var(--sp-4) 0;
+			color: var(--c-ink);
 			font-weight: 700;
 			text-align: center;
 		}
 
 		.project-details p {
-			margin: 1rem 0;
-			color: #555;
-			line-height: 1.6;
-			font-size: 1.1rem;
+			margin: var(--sp-4) 0;
+			color: var(--c-ink-soft);
+			line-height: var(--lh-body);
+			font-size: var(--fs-body);
 		}
 
 		.project-details ul {
@@ -730,20 +786,20 @@
 			padding: 0;
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-			gap: 1rem;
-			margin: 2rem 0;
+			gap: var(--sp-4);
+			margin: var(--sp-6) 0;
 		}
 
 		.project-details li {
-			background: rgba(103, 126, 234, 0.1);
-			padding: 0.8rem 1rem;
-			border-radius: 12px;
-			color: #555;
-			border-left: 4px solid #667eea;
+			background: var(--c-paper);
+			padding: var(--sp-3) var(--sp-4);
+			border-radius: var(--radius-sm);
+			color: var(--c-ink-soft);
+			border-left: 3px solid var(--c-navy);
 		}
 
 		.project-details li strong {
-			color: #2c3e50;
+			color: var(--c-ink);
 			display: block;
 			margin-bottom: 0.2rem;
 		}
@@ -751,19 +807,17 @@
 		.button {
 			display: inline-block;
 			padding: 12px 24px;
-			background: #000000;
+			background: var(--c-ink);
 			color: white;
-			border-radius: 50px;
+			border-radius: 999px;
 			text-decoration: none;
-			margin: 0.5rem 0.5rem 0.5rem 0;
-			transition: all 0.3s ease;
+			margin: var(--sp-2) var(--sp-2) var(--sp-2) 0;
+			transition: transform 0.2s var(--ease);
 			font-weight: 600;
-			box-shadow: 0 4px 16px rgba(103, 126, 234, 0.3);
 		}
 
 		.button:hover {
 			transform: translateY(-2px);
-			box-shadow: 0 8px 24px rgba(103, 126, 234, 0.4);
 			text-decoration: none;
 			color: white;
 		}
@@ -773,44 +827,24 @@
 			width: 100%;
 			max-width: 320px;
 			padding: clamp(14px, 3vw, 18px) clamp(24px, 4vw, 36px);
-			background: #002fa7;
+			background: var(--c-navy);
 			color: #ffffff;
-			border-radius: 12px;
-			border: 1px solid rgba(0, 47, 167, 0.3);
+			border-radius: var(--radius-sm);
+			border: 1px solid var(--c-navy-deep);
 			text-decoration: none;
 			font-weight: 700;
 			font-size: clamp(0.9rem, 2.5vw, 1.05rem);
 			letter-spacing: 0.3px;
-			transition: all 0.3s ease;
-			box-shadow: 0 4px 16px rgba(0, 47, 167, 0.25), 0 0 20px rgba(0, 47, 167, 0.15);
-			margin: 0.5rem auto;
+			transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+			margin: var(--sp-2) auto;
 			text-align: center;
 			position: relative;
 			overflow: hidden;
 		}
 
-		.button-black::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: rgba(0, 47, 167, 0.1);
-			opacity: 0;
-			transition: opacity 0.3s ease;
-			z-index: 0;
-		}
-
-		.button-black:hover::before {
-			opacity: 1;
-		}
-
 		.button-black:hover {
-			transform: translateY(-3px);
-			background: #1F5EFF;
-			box-shadow: 0 8px 28px rgba(31, 94, 255, 0.45), 0 0 30px rgba(31, 94, 255, 0.3);
-			border-color: rgba(31, 94, 255, 0.6);
+			transform: translateY(-2px);
+			background: var(--c-navy-deep);
 			color: white;
 			text-decoration: none;
 		}
@@ -851,123 +885,97 @@
 
 		footer p {
 			font-size: 1rem;
-			color: #2c3e50;
+			color: var(--c-ink);
 			font-weight: 500;
 		}
 
 		a {
 			text-decoration: none;
-			color: #667eea;
+			color: var(--c-navy);
 			transition: color 0.3s ease;
 		}
 
 		a:hover {
-			color: #764ba2;
+			color: var(--c-navy-deep);
 		}
 
-		.work-experience-container {
-			max-height: 400px;
-			overflow-y: auto;
-			padding: 1rem;
-			border-radius: 12px;
-			background: rgba(255, 255, 255, 0.7);
-			border: 1px solid rgba(255, 255, 255, 0.8);
+		.background-column {
+			max-width: 800px;
+			margin: 0 auto;
 		}
 
-		.work-experience-container::-webkit-scrollbar {
-			width: 8px;
+		.chapter-intro {
+			font-size: 1.05rem;
+			font-style: italic;
+			color: var(--c-ink-soft);
+			border-left: 3px solid var(--c-navy);
+			padding: 0 0 0 var(--sp-4);
+			margin: var(--sp-2) auto var(--sp-6) 0;
+			max-width: 640px;
 		}
 
-		.work-experience-container::-webkit-scrollbar-track {
-			background: rgba(255, 255, 255, 0.3);
-			border-radius: 4px;
+		.role-entry {
+			padding: var(--sp-4) 0;
+			margin-bottom: var(--sp-2);
 		}
 
-		.work-experience-container::-webkit-scrollbar-thumb {
-			background: #667eea;
-			border-radius: 4px;
+		.role-line {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			gap: var(--sp-4);
+			flex-wrap: wrap;
 		}
 
-		.work-experience-container ul {
-			margin: 0;
-			padding: 0;
-			list-style: none;
-		}
-
-		.work-experience-container>ul>li {
-			margin-bottom: 1.5rem;
-			padding: 1rem;
-			background: rgba(103, 126, 234, 0.1);
-			border-radius: 12px;
-			border-left: 4px solid #667eea;
-		}
-
-		.work-experience-container strong {
-			display: block;
-			color: #2c3e50;
-			font-size: 1.1rem;
+		.role-title {
+			font-size: var(--fs-h4);
 			font-weight: 700;
-			margin-bottom: 0.5rem;
+			color: var(--c-ink);
 		}
 
-		.work-experience-container ul ul li {
-			padding: 0.3rem 0;
-			color: #555;
-			background: none;
-			border: none;
-			margin: 0;
+		.role-date {
+			font-size: var(--fs-small);
+			color: var(--c-muted);
+			white-space: nowrap;
 		}
 
+		.role-company {
+			font-size: var(--fs-small);
+			color: var(--c-ink-soft);
+			margin-top: 0.15rem;
+		}
+
+		.role-extra {
+			margin-top: var(--sp-2);
+			font-size: var(--fs-small);
+			color: var(--c-ink-soft);
+		}
+
+		.role-extra ul {
+			margin: var(--sp-1) 0 0 0;
+			padding-left: 1.1rem;
+		}
+
+		.work-experience-container,
 		.education-section {
-			max-height: 400px;
-			overflow-y: auto;
-			padding: 1rem;
-			border-radius: 12px;
-			background: rgba(255, 255, 255, 0.7);
-			border: 1px solid rgba(255, 255, 255, 0.8);
-		}
-
-		.education-section::-webkit-scrollbar {
-			width: 8px;
-		}
-
-		.education-section::-webkit-scrollbar-track {
-			background: rgba(255, 255, 255, 0.3);
-			border-radius: 4px;
-		}
-
-		.education-section::-webkit-scrollbar-thumb {
-			background: #667eea;
-			border-radius: 4px;
-		}
-
-		.education-section ul {
-			margin: 0;
 			padding: 0;
-			list-style: none;
-		}
-
-		.education-section>ul>li {
-			margin-bottom: 1.5rem;
-			padding: 1rem;
-			background: rgba(103, 126, 234, 0.1);
-			border-radius: 12px;
-			border-left: 4px solid #667eea;
-		}
-
-		.education-section strong {
-			display: block;
-			color: #2c3e50;
-			font-size: 1.1rem;
-			font-weight: 700;
-			margin-bottom: 0.5rem;
-		}
-
-		.education-section ul ul li {
-			padding: 0.3rem 0;
-			color: #555;
-			background: none;
+			background: transparent;
 			border: none;
+		}
+
+		.work-experience-container>.role-entry,
+		.education-section>.role-entry {
+			border-bottom: 1px solid var(--c-border-soft);
+		}
+
+		.work-experience-container>.role-entry:last-child,
+		.education-section>.role-entry:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+
+		.education-section .role-title {
+			font-size: var(--fs-body);
 			margin: 0;
 		}
 
@@ -987,24 +995,19 @@
 		}
 
 		.outcome-card {
-			background: rgba(255, 255, 255, 0.95);
-			padding: 1.5rem;
-			border-radius: 16px;
-			border: 1px solid rgba(103, 126, 234, 0.15);
-			transition: all 0.3s ease;
+			background: transparent;
+			padding: 0 0 var(--sp-4) 0;
+			border-radius: 0;
+			border: none;
+			border-bottom: 1px solid var(--c-border);
+			transition: none;
 			text-align: left;
-		}
-
-		.outcome-card:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 8px 24px rgba(103, 126, 234, 0.15);
-			border-color: rgba(103, 126, 234, 0.3);
 		}
 
 		.outcome-card .icon {
 			margin-bottom: 0.75rem;
 			display: block;
-			color: #667eea;
+			color: var(--c-navy);
 		}
 
 		.outcome-card .icon svg {
@@ -1017,7 +1020,7 @@
 			margin: 0 0 0.5rem 0;
 			font-size: 1.1rem;
 			font-weight: 700;
-			color: #2c3e50;
+			color: var(--c-ink);
 			text-wrap: balance;
 		}
 
@@ -1025,22 +1028,21 @@
 			margin: 0;
 			font-size: 0.95rem;
 			line-height: 1.5;
-			color: #555;
+			color: var(--c-ink-soft);
 			text-wrap: balance;
 		}
 
-		/* Dark variant: card background darkened a few shades from #002fa7, text turned white */
+		/* Dark variant: same quiet divider treatment, on the navy-tinted project card */
 		.outcome-blocks-dark .outcome-card {
-			background: #c7d3f7;
-			border-color: rgba(255, 255, 255, 0.18);
+			border-color: var(--c-navy-tint-border);
 		}
 
 		.outcome-blocks-dark .outcome-card h4 {
-			color: #000;
+			color: var(--c-ink);
 		}
 
 		.outcome-blocks-dark .outcome-card p {
-			color: #000;
+			color: var(--c-ink);
 		}
 
 		.tech-stack-section {
@@ -1051,7 +1053,7 @@
 		.tech-stack-heading {
 			font-size: 0.85rem;
 			font-weight: 500;
-			color: #666;
+			color: var(--c-muted);
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			margin-bottom: 1.25rem;
@@ -1066,21 +1068,62 @@
 		}
 
 		.tech-badge {
-			background: rgba(255, 255, 255, 0.95);
-			padding: 0.65rem 1.25rem;
-			border-radius: 8px;
-			border: 1px solid rgba(103, 126, 234, 0.12);
-			font-size: 0.9rem;
+			background: var(--c-white);
+			padding: 0.55rem 1.1rem;
+			border-radius: var(--radius-sm);
+			border: 1px solid var(--c-border);
+			font-size: var(--fs-small);
 			font-weight: 500;
-			color: #2c3e50;
-			transition: all 0.3s ease;
+			color: var(--c-ink);
 			white-space: nowrap;
 		}
 
-		.tech-badge:hover {
+		/* pillar tag: quiet badge naming which pillar a project proves, distinct from tech-stack badges */
+		span.tech-badge.pillar-tag {
+			background: var(--c-navy-tint);
+			border: 1px solid var(--c-navy-tint-border);
+			color: var(--c-navy);
+			font-size: var(--fs-tiny);
+			font-weight: 600;
+			border-radius: 999px;
+			padding: 0.3rem 0.85rem;
+			letter-spacing: 0.01em;
+		}
+
+		/* diagram card: bordered, minimal frame around the three decision diagrams */
+		.diagram-card {
+			background: var(--c-white);
+			border: 1px solid var(--c-border);
+			border-radius: var(--radius-md);
+			padding: var(--sp-4);
+			transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+		}
+
+		.diagram-card:hover {
+			border-color: var(--c-navy-tint-border);
 			transform: translateY(-2px);
-			border-color: rgba(103, 126, 234, 0.3);
-			box-shadow: 0 4px 12px rgba(103, 126, 234, 0.1);
+		}
+
+		.diagram-card img {
+			border-radius: var(--radius-sm);
+			display: block;
+		}
+
+		.diagram-card p {
+			font-size: var(--fs-small);
+			color: var(--c-muted);
+			margin-top: var(--sp-3);
+			margin-bottom: 0;
+			line-height: 1.5;
+		}
+
+		.diagram-title {
+			font-size: 1.15rem;
+			font-weight: 700;
+			color: var(--c-ink);
+			text-align: center;
+			margin: 0 0 var(--sp-4) 0;
+			line-height: 1.3;
 		}
 
 		.dropdown {
@@ -1109,18 +1152,18 @@
 			position: absolute;
 			right: 0;
 			top: 100%;
-			background-color: white;
+			background-color: var(--c-white);
 			min-width: 180px;
-			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-			border-radius: 12px;
+			box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+			border-radius: var(--radius-sm);
 			z-index: 10;
-			border: 1px solid rgba(0, 0, 0, 0.05);
+			border: 1px solid var(--c-border);
 			overflow: hidden;
 			margin-top: 8px;
 		}
 
 		.dropdown-content a {
-			color: #333;
+			color: var(--c-ink-soft);
 			padding: 12px 16px;
 			text-decoration: none;
 			display: block;
@@ -1129,7 +1172,7 @@
 		}
 
 		.dropdown-content a:hover {
-			background-color: #f1f1f1;
+			background-color: var(--c-bg-alt);
 		}
 
 		.dropdown-content.show {
@@ -1321,6 +1364,38 @@
 				font-size: 0.85rem;
 			}
 		}
+
+		/* -- motion: restrained, in-page only, fully disabled under prefers-reduced-motion -- */
+		@media (prefers-reduced-motion: no-preference) {
+			.section:nth-of-type(1) {
+				opacity: 0;
+				transform: translateY(12px);
+				animation: hero-reveal 0.7s var(--ease) forwards;
+			}
+
+			.section:nth-of-type(1) .top-header-bar {
+				opacity: 0;
+				animation: hero-reveal 0.6s var(--ease) 0.1s forwards;
+			}
+
+			@keyframes hero-reveal {
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.section.reveal {
+				opacity: 0;
+				transform: translateY(16px);
+				transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+			}
+
+			.section.reveal.is-visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
 	</style>
 	<!-- Microsoft Clarity -->
 	<script type="text/javascript">
@@ -1340,7 +1415,7 @@
 			<header>
 				<div class="top-header-bar">
 					<div class="name-section">
-						<h1>M. Mentzer-Hernández</h1>
+						<h1>M.P. Mentzer-Hernández</h1>
 					</div>
 					<div class="dropdown">
 						<button aria-label="Download Options" class="dropdown-trigger" aria-expanded="false"
@@ -1355,16 +1430,14 @@
 				<div class="header-card">
 					<div class="profile-content">
 						<div class="profile-text">
-							<h2 style="color: #000000;">A Global Perspective</h2>
-							<h4>From teaching in active conflict zones to leading the Malicious Actor silo
-								team at Meta, I have had the privilege of working in some of
-								the most challenging and rewarding environments.</h4>
+							<h2 style="color: #000000;">AI automation, agents, and data workflows for real operations</h2>
+							<h4>I build systems that work in any condition, with minimal resources and minimal
+								supervision. That standard comes from a decade teaching and designing learning across 12+
+								countries, including two active conflict zones, where the plan has to survive contact
+								with reality.</h4>
 							<div class="stat-chips">
 								<span class="stat-chip"><span class="chip-num">12+</span> Countries</span>
 								<span class="stat-chip"><span class="chip-num">2</span> Active Conflict Zones</span>
-								<span class="stat-chip"><span class="chip-num">Rapid Prototyping</span>
-								<span class="stat-chip"><span class="chip-num">System Thinking</span>
-								<span class="stat-chip"><span class="chip-num">Meta &amp; Raytheon</span></span>
 							</div>
 							<a class="button-black" id="email-btn" href="https://calendly.com/m-mentzerhernandez/30min"
 								target="_blank" style="cursor: pointer; text-decoration: none;">
@@ -1397,233 +1470,256 @@
 			<img alt="Full screen image" class="modal-content" id="modalImage">
 		</div>
 
-		<!-- ── BACKGROUND SECTION ── -->
-		<section class="section">
-			<h2>Background</h2>
+		<!-- ── WHAT I DO SECTION ── -->
+		<section class="section reveal">
+			<h2>What I do</h2>
 			<div class="grid">
 				<div>
-					<h3>Work Experience</h3>
-					<div class="work-experience-container">
-						<ul style="list-style-type: none; padding-left: 0;">
-							<li>
-								<strong>GrapevineData.com</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Remote - Aug 2026–Present
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>AI &amp; Data Workflow Specialist</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<strong>Engage-AI.org</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Remote - Feb 2026–Jul 2026
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>AI Educational Consultant</li>
-
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<strong>StructureSense.ai</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Remote - Jul 2025–Present
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>AI Education &amp; Adoption Consultant</li>
-											<li>Tools Created:
-												<ul style="list-style-type: disc; padding-left: 20px; margin-top: 5px;">
-													<li>
-														<a href="https://mermaid.ai/d/ad2142f1-c91e-4b4c-a64e-e0c7ee5407a0"
-															target="_blank" rel="noopener noreferrer">
-															RFP Multi-Source Discovery Automation Pipeline
-														</a>
-													</li>
-													<li>
-														<a href="https://mermaid.ai/d/d9352ab6-f6cb-48d2-9421-fc30033d1eff"
-															target="_blank" rel="noopener noreferrer">
-															Grants.gov Automation Pipeline
-														</a>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<strong>Meta - Facebook, Instagram, Threads</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Remote - 2024-2025
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>Learning Solutions Partner</li>
-										</ul>
-									</li>
-									<li>Remote - 2022-2023
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>Learning Consultant</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<strong>Austin Community College</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Remote - 2020-2022
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>Instructional Designer</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<!--<li>
-								<strong>American University of Iraq - Baghdad</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Remote - 2020-2022
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>Instructional Design Consultant</li>
-										</ul>
-									</li>
-								</ul>
-							</li>-->
-							<li>
-								<strong>Raytheon</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Kabul, Afghanistan (On-site) - 2018-2019
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>Senior Development Specialist</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<strong>American University of Iraq - Sulaimaniya</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Sulaimaniya, Iraq (On-site) - 2016-2018
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>Digital Media Literacy Instructor</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<strong>King Faisal University</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Hofuf, Saudi Arabia (On-site) - 2014-2016
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>Academic Skills Instructor</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
+					<h3><i data-lucide="workflow" style="display:inline;vertical-align:middle;width:18px;height:18px;margin-right:6px;"></i>AI automation systems</h3>
+					<ul>
+						<li>Removes repetitive, error-prone work from daily operations</li>
+						<li>Fewer manual steps, fewer places for a process to break</li>
+						<li>Runs the same way on a bad day as on a good one</li>
+					</ul>
 				</div>
 				<div>
-					<h3>Education</h3>
-					<div class="education-section">
-						<ul style="list-style-type: none; padding-left: 0;">
-							<li>
-								<strong>Master of Arts - Education</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Digital Media Learning</li>
-									<li>University of San Francisco - USA</li>
-								</ul>
-							</li>
-							<li>
-								<strong>Instructional Design Certifications</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr"
-											target="_blank">Quality Matters - APPQMR</a></li>
-									<li><a href="https://www.qualitymatters.org/professional-development/workshops/AI-for-course-design"
-											target="_blank">Quality Matters - LGAI</a></li>
-									<li><a href="https://www.qualitymatters.org/professional-development/courses/higher-ed-prc"
-											target="_blank">Quality Matters - PRC</a></li>
-								</ul>
-							</li>
-							<li>
-								<strong>Licence</strong>
-								<ul style="list-style-type: circle; padding-left: 20px; margin-top: 8px;">
-									<li>Electrical Apprentice
-										<ul style="list-style-type: square; padding-left: 20px; margin-top: 4px;">
-											<li>License #: <a
-													href="https://www.tdlr.texas.gov/LicenseSearch/SearchResultDetail.asp?1=APPELE00722539&amp;2=AE"
-													target="_blank">722539</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
+					<h3><i data-lucide="plug" style="display:inline;vertical-align:middle;width:18px;height:18px;margin-right:6px;"></i>Integrations and data logic</h3>
+					<ul>
+						<li>Connects APIs, tools like n8n, and business logic</li>
+						<li>Decides what happens next in a workflow</li>
+						<li>Moves information where it needs to go, no re-typing</li>
+					</ul>
+				</div>
+				<div>
+					<h3><i data-lucide="git-branch" style="display:inline;vertical-align:middle;width:18px;height:18px;margin-right:6px;"></i>Agent workflows &amp; knowledge design</h3>
+					<ul>
+						<li>Multi-agent, gated pipelines for research, triage, and compliance checks</li>
+						<li>Built for daily use, not a demo built to impress</li>
+						<li>Retrieval-augmented generation and retrieval-grounded checking</li>
+						<li>Curriculum-grade sequencing that makes an AI system dependable, not confidently wrong</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ── HOW I THINK ABOUT THE WORK SECTION ── -->
+		<section class="section reveal">
+			<h2>How I think about the work</h2>
+			<div class="grid">
+				<div>
+					<h3>Augmented, not artificial</h3>
+					<p>I call it Augmented Intelligence, not artificial intelligence. The tool gives people access to
+						bigger, more consequential decisions, and it amplifies the Dunning-Kruger effect: high
+						confidence with no context to back it up. My position is direct: no project ships without a
+						genuine subject matter expert in the loop. Work without one available gets declined or
+						rescoped until one exists.</p>
+				</div>
+				<div>
+					<h3>Right-size the tool</h3>
+					<p>The most common failure I see among peers is treating AI as one-size-fits-all, the way someone
+						might try to turn off a light bulb with a hammer. I match the tool to the problem and build the
+						simplest version that actually solves it. Complexity that does not earn its keep gets cut.</p>
+				</div>
+				<div>
+					<h3>Precision in small things</h3>
+					<p>The best date format is a two-digit day, a three-letter uppercase month, and a four-digit
+						year: 01 AUG 2026. It reads the same in any country and sorts correctly by eye. I use it
+						everywhere on this page, because small conventions like this are what make a system
+						trustworthy at scale.</p>
+				</div>
+			</div>
+
+			<!-- ── HOW I DECIDE SUBSECTION ── -->
+			<div style="margin-top: 2.5rem; text-align: center;">
+				<h3 style="text-align: center;">How I Decide What to Do Next</h3>
+				<p style="font-size: 1rem; color: #666; max-width: 720px; margin: 0 auto;">These frameworks were
+					developed teaching in low-resource, unpredictable environments. They are still how I scope AI
+					workflow projects today.</p>
+				<div class="grid" style="margin-top: 1.5rem; text-align: left;">
+					<div class="diagram-card" style="border-top: 3px solid var(--c-navy);">
+						<h4 class="diagram-title">Navigating unstructured and unpredictable contexts</h4>
+						<img alt="Navigating Unstructured and Unpredictable Contexts" data-full="diagrams/rendered/decisions-unstructured.svg"
+							onclick="openModal(this)" src="diagrams/rendered/decisions-unstructured.svg" style="cursor: pointer; width: 100%;">
+					</div>
+					<div class="diagram-card" style="border-top: 3px solid var(--c-teal);">
+						<h4 class="diagram-title">Decision making framework for low-resource conditions</h4>
+						<img alt="Decision Making Framework for Low-Resource Conditions" data-full="diagrams/rendered/decisions-low-resource.svg"
+							onclick="openModal(this)" src="diagrams/rendered/decisions-low-resource.svg" style="cursor: pointer; width: 100%;">
+					</div>
+					<div class="diagram-card" style="border-top: 3px solid var(--c-amber-border);">
+						<h4 class="diagram-title">Explaining complex concepts using minimal language and visuals</h4>
+						<img alt="Explaining Complex Concepts Using Minimal Language and Visuals" data-full="diagrams/rendered/decisions-minimal-language.svg"
+							onclick="openModal(this)" src="diagrams/rendered/decisions-minimal-language.svg" style="cursor: pointer; width: 100%;">
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- ── SPECIALIZATION SECTION ── -->
-		<section class="section">
-			<h2>Specialization &amp; Principles</h2>
-			<div class="grid">
-				<div>
-					<h3>Specialization</h3>
-					<ul>
-						<li>
-							<a href="https://docs.google.com/presentation/d/187gfblk4ixYC1FcbgeRmzztsaVIy8N6dWruFb2qqf3o/edit?usp=sharing"
-								target="_blank">Presenting Information to International Audiences</a>
+		<!-- ── BACKGROUND SECTION ── -->
+		<section class="section reveal">
+			<h2>Background</h2>
+			<div class="background-column">
+				<h3>AI &amp; data systems, 2025 to Present</h3>
+				<div class="work-experience-container">
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">AI &amp; Data Workflow Specialist</span>
+							<span class="role-date">AUG 2026 – Present</span>
+						</div>
+						<div class="role-company">GrapevineData.com &middot; Remote</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">AI Educational Consultant</span>
+							<span class="role-date">FEB 2026 – JUL 2026</span>
+						</div>
+						<div class="role-company">Engage-AI.org &middot; Remote</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">AI Education &amp; Adoption Consultant</span>
+							<span class="role-date">JUL 2025 – Present</span>
+						</div>
+						<div class="role-company">StructureSense.ai &middot; Remote</div>
+						<div class="role-extra">
+							Tools created:
 							<ul>
-								<li>Global Audience Comprehension</li>
-								<li>Universal Design &amp; Accessibility</li>
-								<li>Designing During Catastrophic Brand Crisis</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<div>
-					<h3>How Do I Make Decisions?</h3>
-					<ul>
-						<li>Life &amp; Teaching - Making Decisions in Low Resource Environments</li>
-						<li style="list-style: none">
-							<ul>
-								<li><a href="https://miro.com/app/board/uXjVMI_v1K8=/?moveToWidget=3458764554475211919&amp;cot=14"
-										target="_blank">Navigating Unstructured and Unpredictable Contexts</a>
+								<li>
+									<a href="https://mermaid.ai/d/ad2142f1-c91e-4b4c-a64e-e0c7ee5407a0"
+										target="_blank" rel="noopener noreferrer">
+										RFP Multi-Source Discovery Automation Pipeline
+									</a>
 								</li>
-								<li><a href="https://miro.com/app/board/uXjVMI_v1K8=/?moveToWidget=3458764554478962734&amp;cot=14"
-										target="_blank">Decision Making Framework for Teaching in Low-Resource
-										Conditions</a></li>
-								<li><a href="https://miro.com/app/board/uXjVMI_v1K8=/?moveToWidget=3458764554479338882&amp;cot=14"
-										target="_blank">Communicating Complex Concepts Using Minimal Language and
-										Visuals</a></li>
+								<li>
+									<a href="https://mermaid.ai/d/d9352ab6-f6cb-48d2-9421-fc30033d1eff"
+										target="_blank" rel="noopener noreferrer">
+										Grants.gov Automation Pipeline
+									</a>
+								</li>
 							</ul>
-						</li>
-					</ul>
+						</div>
+					</div>
+				</div>
+
+				<h3 style="margin-top: 3rem;">Global education &amp; learning design, 2014 to 2026</h3>
+				<blockquote class="chapter-intro">This chapter is the origin of the systems judgment above:
+					teaching and designing learning on-site in Saudi Arabia, Iraq, and Afghanistan, then at
+					Meta's scale, is where the habit of building for minimal resources and minimal supervision
+					was earned.</blockquote>
+				<div class="work-experience-container">
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Learning Solutions Partner, leading the Malicious Actor silo
+								team</span>
+							<span class="role-date">2024 – 2025</span>
+						</div>
+						<div class="role-company">Meta - Facebook, Instagram, Threads &middot; Remote</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Learning Consultant</span>
+							<span class="role-date">2022 – 2023</span>
+						</div>
+						<div class="role-company">Meta - Facebook, Instagram, Threads &middot; Remote</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Instructional Designer</span>
+							<span class="role-date">2020 – 2022</span>
+						</div>
+						<div class="role-company">Austin Community College &middot; Remote</div>
+					</div>
+					<!--
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Instructional Design Consultant</span>
+							<span class="role-date">2020 – 2022</span>
+						</div>
+						<div class="role-company">American University of Iraq - Baghdad &middot; Remote</div>
+					</div>
+					-->
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Senior Development Specialist</span>
+							<span class="role-date">2018 – 2019</span>
+						</div>
+						<div class="role-company">Raytheon &middot; Kabul, Afghanistan (on-site)</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Digital Media Literacy Instructor</span>
+							<span class="role-date">2016 – 2018</span>
+						</div>
+						<div class="role-company">American University of Iraq - Sulaimaniya &middot; Sulaimaniya, Iraq
+							(on-site)</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Academic Skills Instructor</span>
+							<span class="role-date">2014 – 2016</span>
+						</div>
+						<div class="role-company">King Faisal University &middot; Hofuf, Saudi Arabia (on-site)</div>
+					</div>
+				</div>
+
+				<h3 style="margin-top: 3rem;">Education &amp; certifications</h3>
+				<div class="education-section">
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Master of Arts, Education</span>
+						</div>
+						<div class="role-company">Digital Media Learning &middot; University of San Francisco, USA
+						</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Instructional design certifications</span>
+						</div>
+						<div class="role-extra">
+							<ul>
+								<li><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr"
+										target="_blank">Quality Matters - APPQMR</a></li>
+								<li><a href="https://www.qualitymatters.org/professional-development/workshops/AI-for-course-design"
+										target="_blank">Quality Matters - LGAI</a></li>
+								<li><a href="https://www.qualitymatters.org/professional-development/courses/higher-ed-prc"
+										target="_blank">Quality Matters - PRC</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="role-entry">
+						<div class="role-line">
+							<span class="role-title">Electrical apprentice licence</span>
+						</div>
+						<div class="role-company">License #: <a
+								href="https://www.tdlr.texas.gov/LicenseSearch/SearchResultDetail.asp?1=APPELE00722539&amp;2=AE"
+								target="_blank">722539</a></div>
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<!-- ── PROJECTS SECTION ── -->
-		<section class="section">
-			<h2>Current Projects</h2>
+		<section class="section reveal">
+			<h2>Current projects</h2>
 
 			<!-- Project 0: ID Skills / Augmented Intelligence Pipeline -->
 			<div class="project">
 				<div class="project-details">
-					<h3>Automation: IERhub.com</h3>
+					<h3 style="text-align: center;">Automation: IERhub.com</h3>
+					<div style="text-align: center;"><span class="tech-badge pillar-tag" style="margin-bottom: 0.75rem; display: inline-block;">Agent workflows · Knowledge and process design</span></div>
 					<div class="project-image">
 						<a href="id-skills.html" rel="noopener noreferrer" target="_blank">
 							<img alt="Curriculum development pipeline diagram for IERhub.com" src="img/id-skills-pipeline.svg"
 								style="cursor: pointer;">
 						</a>
 					</div>
-					<p><em>April 2026 – Present</em></p>
-					<p style="font-size: 1rem; margin-top: 0.5rem; color: #666;">A licensed Texas continuing education provider, live and selling since July 2026, built and run end to end. Course production runs through CourseFactory v2: five stages, six checker programs that block on failure, and three human approval gates that cannot be skipped because the build refuses to package without them. The result is compliance-ready training for a regulated market. <br>
-
-
-<br> <b> Personal Note: </b> This is a prime example of why 'AI' should be rebranded as <em>Augmented</em> intelligence because AI tools only deliver real value when guided by genuine subject matter expertise, rather than individuals whose confidence outpaces their current experience.</p>
+					<p><em>APR 2026 – Present</em></p>
+					<p style="font-size: 1rem; margin-top: 0.5rem; color: #666;">A licensed Texas continuing education provider, live and selling since July 2026, built and run end to end. Course production runs through CourseFactory v2: five stages, six checker programs that block on failure, and three human approval gates that cannot be skipped because the build refuses to package without them. The result is compliance-ready training for a regulated market.</p>
 
 					<div class="outcome-blocks outcome-blocks-dark">
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="book"></i></span>
-							<h4>Augmented, Not Artificial</h4>
+							<h4>Augmented, not artificial</h4>
 							<p>Expertise supports where AI tools augment. Curriculum work that once required an entire team and
 								months of effort is delivered in hours, without losing compliance.</p>
 						</div>
@@ -1632,19 +1728,13 @@
 							<h4>Stages, checkers, and gates</h4>
 							<p>Stage order is enforced by what each step needs as input, not by a driver script. Every
 								checker fails hard when its predecessor's work is missing.</p>
-						
+
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="shield-check"></i></span>
 							<h4>Retrieval-grounded fact-checking</h4>
 							<p>Every claim is checked against the source text through hybrid retrieval and an entailment
 								judge. Unsupported or contradicted claims block the build rather than warning about it.</p>
-						</div>
-						<div class="outcome-card">
-							<span class="icon"><i data-lucide="users"></i></span>
-							<h4>Built for Learners at Scale</h4>
-							<p>Plain-language training designed for a market of 600,000–700,000 licensees
-								who need continuing education across regulated trades in Texas.</p>
 						</div>
 					</div>
 
@@ -1672,12 +1762,13 @@
 			<!-- Project 1: WritingTrace -->
 			<div class="project">
 				<div class="project-details">
-					<h3>WriteTrace - Chrome Extension</h3>
+					<h3 style="text-align: center;">WriteTrace - Chrome extension</h3>
+					<div style="text-align: center;"><span class="tech-badge pillar-tag" style="margin-bottom: 0.75rem; display: inline-block;">Integrations and data logic</span></div>
 					<div class="project-image">
 						<img alt="WritingTrace Mockup" data-full="img/writingtrace_mockup.png" onclick="openModal(this)"
 							src="img/writingtrace_mockup.png" style="cursor: pointer;">
 					</div>
-					<p><em>March 2026 – Present</em></p>
+					<p><em>MAR 2026 – Present</em></p>
 					<p style="font-size: 1rem; margin-top: 0.5rem; color: #666;">A Chrome Extension that captures and replays the writing journey, integrating
 						real-time document analysis with a scalable serverless backend and freemium subscription model.
 					</p>
@@ -1685,57 +1776,39 @@
 					<div class="outcome-blocks">
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="shield-check"></i></span>
-							<h4>Privacy-First &amp; Compliant</h4>
+							<h4>Privacy-first &amp; compliant</h4>
 							<p>FERPA/GDPR evaluated. Document processing happens locally in-browser with secure access
 								control via HTTPS callable Cloud Functions.</p>
 						</div>
 						<div class="outcome-card">
-							<span class="icon"><i data-lucide="credit-card"></i></span>
-							<h4>Freemium Model &amp; Stripe</h4>
-							<p>Automated subscription management and real-time database synchronization via Firebase
-								Stripe Extension and secure webhooks.</p>
-						</div>
-						<div class="outcome-card">
-							<span class="icon"><i data-lucide="server"></i></span>
-							<h4>Serverless Architecture</h4>
-							<p>Next.js frontend seamlessly integrated with Cloud Firestore and Firebase Auth for
-								transactional consistency and low-latency updates.</p>
-						</div>
-						<div class="outcome-card">
 							<span class="icon"><i data-lucide="play"></i></span>
-							<h4>Timeline Analytics &amp; Export</h4>
+							<h4>Timeline analytics &amp; export</h4>
 							<p>Real-time playback of document revisions with timeline scrubbing, generating highly
 								compressed offline HTML/GIF exports.</p>
 						</div>
-					</div>
-
-					<div class="tech-stack-heading" style="margin-top: 2.5rem; text-align: center;">Forensic Metrics &amp;
-						Behavioral Indicators:</div>
-
-					<div class="outcome-blocks" style="margin-top: 1rem;">
 						<div class="outcome-card">
-							<span class="icon"><i data-lucide="zap"></i></span>
-							<h4>Velocity &amp; Bursts</h4>
-							<p>Flags instantaneous bursts and inhuman sustained speeds (>120 WPM) that indicate external
-								copy-pasting or AI generation.</p>
+							<span class="icon"><i data-lucide="users"></i></span>
+							<h4>Author forensics</h4>
+							<p>Leverages Google OAuth integration to identify precise contributors, surfacing shadow
+								ghostwriters and tracking group work equity.</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="eraser"></i></span>
-							<h4>Revision Density</h4>
+							<h4>Revision density</h4>
 							<p>Monitors deletion rates using diff-matching algorithms; human writing averages 15-25%,
 								while <5% suggests pre-generated drafts.</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="history"></i></span>
-							<h4>Session Continuity</h4>
+							<h4>Session continuity</h4>
 							<p>Uses OT API metadata to detect session gaps and discrepancies between document growth and
 								active browser tab usage time.</p>
 						</div>
 						<div class="outcome-card">
-							<span class="icon"><i data-lucide="users"></i></span>
-							<h4>Author Forensics</h4>
-							<p>Leverages Google OAuth integration to identify precise contributors, surfacing shadow
-								ghostwriters and tracking group work equity.</p>
+							<span class="icon"><i data-lucide="zap"></i></span>
+							<h4>Velocity &amp; bursts</h4>
+							<p>Flags instantaneous bursts and inhuman sustained speeds (>120 WPM) that indicate external
+								copy-pasting or AI generation.</p>
 						</div>
 					</div>
 
@@ -1757,7 +1830,7 @@
 
 			<br>
 
-			<!-- Project 2: Automated Contract Discovery 
+			<!-- Project 2: Automated Contract Discovery
 			<div class="project">
 				<div class="project-details">
 					<h3>Local Application - Automated Contract Discovery &amp; Qualification System</h3>
@@ -1821,7 +1894,8 @@
 			<!-- Project 3: GovConMaker -->
 			<div class="project">
 				<div class="project-details">
-					<h3>Web Application - GovConMaker.com</h3>
+					<h3 style="text-align: center;">Web application - GovConMaker.com</h3>
+					<div style="text-align: center;"><span class="tech-badge pillar-tag" style="margin-bottom: 0.75rem; display: inline-block;">AI automation systems</span></div>
 					<div class="project-image">
 						<a href="https://govconmaker.com" rel="noopener noreferrer" target="_blank">
 							<img alt="GovConMaker Screenshot" src="img/GovConOutline.png" style="cursor: pointer;">
@@ -1831,23 +1905,18 @@
 					<div class="outcome-blocks">
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="search"></i></span>
-							<h4>Find the Right RFPs</h4>
+							<h4>Find the right RFPs</h4>
 							<p>AI-powered contract discovery tailored to your capabilities</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="file-check"></i></span>
-							<h4>Generate Compliant Documents</h4>
+							<h4>Generate compliant documents</h4>
 							<p>Capability statements and summaries instantly aligned to requirements</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="zap"></i></span>
-							<h4>Write Faster Proposals</h4>
+							<h4>Write faster proposals</h4>
 							<p>Turn RFPs into structured drafts in minutes</p>
-						</div>
-						<div class="outcome-card">
-							<span class="icon"><i data-lucide="layout-dashboard"></i></span>
-							<h4>One Simple Dashboard</h4>
-							<p>From discovery to submission, no spreadsheets required</p>
 						</div>
 					</div>
 					<div class="tech-stack-section">
@@ -1873,7 +1942,7 @@
 		</section>
 
 		<!-- ── FOOTER SECTION ── -->
-		<section class="section">
+		<section class="section reveal">
 			<footer>
 				<p id="footer-year">- 2025 -</p>
 			</footer>
@@ -1908,7 +1977,25 @@
 
 		lucide.createIcons();
 
-
+		// Gentle section fade-in on scroll. No-op under prefers-reduced-motion,
+		// since .reveal only carries opacity/transform rules inside that media query.
+		if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+			const revealObserver = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						revealObserver.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.12 });
+			document.querySelectorAll('.section.reveal').forEach(function (el) {
+				revealObserver.observe(el);
+			});
+		} else {
+			document.querySelectorAll('.section.reveal').forEach(function (el) {
+				el.classList.add('is-visible');
+			});
+		}
 
 		function toggleDropdown(event) {
 			event.stopPropagation();
@@ -1936,7 +2023,7 @@
 			event.preventDefault();
 			const markdownText = `# Michael Mentzer-Hernández
 
-An experienced instructional designer and global adult educator with a calm, inquisitive nature. Specialized in rapid learning development, AI integration, and knowledge management. Founder of IERhub.com, a TDLR-approved continuing education provider powered by a multi-agent AI curriculum pipeline. Brings extensive international experience from teaching in Afghanistan, Iraq, Saudi Arabia, and South Korea. Has a reputation for professionalism, cultural sensitivity, and effectiveness in high-pressure, low-resource, and multicultural environments. Committed to designing learning experiences that emphasize accessibility and comprehension for diverse global audiences.
+AI &amp; Data Workflow Specialist building automation systems, agent workflows, and data integrations for real operations. Founder of IERhub.com, a TDLR-approved continuing education provider powered by a multi-agent AI curriculum pipeline. Brings a decade of international teaching and learning design experience from Afghanistan, Iraq, Saudi Arabia, and South Korea, including two active conflict zones, which is the origin of a systems judgment built for minimal resources and minimal supervision. Effective in high-pressure, low-resource, and multicultural environments.
 
 ---
 
@@ -1951,7 +2038,7 @@ An experienced instructional designer and global adult educator with a calm, inq
 
 ---
 
-## Professional Experience
+## AI & Data Systems, 2025 to Present
 
 ### AI & Data Workflow Specialist - Grapevinedata.com
 **AUG 2026 – Present | Location: Remote**
@@ -1968,6 +2055,12 @@ An experienced instructional designer and global adult educator with a calm, inq
 
 - **AI Advisor & Developer** – Automated [multi-source RFP](https://mermaid.ai/d/ad2142f1-c91e-4b4c-a64e-e0c7ee5407a0) and [Grants.gov](https://mermaid.ai/d/d9352ab6-f6cb-48d2-9421-fc30033d1eff) discovery, reducing weekly research by 15 hours.
 - **Instructional Designer** – Advises on global IoT strategy while leading AI training and knowledge infrastructure development.
+
+---
+
+## Global Education & Learning Design, 2014 to 2026
+
+This chapter is the origin of the systems judgment above: teaching and designing learning on-site in Saudi Arabia, Iraq, and Afghanistan, then at Meta's scale, is where the habit of building for minimal resources and minimal supervision was earned.
 
 ### Learning Solutions Partner - Meta: Facebook | Instagram | Threads
 **MAY 2022 – JUL 2025 | Locations: Austin, Texas, USA & Dublin, Ireland**
@@ -2022,7 +2115,7 @@ An experienced instructional designer and global adult educator with a calm, inq
 
 ### IERhub.com - AI-Automated Continuing Education Business
 **Founder & Instructional Architect | TDLR-Approved CE Provider**
-**April 2026 – Present**
+**APR 2026 – Present**
 
 A licensed Texas continuing education provider, live and selling since July 2026. CourseFactory v2 turns dense regulatory source material into fact-checked, compliance-ready courses through five stages, six blocking checkers, and three human approval gates, condensing months of curriculum development into hours for a market of licensees across Texas regulated trades.
 
@@ -2039,7 +2132,7 @@ Built With: Claude Code, Multi-Agent Skills, RAG Pipeline, Moodle LMS, PostgreSQ
 
 ### WriteTrace - Chrome Extension Project
 **Full-Stack Application & Chrome Extension**
-**March 2026 – Present**
+**MAR 2026 – Present**
 
 A full-stack web platform and privacy-first Chrome Extension that captures and replays the writing journey, integrating real-time document analysis with a scalable serverless backend and freemium subscription model.
 
@@ -2055,7 +2148,7 @@ Built With: Next.js 16, React 19, TypeScript, Tailwind CSS v4, Firebase & Cloud 
 
 ### Localized Automation Project
 **Automated Contract Discovery & Qualification System**
-**January 2026 – Present**
+**JAN 2026 – Present**
 
 Built for Gate 15, a cybersecurity consulting firm, to automate contract discovery and reduce manual review time by 90%.
 
