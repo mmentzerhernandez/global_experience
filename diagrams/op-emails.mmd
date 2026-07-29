@@ -1,0 +1,67 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    classDef stripe fill:#dbe9ff,stroke:#3358d4,color:#122a6b;
+    classDef moodle fill:#d4f4dd,stroke:#1a7f37,color:#0a3d1a;
+    classDef app fill:#fff3cd,stroke:#b58900,color:#5c4400;
+    classDef dormant fill:#f3e8ff,stroke:#8b5cf6,color:#4c1d95,stroke-dasharray:5 3;
+    classDef none fill:#eceff1,stroke:#90a4ae,color:#37474f,stroke-dasharray:4 3;
+
+    %% LIVE TODAY
+    subgraph LIVE["Live today: site payment-link funnel"]
+        pay["Buyer pays on<br/>Stripe hosted link"]
+        css["checkout.session.completed"]
+        newu{"New or<br/>repeat buyer?"}
+        forgot["Forgot-password<br/>in Moodle LMS"]
+        rf["charge.refunded"]
+        dp["charge.dispute.created"]
+        form["Help-center<br/>contact form"]
+        lapse_near["~30 days before<br/>CE window lapses"]
+        lapse_hit["CE window lapses"]
+
+        pay --> css --> newu
+        pay -.->|"if dashboard on"| Lreceipt["Payment receipt to BUYER"]:::stripe
+        newu -->|"new, createpassword:1"| Lwelcome["Set-password welcome to BUYER"]:::moodle
+        newu -->|"repeat, reset request"| Lreset["Password reset to BUYER"]:::moodle
+        forgot --> Lreset2["Password reset to BUYER"]:::moodle
+
+        rf --> Lstaffrf["Refund staff alert to staff"]:::app
+        rf -.->|"if dashboard on"| Lsrefund["Refund receipt to BUYER"]:::stripe
+        dp --> Lstaffdp["Dispute staff alert to staff"]:::app
+        dp -.->|"Stripe side"| Lop["Payment or dispute alert to OPERATOR"]:::stripe
+        form --> Lform["Contact message to staff, replyTo buyer"]:::app
+
+        lapse_near -->|"pre-lapse reminder, default on"| Lprelapse["Renewal heads-up to BUYER"]:::moodle
+        lapse_hit -->|"local_recompletion"| Lreset3["CE-reset notice to BUYER"]:::moodle
+    end
+
+    %% COMPLETION GAP
+    complete["Buyer finishes four modules,<br/>certificate issued"] --> GAP["Gap: copy promises an auto-emailed<br/>certificate, but no active sender<br/>exists yet, only the roster queue"]:::none
+
+    %% DORMANT
+    subgraph DORM["Built but dormant: Moodle LMS payment gateway suite, endpoint not live"]
+        dcss["Moodle LMS native payment<br/>enrol_fee hook"] -->|"send_receipt"| Dreceipt["Branded TDLR receipt to BUYER"]:::dormant
+        drf["Webhook charge.refunded, mapped"] -->|"send_refund"| Drefund["Refund notice to BUYER plus staff copy"]:::dormant
+        drf2["Webhook unmapped, fail-safe"] -->|"unmapped_alert"| Dunmapped["Manual action needed, to staff"]:::dormant
+        ddp["Webhook dispute"] -->|"send_dispute_alert"| Ddispute["Dispute alert to staff"]:::dormant
+    end
+
+    %% SECURITY
+    login["Watched account signs in<br/>from a new device"] -->|"local_loginalert"| Salert["Login alert to the staff watch address"]:::app
+
+    %% LEGEND
+    subgraph LEGEND["Legend"]
+        g1["Sent by Stripe, dashboard toggle"]:::stripe
+        g2["Sent by Moodle LMS"]:::moodle
+        g3["Sent by the application"]:::app
+        g4["Built but dormant"]:::dormant
+        g5["No email, a known gap"]:::none
+    end

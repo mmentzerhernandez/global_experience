@@ -15,18 +15,15 @@ flowchart TD
 
     UND["Underscore folders, cross-cutting<br/><br/>_Admin · _Continuity<br/>_Credentials · _Archive"]:::report
 
-    RET["8 · Certificate mail by post<br/>retired, folded into folder 6"]:::retired
 
     ZERO["Zero-rename zones<br/>scheduled jobs, skills, and handoffs<br/>reach these by absolute path"]:::gate
 
     ROOT --> NUM
     ROOT --> UND
-    NUM -.-> RET
     NUM --> ZERO
     UND --> ZERO
 
     classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
     classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
-    classDef retired fill:#ECEFF1,stroke:#90A4AE,color:#546E7A
     classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
