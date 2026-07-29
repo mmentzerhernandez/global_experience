@@ -1,0 +1,38 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    START["A course module needs building"]:::people
+
+    PLAN["Plan mode, stronger model<br/>gather requirements, write the plan"]:::author
+    FORK{{"Genuine decision fork?"}}:::gate
+    TOOLS["Deep research, decision process,<br/>or plan review<br/>only when the fork is real"]:::sweep
+    APPROVE{{"Human approves the plan"}}:::gate
+    SWITCH["Switch model inside the same session<br/>context carries over, nothing re-derived"]:::access
+    EXEC["Faster model executes the plan"]:::package
+    CF["Hands off to CourseFactory v2"]:::course
+
+    START --> PLAN
+    PLAN --> FORK
+    FORK -->|"yes"| TOOLS
+    TOOLS --> APPROVE
+    FORK -->|"no, most of the time"| APPROVE
+    APPROVE -->|"approved"| SWITCH
+    APPROVE -.->|"revise"| PLAN
+    SWITCH --> EXEC
+    EXEC --> CF
+
+    classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef author fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef package fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef sweep fill:#F3E5F5,stroke:#6A1B9A,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
