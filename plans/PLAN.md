@@ -125,10 +125,10 @@ produces the unique, self-scoped id the plan requires; never omit it.
 
 **Files:** `id-skills.html`, `diagrams/`
 
-- [ ] **Step 1: Write the parent panel** `coursefactory-overview` from the content-brief
+- [x] **Step 1: Write the parent panel** `coursefactory-overview` from the content-brief
   section "Panel 3 parent", including the scaffold entry command and the point that stage
   order is enforced by input dependencies rather than a driver script.
-- [ ] **Step 1b: Kill the dead drill-links.** Session 1 left 19 dangling
+- [x] **Step 1b: Kill the dead drill-links.** Session 1 left 19 dangling
   `href="#..."` / `xlink:href="#..."` references to the seven deleted panels, buried
   inside the inline SVGs of `business-overview` (and the old `coursefactory-overview`
   diagram, which Step 2 replaces wholesale). Find them with
@@ -136,7 +136,7 @@ produces the unique, self-scoped id the plan requires; never omit it.
   Any that survive Step 2 must be repointed at a live panel id or have their wrapping
   `<a>` unwrapped. This is the one sanctioned exception to "never edit inside an SVG":
   change the href attribute only, never the geometry. Re-run the grep and expect zero.
-- [ ] **Step 2: Author the overview diagram.** ALREADY DONE. The source is
+- [x] **Step 2: Author the overview diagram.** ALREADY DONE. The source is
   `diagrams/coursefactory-overview.mmd` and the rendered SVG is
   `diagrams/rendered/coursefactory-overview.svg`, id `coursefactory-overview-svg`.
   Inline that SVG into a `<div class="canvas">`; do not re-render unless you change the
@@ -144,17 +144,17 @@ produces the unique, self-scoped id the plan requires; never omit it.
   stages 0 through 4 with the three gates as decision nodes between them, rendered with
   `npx @mermaid-js/mermaid-cli -i diagrams/coursefactory-overview.mmd -o /tmp/... --svgId cf-overview-svg`
   and inline the result in a `<div class="canvas">`.
-- [ ] **Step 3: Write the five stage panels** (`cf-stage-0` through `cf-stage-4`) from
+- [x] **Step 3: Write the five stage panels** (`cf-stage-0` through `cf-stage-4`) from
   the corresponding content-brief sections. Each gets the in/out framing, the concrete
   specifics, and a short diagram where it earns one. Keep prose tight; these are detail
   panels, not essays.
-- [ ] **Step 4: Write the checkers panel** `cf-checkers`. Six named checkers with what
+- [x] **Step 4: Write the checkers panel** `cf-checkers`. Six named checkers with what
   each validates and whether it blocks, plus the Stage 4 report-only sweep. Do not claim
   "seven checkers". The fact-checker diagram is ALREADY RENDERED at
   `diagrams/rendered/factcheck-cascade.svg` (id `factcheck-cascade-svg`); inline it.
-- [ ] **Step 5: Write the gates panel** `cf-gates`. The three gates, what a human decides
+- [x] **Step 5: Write the gates panel** `cf-gates`. The three gates, what a human decides
   at each, the approval files they write, and why piecemeal checker runs cannot skip them.
-- [ ] **Step 6: Verify.** Confirm no new `id="my-svg"`
+- [x] **Step 6: Verify.** Confirm no new `id="my-svg"`
   (`grep -c 'id="my-svg"' id-skills.html` must still be the pre-existing count minus any
   removed with deleted panels, and never increase). Confirm each new SVG's embedded style
   selectors are prefixed with its own id. Serve on 127.0.0.1, check all six new panels at
