@@ -1,0 +1,32 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    ROOT["IERHUB.com"]:::people
+
+    NUM["Numbered folders, one workstream each<br/><br/>1 · Right to operate<br/>2 · Paid acquisition<br/>3 · Tool library<br/>4 · Compliance<br/>5 · Curriculum development<br/>6 · Funnel and delivery<br/>7 · Social media<br/>9 · Design<br/>10 · Plans<br/>11 · Research"]:::access
+
+    UND["Underscore folders, cross-cutting<br/><br/>_Admin · _Continuity<br/>_Credentials · _Archive"]:::report
+
+    RET["8 · Certificate mail by post<br/>retired, folded into folder 6"]:::retired
+
+    ZERO["Zero-rename zones<br/>scheduled jobs, skills, and handoffs<br/>reach these by absolute path"]:::gate
+
+    ROOT --> NUM
+    ROOT --> UND
+    NUM -.-> RET
+    NUM --> ZERO
+    UND --> ZERO
+
+    classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef retired fill:#ECEFF1,stroke:#90A4AE,color:#546E7A
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px

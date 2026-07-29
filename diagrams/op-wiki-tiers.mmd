@@ -1,0 +1,33 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    T1["Tier 1 · Master wiki<br/>navigation and governance only<br/>never operational facts"]:::people
+    T2["Tier 2 · One wiki per workstream<br/>business-level current state"]:::access
+    T3["Tier 3 · Deep wiki beside the code<br/>authoritative for its own domain"]:::course
+
+    CONF{{"Two tiers disagree?"}}:::gate
+    WIN["The more specific tier wins"]:::enforce
+    FIX["Fix at the authoritative source"]:::enforce
+    SYNC["Sync upward"]:::enforce
+    HTML["One self-contained HTML briefing<br/>of the whole business"]:::report
+
+    T3 -->|"rolls up into"| T2
+    T2 -->|"rolls up into"| T1
+    CONF --> WIN --> FIX --> SYNC
+    SYNC --> T1
+    T1 --> HTML
+
+    classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
