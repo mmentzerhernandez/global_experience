@@ -113,3 +113,29 @@ of the main stylesheet.
 `GATE: Session 4 Step 5.` The owner reviews the finished page before anything is merged
 or pushed. Pushing to `main` publishes to GitHub Pages. No session may advance this gate
 on its own.
+
+---
+
+## Update: sessions 3 and 4 complete (2026-07-29)
+
+All PLAN.md work is done except the final human gate. Commits `164687b`, `d281053`,
+`1243136`, `d336c29` on `coursefactory-v2-refresh`. Nothing pushed.
+
+Final verification, all passing:
+- 13 panels, 0 placeholders, 0 orphan anchors, guard markers intact, guard script
+  passes `node --check`.
+- 0 em dashes in `id-skills.html` and `index.html`.
+- 0 references to the retired id-* skills, RLO taxonomy, Thinkific, or NotebookLM.
+- 0 occurrences of the disputed price; retention corrected to two years.
+- `id="my-svg"` collisions reduced from 11 to 2 (never increased).
+- No horizontal overflow at 360, 390, or 430px; no tap target under 44px.
+
+Two problems found and fixed during session 4 that earlier sessions missed: the
+`session-pipeline` panel still carried a diagram naming the six retired id-* skills, now
+replaced by `diagrams/session-pipeline.mmd`; and the sidebar still carried stale labels
+and "Placeholder" subtitles.
+
+WATERFALL: COMPLETE (pending the gate below)
+
+GATE: The owner reviews the page before anything merges or pushes. Pushing to `main`
+publishes to GitHub Pages.

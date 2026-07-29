@@ -164,27 +164,27 @@ produces the unique, self-scoped id the plan requires; never omit it.
 
 **Files:** `id-skills.html`, `diagrams/`
 
-- [ ] **Step 1: Write the compliance panel** `compliance-engineering` from the
+- [x] **Step 1: Write the compliance panel** `compliance-engineering` from the
   content-brief. Lead with the four gates and the per-day penalty, then the engineering:
   the seat-timer versus dwell-gate distinction, server-computed credit with the grace
   cap, server-side enforcement independent of JavaScript, the auditor deliberately not
   exempt, EN/ES parity. Include the measured accrual numbers and the honest limitations.
-- [ ] **Step 2: Diagram the dwell gate** (`diagrams/dwell-gate.mmd`, `flowchart TD`):
+- [x] **Step 2: Diagram the dwell gate** (`diagrams/dwell-gate.mmd`, `flowchart TD`):
   client beat only when focused and visible, server computes min(gap, 75s grace) bounded
   by time since first view, `after_config` gate on every request, capability exemption
   check, credit written or refused.
-- [ ] **Step 3: Write the operating panel** `operating-system` from the content-brief,
+- [x] **Step 3: Write the operating panel** `operating-system` from the content-brief,
   and author its 9-node portrait diagram (`diagrams/operating-loop.mmd`) exactly as
   specified at the end of that brief section.
-- [ ] **Step 4: Update the delivery panel** `tx4hrce-delivery`. Rewrite the prose for
+- [x] **Step 4: Update the delivery panel** `tx4hrce-delivery`. Rewrite the prose for
   Stripe, Lob certificate mailing, and the EN/ES split. In its existing SVG, and ONLY
   these two edits: change the "Pay $29 / card payment via Stripe" node text to remove the
   price, and change "Records kept four years" to two years. Both are `foreignObject` text
   nodes; edit the text content only, never the geometry.
-- [ ] **Step 5: Update the business overview panel** `business-overview` with current
+- [x] **Step 5: Update the business overview panel** `business-overview` with current
   facts and the extended milestone table, marking 2026-07-08 as the major milestone row.
   Add the future course pipeline.
-- [ ] **Step 6: Verify.** Same structural greps as session 2, plus
+- [x] **Step 6: Verify.** Same structural greps as session 2, plus
   `grep -c '\$29' id-skills.html` (expect 0) and confirm "four years" no longer appears in
   the retention node. Serve on 127.0.0.1, review all 13 panels at 360px. Stop the server.
   Commit.
@@ -193,18 +193,18 @@ produces the unique, self-scoped id the plan requires; never omit it.
 
 **Files:** `id-skills.html`, `index.html`, `img/`
 
-- [ ] **Step 1: Mobile audit.** At 360, 390, and 430px: confirm no horizontal body
+- [x] **Step 1: Mobile audit.** At 360, 390, and 430px: confirm no horizontal body
   scroll, every new table stacks into cards, tap targets are 44px or larger, and each new
   diagram opens legibly rather than zoomed to illegibility. Fix by adding rules at the END
   of the main stylesheet only.
-- [ ] **Step 2: Session pipeline panel copy.** Write `session-pipeline` from the
+- [x] **Step 2: Session pipeline panel copy.** Write `session-pipeline` from the
   content-brief if session 2 left it as a stub. Plan mode, model switch in the same
   session, the three fork-gated skills. No mention of any earlier pipeline generation.
-- [ ] **Step 3: Update `index.html`.** The card copy, alt text, and prose near lines
+- [x] **Step 3: Update `index.html`.** The card copy, alt text, and prose near lines
   1612-1663, 2036, and 2088 stop saying "six-stage AI pipeline" and describe the
   CourseFactory v2 system instead. Regenerate `img/id-skills-pipeline.svg` from the new
   overview diagram if the old thumbnail no longer represents the page.
-- [ ] **Step 4: Full verification.** Structural greps; `node --check` on the extracted
+- [x] **Step 4: Full verification.** Structural greps; `node --check` on the extracted
   guard script; confirm zero em dashes in new copy
   (`grep -c '—' id-skills.html` should not increase over the pre-change count); confirm
   no `$29`, no server IPs, no entity file numbers. Serve on 127.0.0.1 one last time,
