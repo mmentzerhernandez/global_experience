@@ -94,26 +94,26 @@ produces the unique, self-scoped id the plan requires; never omit it.
 
 **Files:** `id-skills.html`
 
-- [ ] **Step 1: Remove the retired panels.** Delete the seven `<section class="panel">`
+- [x] **Step 1: Remove the retired panels.** Delete the seven `<section class="panel">`
   blocks with ids `1-id-architect`, `2-id-chunker`, `3-id-scripter`, `4-id-evaluator`,
   `5-id-presenter`, `6-id-qa-auditor`, and `rlo-taxonomy`. Each is contiguous, opened by
   its `<section class="panel"` line and closed by the next `</section>`. Delete their
   matching sidebar `.box` anchors inside `<div class="nest" id="pipeline-nest">`. Do not
   touch the `pipeline-overview`, `business-overview`, `content-development-workflow`, or
   `tx4hrce-delivery` panels yet.
-- [ ] **Step 2: Rename the surviving panels' ids.** `content-development-workflow`
+- [x] **Step 2: Rename the surviving panels' ids.** `content-development-workflow`
   becomes `session-pipeline`; `pipeline-overview` becomes `coursefactory-overview`.
   Update both the `<section id=...>` and every `href="#..."` that points at them,
   including any `xlink:href` inside existing SVG drill nodes.
-- [ ] **Step 3: Add the new sidebar entries** for `cf-stage-0` through `cf-gates` inside
+- [x] **Step 3: Add the new sidebar entries** for `cf-stage-0` through `cf-gates` inside
   the nest, plus top-level entries for `compliance-engineering` and `operating-system`,
   using the swatches in the table above and the markup in `shell-conventions.md`. Leave
   the panel bodies as empty stubs (`<section class="panel" id="..." style="--swatch: ...">
   <div class="detail-head"><h2>Placeholder</h2></div></section>`) so navigation works.
-- [ ] **Step 4: Update the title and header.** Page `<title>` and the header `<h1>` both
+- [x] **Step 4: Update the title and header.** Page `<title>` and the header `<h1>` both
   change to reflect that the business is live and this is how it is built and run. Keep
   the `← Portfolio` back-link untouched.
-- [ ] **Step 5: Verify.** Run:
+- [x] **Step 5: Verify.** Run:
   `grep -c '<section class="panel"' id-skills.html` (expect 13);
   `grep -o 'href="#[a-z0-9-]*"' id-skills.html | sort -u` and confirm every anchor has a
   matching panel id;
@@ -128,9 +128,20 @@ produces the unique, self-scoped id the plan requires; never omit it.
 - [ ] **Step 1: Write the parent panel** `coursefactory-overview` from the content-brief
   section "Panel 3 parent", including the scaffold entry command and the point that stage
   order is enforced by input dependencies rather than a driver script.
-- [ ] **Step 2: Author the overview diagram.** `diagrams/coursefactory-overview.mmd`,
-  Mermaid `flowchart TD`, showing stages 0 through 4 with the three gates as decision
-  nodes between them. Use the classDef families in `shell-conventions.md`. Render with
+- [ ] **Step 1b: Kill the dead drill-links.** Session 1 left 19 dangling
+  `href="#..."` / `xlink:href="#..."` references to the seven deleted panels, buried
+  inside the inline SVGs of `business-overview` (and the old `coursefactory-overview`
+  diagram, which Step 2 replaces wholesale). Find them with
+  `grep -o 'href="#\(1-id-architect\|2-id-chunker\|3-id-scripter\|4-id-evaluator\|5-id-presenter\|6-id-qa-auditor\|rlo-taxonomy\)"' id-skills.html | sort | uniq -c`.
+  Any that survive Step 2 must be repointed at a live panel id or have their wrapping
+  `<a>` unwrapped. This is the one sanctioned exception to "never edit inside an SVG":
+  change the href attribute only, never the geometry. Re-run the grep and expect zero.
+- [ ] **Step 2: Author the overview diagram.** ALREADY DONE. The source is
+  `diagrams/coursefactory-overview.mmd` and the rendered SVG is
+  `diagrams/rendered/coursefactory-overview.svg`, id `coursefactory-overview-svg`.
+  Inline that SVG into a `<div class="canvas">`; do not re-render unless you change the
+  source. Original instruction, kept for reference: Mermaid `flowchart TD`, showing
+  stages 0 through 4 with the three gates as decision nodes between them, rendered with
   `npx @mermaid-js/mermaid-cli -i diagrams/coursefactory-overview.mmd -o /tmp/... --svgId cf-overview-svg`
   and inline the result in a `<div class="canvas">`.
 - [ ] **Step 3: Write the five stage panels** (`cf-stage-0` through `cf-stage-4`) from
@@ -138,10 +149,9 @@ produces the unique, self-scoped id the plan requires; never omit it.
   specifics, and a short diagram where it earns one. Keep prose tight; these are detail
   panels, not essays.
 - [ ] **Step 4: Write the checkers panel** `cf-checkers`. Six named checkers with what
-  each validates and whether it blocks, plus the Stage 4 report-only sweep. Give the
-  retrieval-grounded fact-checker its own diagram
-  (`diagrams/factcheck-cascade.mmd`): sectionize, hybrid retrieval (BM25 plus dense),
-  rerank, floor gate, NLI judge, escalation tier, verdict. Do not claim "seven checkers".
+  each validates and whether it blocks, plus the Stage 4 report-only sweep. Do not claim
+  "seven checkers". The fact-checker diagram is ALREADY RENDERED at
+  `diagrams/rendered/factcheck-cascade.svg` (id `factcheck-cascade-svg`); inline it.
 - [ ] **Step 5: Write the gates panel** `cf-gates`. The three gates, what a human decides
   at each, the approval files they write, and why piecemeal checker runs cannot skip them.
 - [ ] **Step 6: Verify.** Confirm no new `id="my-svg"`
