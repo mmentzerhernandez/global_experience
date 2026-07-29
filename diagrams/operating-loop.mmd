@@ -10,27 +10,47 @@ config:
 ---
 flowchart TD
     OWNER["Goal is set"]:::people
-    PLANS["10-Plans<br/>PLAN.md and HANDOFF-N"]:::access
-    WATERFALL["Session waterfall<br/>stop at 50%, hand off"]:::enforce
+
+    subgraph PLANS["10-Plans, status is the folder"]
+        direction TB
+        FUT["FuturePlans/<br/>flat dated files<br/>YYYY-MM-DD-topic.md"]:::access
+        CUR["CurrentPlans/&lt;set&gt;/<br/>PLAN.md plus HANDOFF-1..N<br/>one folder per plan set"]:::enforce
+        PAST["PastPlans/<br/>complete sets"]:::course
+        INACT["InactivePlans/<br/>paused or superseded"]:::report
+    end
+
+    WATERFALL["Session waterfall<br/>stop at 50%, write HANDOFF-N"]:::enforce
+    DOD{{"Definition of done<br/>boxes checked, verification recorded,<br/>folder moved, map logged"}}:::gate
+    BOARD["Tasks/WORK-STATUS.md<br/>standing board indexing the sets"]:::access
+    DRIFT["check-drift.sh<br/>exits non-zero when a finished set<br/>is still sitting in CurrentPlans"]:::refuse
+    MAP["MIGRATION-MAP.md<br/>every move logged"]:::report
+
     MANIFEST["Manifest<br/>durable decisions with dates"]:::report
     WIKI["Three-tier wiki<br/>master, workstream, deep"]:::course
-    BRIEFING["Rendered briefing<br/>the whole business in one page"]:::course
-    WORK["Ten workstream folders<br/>numbered by concern"]:::access
+    WORK["Ten workstream folders"]:::access
     MIRROR["Continuity mirror<br/>daily, sanitized"]:::enforce
-    DEADMAN["Dead-man check<br/>opens an issue after 7 quiet days"]:::report
 
-    OWNER --> PLANS
-    PLANS --> WATERFALL
+    OWNER --> FUT
+    FUT -->|"kickoff moves the file, never copies"| CUR
+    CUR --> WATERFALL
+    WATERFALL -->|"next session reads the handoff"| CUR
+    CUR --> DOD
+    DOD -->|"met"| PAST
+    DOD -->|"parked"| INACT
+    PAST --> MAP
+    CUR -.->|"indexed by"| BOARD
+    DOD -.->|"not met but marked complete"| DRIFT
+    DRIFT -.->|"flagged for repair"| CUR
+
     WATERFALL -->|"decisions"| MANIFEST
-    WATERFALL -->|"next session reads the handoff"| PLANS
     MANIFEST --> WIKI
     MANIFEST --> WORK
-    WIKI --> BRIEFING
     WORK --> MIRROR
-    MIRROR --> DEADMAN
 
     classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
     classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
     classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
     classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef refuse fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
