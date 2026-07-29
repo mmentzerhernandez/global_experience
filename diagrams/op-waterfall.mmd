@@ -10,7 +10,7 @@ config:
 ---
 flowchart TD
     S1["Session 1<br/>works the plan"]:::access
-    HALF{{"Half the context used"}}:::gate
+    HALF{{"Half the session context used"}}:::gate
     STOP["Work stops cleanly<br/>half-done edits reverted"]:::enforce
     H1["HANDOFF-1.md"]:::report
     S2["Session 2<br/>reads the handoff, nothing else"]:::access

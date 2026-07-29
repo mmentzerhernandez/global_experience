@@ -22,21 +22,17 @@ flowchart TD
     KM["Wiki"]:::course
     CM["Generated graph"]:::sweep
 
-    RULE["Stored twice, it eventually<br/>disagrees with itself"]:::refuse
 
     FACT --> KIND
     KIND --> D --> DM
     KIND --> P --> PM
     KIND --> K --> KM
     KIND --> C --> CM
-    DM -.->|"never holds progress"| RULE
-    PM -.-> RULE
 
     classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
     classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
     classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
     classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
-    classDef refuse fill:#FFEBEE,stroke:#C62828,color:#000000
     classDef sweep fill:#F3E5F5,stroke:#6A1B9A,color:#000000
     classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
