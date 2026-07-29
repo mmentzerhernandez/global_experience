@@ -1,0 +1,28 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+    fontSize: "18px"
+---
+flowchart LR
+    S0["Intake"]:::intake
+    S1["Groundwork"]:::author
+    G1{{"Gate 1"}}:::gate
+    S2["Author"]:::author
+    G2{{"Gate 2"}}:::gate
+    S3["Package"]:::package
+    G3{{"Gate 3"}}:::gate
+    S4["Sweep"]:::sweep
+
+    S0 --> S1 --> G1 --> S2 --> G2 --> S3 --> G3 --> S4
+
+    classDef intake fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef author fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef package fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef sweep fill:#F3E5F5,stroke:#6A1B9A,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
