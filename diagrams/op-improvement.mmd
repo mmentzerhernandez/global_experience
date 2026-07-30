@@ -1,0 +1,31 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    CAP["Session checkpoint:<br/>lessons step,<br/>3 questions in the handoff"]:::access
+    PROP["Proposal staged<br/>in PROPOSALS.md,<br/>status proposed"]:::report
+    GATE{{"Owner morning pass"}}:::gate
+    FROZEN["Rejected or untouched:<br/>frozen, never applied"]:::note
+    APPLY["Executor applies<br/>per APPLY.md:<br/>backup first, exact diff only"]:::enforce
+    MEASURE["Monday weekly review<br/>scores the targeted dimension"]:::course
+    REVERT["Two flat or worse reviews:<br/>revert candidate,<br/>back to the owner"]:::note
+
+    CAP --> PROP --> GATE
+    GATE -- approved --> APPLY --> MEASURE
+    GATE -- rejected --> FROZEN
+    MEASURE -- no movement x2 --> REVERT
+    REVERT -.-> GATE
+
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
+    classDef note fill:#FFFDE7,stroke:#9E9D24,color:#000000
