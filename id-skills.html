@@ -2849,7 +2849,7 @@
         <section class="panel" id="operating-system" style="--swatch: #4527a0">
           <div class="detail-head">
             <h2>2 - Business Operations</h2>
-            <span class="pill" style="--swatch: #4527a0">Govern &middot; One fact, one home</span>
+         
           </div>
 
           <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
@@ -2879,8 +2879,7 @@
            <br> <br>
             <h3 style="color: #1a202c; margin-bottom: 8px">One Fact, One Home</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
-              Each kind of fact has exactly one place to live. Nothing is duplicated across homes, because a fact stored twice will eventually disagree with itself.
-            </p>
+Every fact has a single, designated place to live. By eliminating duplication across storage locations, you prevent information from diverging and contradicting itself over time.            </p>
           </div>
 
           <div class="canvas">
@@ -2891,7 +2890,7 @@
              <br> <br>
             <h3 style="color: #1a202c; margin-bottom: 8px">Session Waterfall</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
-              No session runs past 50% of its context window, because LLM quality degrades long before the hard limit. Work stops cleanly before or at that mark and the handoff carries everything the next session needs, so it starts cleanly instead of inheriting an over grown context.
+              No session runs past 50% of its context window, because LLM quality degrades long before the hard limit. Work stops cleanly before or at that mark and the handoff carries everything the next session needs, so it starts cleanly instead of inheriting bloated context.
             </p>
           </div>
 
@@ -2903,7 +2902,7 @@
           <br><br>
            <h3 style="color: #1a202c; margin-bottom: 8px">Self Improvement Loop</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
-              Every session ends by answering three lessons questions in its handoff. Any implied skill or doc change is staged as a proposal in a queue, never applied directly. The owner approves or rejects each one in a daily minute, and approved diffs are applied by an executor that takes a backup first and makes the exact diff only. A scheduled Monday review scores whether each change moved the metric it targeted, and flags failures for revert. Shipped 2026-07-30 in the IERhub workspace.
+              Every session ends by answering three lessons questions in its handoff. Any implied skill or doc change is staged as a proposal in a queue, never applied directly. Approvals and rejections are done quickly, and approved diffs are applied by an executor agent that takes a backup first and makes the exact change only. A scheduled weekly review scores whether each change moved the metric it targeted, and flags failures for revert. Shipped 2026-07-30 in the IERhub workspace.
             </p>
           </div>
 
@@ -2913,34 +2912,33 @@
 
           <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
             <br><br>
-            <h3 style="color: #1a202c; margin-bottom: 8px">How the "Plans" Folder is Organized</h3>
-            <p style="margin-top: 0; margin-bottom: 16px">
-              Every plan in the business lives under one folder, and a plan's status is which subfolder it sits in.
-              There is no status field, no label, and no spreadsheet. Moving the folder is the only way status
-              changes, which means the filesystem cannot drift out of agreement with a tracker, because there is no
-              separate tracker to disagree with.
-            </p>
-            <ul style="padding-left: 20px">
-              <li style="margin-bottom: 8px">
-                <strong>Future Plans:</strong> approved but not started, kept as flat dated files named by date and
-                topic. Cheap to write, cheap to abandon. Currently 17.
-              </li>
-              <li style="margin-bottom: 8px">
-                <strong>Current Plans:</strong> active work. Kickoff <em>moves</em> the dated file into a new folder
-                named for its workstream and topic, never copies it, so a file left behind in FuturePlans is proof
-                the kickoff was done wrong. Each set folder holds one PLAN.md, the original scope, plus the
-                numbered handoffs the waterfall produces. Currently 19 sets.
-              </li>
-              <li style="margin-bottom: 8px">
-                <strong>Inactive Plans:</strong> paused or superseded, kept rather than deleted so a later session
-                can see what was tried and why it stopped. Currently 6.
-              </li>
-              <li style="margin-bottom: 8px">
-                <strong>Past Plans:</strong> finished sets, 31 of them, each still carrying its full plan and handoff
-                trail as the record of how that piece of the business was built.
-              </li>
-            </ul>
+            
             <br><br>
+           
+
+
+<p style="margin-top: 0; margin-bottom: 16px">
+             
+
+
+
+          <h3 style="color: #1a202c; margin-bottom: 8px">How Plans are Made & Run</h3>
+<ul>
+             <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><b>Initial Planning - Fable -</b> Architectural design and writing of the plan.</li>
+ <li style="margin-bottom: 8px"><b>Core Implemetnation of Plan - Sonnet (V5)</b>: Runs the primary waterfall workflow by executing steps, writing code, and producing handoffs for new clean context sessions.</li>
+ <li style="margin-bottom: 8px"><b>Complex Decision-Making - Opus (V4.6)</b> - Used rarely, and only at crossroads or to evaluate risks that were not expressly described during planning stage with Fable model.; avoids using V4.8 model.</li>
+  <li style="margin-bottom: 8px"><b>Administrative Edits - Haiku</b>- Manages lightweight structural edits, cleans logs, moves files or does file renaming.</li>
+
+            </ul>
+            <br>
+<p style="margin-top: 0; margin-bottom: 16px">
+           A session with no prior context reads the manifest, then the plan and the highest-numbered handoff,
+              runs the verification script, and continues at the next step. </p>
+
+            <br>
+
+
             <h3 style="color: #1a202c; margin-bottom: 8px">What Makes a Plan Actually Finished</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
               A definition of "done" has four parts, all in one closing pass: every task checkbox in its respective plan
@@ -2970,20 +2968,20 @@
              <ul style="padding-left: 20px">
               <li style="margin-bottom: 8px">
                 <strong>Future Plans:</strong> approved but not started, kept as flat dated files named by date and
-                topic. Cheap to write, cheap to abandon. Currently 17.
+                topic. 
               </li>
               <li style="margin-bottom: 8px">
                 <strong>Current Plans:</strong> active work. Kickoff <em>moves</em> the dated file into a new folder
                 named for its workstream and topic, never copies it, so a file left behind in FuturePlans is proof
                 the kickoff was done wrong. Each set folder holds one PLAN.md, the original scope, plus the
-                numbered handoffs the waterfall produces. Currently 19 sets.
+                numbered handoffs the waterfall produces. 
               </li>
               <li style="margin-bottom: 8px">
                 <strong>Inactive Plans:</strong> paused or superseded, kept rather than deleted so a later session
-                can see what was tried and why it stopped. Currently 6.
+                can see what was tried and why it stopped. 
               </li>
               <li style="margin-bottom: 8px">
-                <strong>Past Plans:</strong> finished sets, 31 of them, each still carrying its full plan and handoff
+                <strong>Past Plans:</strong> finished sets, each still carrying its full plan and handoff
                 trail as the record of how that piece of the business was built.
               </li>
             </ul>
@@ -2999,16 +2997,15 @@
             <p style="margin-top: 0; margin-bottom: 16px">
               Mapping our three disjointed email senders is essential for uncovering system gaps and understanding the actual buyer experience:<br>
 
-• Stripe: Sends receipts (when toggled on).<p>
+<ul>
+             <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px">Stripe: Sends receipts (when toggled on).</li>
 
-• Moodle LMS: Sends account and completion notifications.<p>
+ <li style="margin-bottom: 8px">Moodle LMS: Sends account and completion notifications.</li>
 
-• Application: Sends staff alerts.<p>
-            </p>
-            <p style="margin-top: 0; margin-bottom: 16px">
-              The map is worth keeping because it shows something a feature list would hide. A full payment-gateway
-              email suite is built and wired but sits dormant behind an endpoint that was never switched on.
-            </p>
+ <li style="margin-bottom: 8px">Application: Sends staff alerts.</li>
+            </ul>
+          
           </div>
 
           <div class="canvas">
@@ -3023,10 +3020,7 @@
               and the payments and funnel tree never appear beyond a change count, and a heartbeat check opens an
               issue if no commit lands for 7 days.
             </p>
-            <p style="margin-top: 0; margin-bottom: 16px">
-              A session with no prior context reads the manifest, then the plan and the highest-numbered handoff,
-              runs the verification script, and continues at the next step. The whole arrangement is a general
-              toolkit installed into this business in stages, and this business is its production example.
+            
             </p>
           </div>
 
@@ -3034,9 +3028,8 @@
         </section>
         <section class="panel" id="session-pipeline" style="--swatch: #00695c">
           <div class="detail-head">
-            <h2>3 - How a course gets built</h2>
-            <span class="pill" style="--swatch: #00695c">Build · Session</span>
-          </div>
+            <h2>3 - How a Course Gets Built</h2>
+          
           <div style="max-width: 800px; margin: 0 0 24px; line-height: 1.6; color: #333">
             <h3 style="color: #1a202c; margin-bottom: 8px">Why sessions need scaffolding at all</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
@@ -3111,7 +3104,7 @@
         <section class="panel" id="coursefactory-overview" style="--swatch: #283593">
           <div class="detail-head">
             <h2>4 - CourseFactory v2</h2>
-            <span class="pill" style="--swatch: #283593">Author · Course build system</span>
+          
           </div>
 
           <div style="margin: 0; padding: 0; font-family: sans-serif; line-height: 1.6; color: #333">
@@ -3303,8 +3296,8 @@
         </section>
         <section class="panel" id="compliance-engineering" style="--swatch: #b71c1c">
           <div class="detail-head">
-            <h2>5 - Compliance engineering</h2>
-            <span class="pill" style="--swatch: #b71c1c">Enforce · Server-side</span>
+            <h2>5 - Compliance Organization</h2>
+          
           </div>
 
           <div class="canvas">
@@ -3312,7 +3305,8 @@
           </div>
 
           <div style="margin: 0; padding: 0; font-family: sans-serif; line-height: 1.6; color: #333">
-            <h3 style="color: #1a202c; margin-bottom: 8px">Four gates stand between the business and its revenue</h3>
+            <br>
+            <h3 style="color: #1a202c; margin-bottom: 8px">Four Gates for Clearing Compliance</h3>
             <ul style="padding-left: 20px">
               <li style="margin-bottom: 8px"><strong>Before selling:</strong> CE provider registration current on fees, course approval per course and occupation, entity in good standing, background statement commitments on file. TDLR will not approve courses from a provider past due.</li>
               <li style="margin-bottom: 8px"><strong>At the moment of sale:</strong> every advertisement must show the provider number and course number, a web page counts as an advertisement, no false or misleading advertising, full fee disclosure, the course must run as represented including attendance verification and seat-time enforcement, no enrolling while past due.</li>
@@ -3359,8 +3353,8 @@
         
         <section class="panel" id="tx4hrce-delivery" style="--swatch: #1b5e20">
           <div class="detail-head">
-            <h2>6 - Delivery platform</h2>
-            <span class="pill" style="--swatch: #1b5e20">Deliver · Moodle LMS, Stripe, Lob</span>
+            <h2>6 - Delivery Platform</h2>
+           
           </div>
 
           <div style="margin: 0; padding: 0; font-family: sans-serif; line-height: 1.6; color: #333">
@@ -3376,10 +3370,7 @@
                 be sold through the self-service path yet; a Spanish checkout flow is in progress but not shipped.
               </li>
               <li style="margin-bottom: 8px">
-                <strong>Certificate mailing:</strong> Certificates print and mail through Lob, the sole canonical
-                path since 2026-07-21. The pipeline is built, deployed, and verified end to end in test mode; only
-                the owner's go-live steps remain. Certificates must issue within 15 days and carry the
-                TDLR-required fields.
+                <strong>Certificate mailing:</strong> Certificates print and mail through mailing integration.
               </li>
               <li style="margin-bottom: 8px">
                 <strong>EN/ES split:</strong> The Spanish certificate template deliberately carries placeholder text
