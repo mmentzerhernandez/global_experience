@@ -1,0 +1,44 @@
+---
+config:
+  theme: base
+  flowchart:
+    wrappingWidth: 400
+    padding: 12
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    START["Before August 2026,<br/>agents fanned out with few limits"]:::people
+
+    S1["1. Hard caps,<br/>enforced by settings"]:::access
+    S1L["Three agents at once<br/>One nested layer only<br/>No background work"]:::report
+
+    S2["2. Behavior rules<br/>on top"]:::access
+    S2L["Finish before the next step<br/>No agent spawns its own<br/>Verify against real artifacts<br/>Report the ceiling, never hide it"]:::report
+
+    S3["3. Routing<br/>by task type"]:::access
+    GATE{{"Different answer on a rerun?"}}:::gate
+    ARCH["Architect agent,<br/>output lands in the manifest"]:::course
+    EXEC["Executor agent,<br/>cheap and mechanical"]:::course
+
+    RESULT["Smaller batches, checked evidence,<br/>clean stop at limits"]:::enforce
+
+    START --> S1 --> S1L
+    S1L --> S2 --> S2L
+    S2L --> S3 --> GATE
+    GATE -->|Yes| ARCH
+    GATE -->|No| EXEC
+    ARCH --> RESULT
+    EXEC --> RESULT
+
+    classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef sweep fill:#F3E5F5,stroke:#6A1B9A,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
