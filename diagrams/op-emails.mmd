@@ -14,46 +14,42 @@ flowchart TD
     classDef app fill:#fff3cd,stroke:#b58900,color:#5c4400;
     classDef dormant fill:#f3e8ff,stroke:#8b5cf6,color:#4c1d95,stroke-dasharray:5 3;
 
-    %% LIVE TODAY
-    subgraph LIVE["Live today: site payment-link funnel"]
-        pay["Buyer pays on<br/>Stripe hosted link"]
-        css["checkout.session.completed"]
-        newu{"New or<br/>repeat buyer?"}
-        forgot["Forgot-password<br/>in Moodle LMS"]
-        rf["charge.refunded"]
-        dp["charge.dispute.created"]
-        form["Help-center<br/>contact form"]
-        lapse_near["~30 days before<br/>CE window lapses"]
-        lapse_hit["CE window lapses"]
+    subgraph LIVE["Live today, the site payment link funnel"]
+        pay["The buyer pays on the Stripe hosted link"]
+        css["Stripe sends checkout.session.completed"]
+        newu{"Is the buyer new or repeat?"}
+        forgot["The buyer uses forgot password in Moodle"]
+        rf["Stripe sends charge.refunded"]
+        dp["Stripe sends charge.dispute.created"]
+        form["The buyer sends the help center form"]
+        lapse_near["About thirty days before the CE window lapses"]
+        lapse_hit["The CE window lapses"]
 
         pay --> css --> newu
-        pay -.->|"if dashboard on"| Lreceipt["Payment receipt to BUYER"]:::stripe
-        newu -->|"new, createpassword:1"| Lwelcome["Set-password welcome to BUYER"]:::moodle
-        newu -->|"repeat, reset request"| Lreset["Password reset to BUYER"]:::moodle
-        forgot --> Lreset2["Password reset to BUYER"]:::moodle
+        pay -.->|"Dashboard toggle"| Lreceipt["Payment receipt to the buyer"]:::stripe
+        newu -->|"New"| Lwelcome["Set password welcome to the buyer"]:::moodle
+        newu -->|"Repeat"| Lreset["Password reset to the buyer"]:::moodle
+        forgot --> Lreset2["Password reset to the buyer"]:::moodle
 
-        rf --> Lstaffrf["Refund staff alert to staff"]:::app
-        rf -.->|"if dashboard on"| Lsrefund["Refund receipt to BUYER"]:::stripe
-        dp --> Lstaffdp["Dispute staff alert to staff"]:::app
-        dp -.->|"Stripe side"| Lop["Payment or dispute alert to OPERATOR"]:::stripe
-        form --> Lform["Contact message to staff, replyTo buyer"]:::app
+        rf --> Lstaffrf["Refund alert to staff"]:::app
+        rf -.->|"Dashboard toggle"| Lsrefund["Refund receipt to the buyer"]:::stripe
+        dp --> Lstaffdp["Dispute alert to staff"]:::app
+        dp -.->|"Stripe side"| Lop["Payment or dispute alert to the operator"]:::stripe
+        form --> Lform["Contact message to staff, reply to buyer"]:::app
 
-        lapse_near -->|"pre-lapse reminder, default on"| Lprelapse["Renewal heads-up to BUYER"]:::moodle
-        lapse_hit -->|"local_recompletion"| Lreset3["CE-reset notice to BUYER"]:::moodle
+        lapse_near -->|"Default on"| Lprelapse["Renewal reminder to the buyer"]:::moodle
+        lapse_hit -->|"local_recompletion"| Lreset3["CE reset notice to the buyer"]:::moodle
     end
 
-    %% COMPLETION
-    complete["Buyer finishes four modules,<br/>certificate issued"] --> Lcert["Certificate email to BUYER"]:::moodle
+    complete["The buyer finishes four modules"] --> Lcert["Certificate email to the buyer"]:::moodle
 
-    %% DORMANT
-    subgraph DORM["Built but dormant: Moodle LMS payment gateway suite, endpoint not live"]
-        dcss["Moodle LMS native payment<br/>enrol_fee hook"] -->|"send_receipt"| Dreceipt["Branded TDLR receipt to BUYER"]:::dormant
-        drf["Webhook charge.refunded, mapped"] -->|"send_refund"| Drefund["Refund notice to BUYER plus staff copy"]:::dormant
-        drf2["Webhook unmapped, fail-safe"] -->|"unmapped_alert"| Dunmapped["Manual action needed, to staff"]:::dormant
-        ddp["Webhook dispute"] -->|"send_dispute_alert"| Ddispute["Dispute alert to staff"]:::dormant
+    subgraph DORM["Built but dormant, Moodle payment gateway suite"]
+        dcss["Moodle native payment, enrol_fee hook"] -->|"send_receipt"| Dreceipt["Branded TDLR receipt to the buyer"]:::dormant
+        drf["Mapped charge.refunded webhook"] -->|"send_refund"| Drefund["Refund notice to buyer and staff"]:::dormant
+        drf2["Unmapped webhook, fail safe"] -->|"unmapped_alert"| Dunmapped["Manual action needed, to staff"]:::dormant
+        ddp["Dispute webhook"] -->|"send_dispute_alert"| Ddispute["Dispute alert to staff"]:::dormant
     end
 
-    %% LEGEND
     subgraph LEGEND["Legend"]
         g1["Sent by Stripe, dashboard toggle"]:::stripe
         g2["Sent by Moodle LMS"]:::moodle

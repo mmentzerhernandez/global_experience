@@ -9,19 +9,29 @@ config:
     fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
 ---
 flowchart TD
-    CAP["Session checkpoint:<br/>lessons step,<br/>3 questions in the handoff"]:::access
-    PROP["Proposal staged<br/>in PROPOSALS.md,<br/>status proposed"]:::report
+    CAP["Each handoff answers three lessons questions"]:::access
+    ERR{{"Does a lesson come from a real error?"}}:::gate
+    LEDGER["Append an entry to 13-Mistakes/mistakes.md"]:::report
+    MEM["A durable lesson becomes a feedback memory"]:::note
+    PROP["Stage a proposal in PROPOSALS.md as proposed"]:::report
     GATE{{"Owner morning pass"}}:::gate
-    FROZEN["Rejected or untouched:<br/>frozen, never applied"]:::note
-    APPLY["Executor applies<br/>per APPLY.md:<br/>backup first, exact diff only"]:::enforce
-    MEASURE["Monday weekly review<br/>scores the targeted dimension"]:::course
-    REVERT["Two flat or worse reviews:<br/>revert candidate,<br/>back to the owner"]:::note
+    FROZEN["Rejected or untouched entries stay frozen"]:::note
+    APPLY["An executor applies the exact diff after a backup"]:::enforce
+    CODIFY["The ledger entry becomes codified"]:::course
+    MEASURE["The Monday review scores the targeted metric"]:::course
+    REVERT["Two flat reviews make it a revert candidate"]:::note
+    SWEEP["A monthly sweep checks every open entry"]:::access
 
+    CAP --> ERR
+    ERR -->|"Yes"| LEDGER --> PROP
+    ERR -->|"No"| MEM
     CAP --> PROP --> GATE
-    GATE -- approved --> APPLY --> MEASURE
-    GATE -- rejected --> FROZEN
-    MEASURE -- no movement x2 --> REVERT
+    GATE -->|"Approved"| APPLY --> MEASURE
+    GATE -->|"Rejected"| FROZEN
+    APPLY --> CODIFY
+    MEASURE -->|"No movement twice"| REVERT
     REVERT -.-> GATE
+    LEDGER --> SWEEP
 
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
     classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000

@@ -1,0 +1,185 @@
+        <section class="panel" id="operating-system">
+          <div class="detail-head">
+            <h2>2 - Business Operations</h2>
+          </div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p style="margin-top: 16px; margin-bottom: 16px">
+              This panel explains how the business runs itself. It has eight stages, in order. Foundation sets one home for each fact. Structure shows where plans and workstreams live. Workflow shows how work moves from one session to the next. Execution shows how a plan runs and when it is done. Systems shows the agent rules and the knowledge base. Communication shows which emails the business sends. Improvement shows how the business learns from each session. Resilience shows what preserves the business if the operator is away.
+            </p>
+
+            <p class="arc-kicker">Foundation</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Single Source of Truth</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              Each fact has one home. No fact lives in two places. This rule stops copies from becoming different over time.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>A decision</strong> has its home in <code>.claude/manifest.json</code>. The manifest holds durable facts only: decisions, paths to spec files, external state, and one pointer to the active plan. Every session reads the manifest first. A manifest longer than about 150 lines moves detail into spec files.</li>
+              <li style="margin-bottom: 8px"><strong>Progress</strong> has its home in the plan folder, in <code>PLAN.md</code> and the numbered handoffs. The manifest never tracks progress.</li>
+              <li style="margin-bottom: 8px"><strong>Business knowledge</strong> has its home in the wiki that owns the topic.</li>
+              <li style="margin-bottom: 8px"><strong>A code relationship</strong> has its home in the generated knowledge graph.</li>
+              <li style="margin-bottom: 8px"><strong>A retired term</strong> has its home in <code>10-Plans/RETIRED-TERMS.md</code> in the same turn as the decision that retired it.</li>
+            </ul>
+          </div>
+
+          <div class="canvas" data-diagram="op-one-fact"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p class="arc-kicker">Structure</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Workstream Architecture</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              All plans live in <code>10-Plans/</code>. A plan is born there and never in a workstream folder. The diagram traces one plan through its life. A status change is a folder move and nothing else.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>FuturePlans</strong> holds approved plans that have not started. Each is one flat file named <code>YYYY-MM-DD-topic.md</code>. A folder inside FuturePlans is drift.</li>
+              <li style="margin-bottom: 8px"><strong>CurrentPlans</strong> holds active work. Kickoff moves the dated file into a new folder named for its workstream and topic. Kickoff never copies. A file that remains in FuturePlans proves the kickoff was wrong. Each set folder holds one <code>PLAN.md</code>, the numbered handoffs, and one <code>APPROVALS.md</code> for gates.</li>
+              <li style="margin-bottom: 8px"><strong>InactivePlans</strong> holds paused or superseded sets. The business keeps them so a later session can see what was tried.</li>
+              <li style="margin-bottom: 8px"><strong>PastPlans</strong> holds finished sets with their full plan and handoff trail.</li>
+              <li style="margin-bottom: 8px"><strong>Tasks</strong> holds the standing board <code>WORK-STATUS.md</code>, a run log, a drift report, and <code>check-drift.sh</code>. The board is an index only. Detail stays in each set.</li>
+              <li style="margin-bottom: 8px"><strong>SkillProposals</strong> holds the queue of proposed skill and doc changes. <strong>MIGRATION-MAP.md</strong> logs every move.</li>
+            </ul>
+          </div>
+
+          <div class="canvas" data-diagram="operating-loop"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <h3 style="color: #1a202c; margin: 32px 0 8px">Folder-Based Workstreams</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              The workspace holds seventeen numbered folders, from <code>000-Dashboard</code> to <code>16-AdsAnalytics</code>. Each folder is one workstream. Underscore folders hold what every workstream shares. The main wiki and the one-file business briefing sit at the root.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>Zero-rename zones.</strong> Scheduled jobs, skills, and handoffs reach some paths by absolute path. Those paths never change. A plan set path changes only by a status move.</li>
+              <li style="margin-bottom: 8px"><strong>Secrets.</strong> Each folder quarantines loose secrets in its own <code>_Credentials/</code>. The business never uploads, syncs, publishes, or commits them.</li>
+              <li style="margin-bottom: 8px"><strong>Archive, never delete.</strong> Superseded material moves to the owning folder's <code>_Archive/</code>.</li>
+              <li style="margin-bottom: 8px"><strong>New folders since July 2026.</strong> <code>12-Diagrams</code>, <code>13-Mistakes</code>, <code>14-Images</code>, and <code>15-OvernightRunner</code> were added. The ads workstream moved from folder 2 to <code>16-AdsAnalytics</code>. Folder 2 is now the site map and traffic funnels. Folder 8 is the legal knowledge base.</li>
+            </ul>
+          </div>
+
+          <div class="canvas" data-diagram="op-folders"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p class="arc-kicker">Workflow</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Session Waterfall Workflow</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              No session uses more than half of its context window. Model quality decreases long before the hard limit. At the half mark the session stops, writes a handoff, and a fresh session continues from that file alone.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>The checkpoint has seven steps.</strong> Finish or revert the current edit. Commit the working state. Mark completed items in <code>PLAN.md</code>. Write <code>HANDOFF-N.md</code>. Record durable decisions in the project's <code>CLAUDE.md</code>. Run <code>/clear</code>, never <code>/compact</code>. Answer the three lessons questions in the handoff.</li>
+              <li style="margin-bottom: 8px"><strong>Each handoff carries</strong> the verification command and its expected result, what is complete, the ordered remaining work, decisions and dead ends found, and the exact next step.</li>
+              <li style="margin-bottom: 8px"><strong>A human gate always pauses the run</strong>, at any context level. The handoff names any open gate.</li>
+              <li style="margin-bottom: 8px"><strong>Headless mode.</strong> A driver script can loop <code>claude -p</code> so each session starts fresh. There, one session equals one plan session in scope. A gate ends the session with a <code>GATE:</code> line, and the driver waits for the owner. The final handoff writes <code>WATERFALL: COMPLETE</code>. The driver refuses to run on API billing.</li>
+            </ul>
+          </div>
+
+          <div class="canvas" data-diagram="op-waterfall"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p class="arc-kicker">Execution</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Plan Execution Lifecycle</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              Different models do different parts of the work.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>Fable</strong> designs the architecture and writes the plan.</li>
+              <li style="margin-bottom: 8px"><strong>Sonnet 5</strong> runs the waterfall. It executes the steps, writes the code, and writes the handoffs.</li>
+              <li style="margin-bottom: 8px"><strong>Opus 4.6</strong> is used rarely, only at a decision fork or to judge a risk the plan did not describe.</li>
+              <li style="margin-bottom: 8px"><strong>Haiku</strong> does small structural edits, log cleanup, and file moves or renames.</li>
+            </ul>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              A session with no prior context reads the manifest, then <code>PLAN.md</code> and the highest-numbered handoff. It runs the verification command and continues at the next step. Before Phase 1 of any plan the session runs a preflight. The preflight lists every external dependency, tests each one with a read-only call, and prints a PASS or FAIL table. A dependency that was not called is UNKNOWN, never PASS. Anything that is not PASS stops the plan.
+            </p>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              A plan session does its tasks inline. It may dispatch one reviewer subagent that reviews the whole session diff before the handoff. Before any dispatch, the session classifies the task with one test: would a rerun give a different answer? A yes goes to an architect agent whose output must land in the manifest. A no goes to a cheaper executor agent.
+            </p>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              An overnight runner in <code>15-OvernightRunner/</code> works a plan while the operator sleeps. It runs only tasks that are reversible, local, and verifiable. The first night on any plan is a dry run, because the owner gates the classification. It snapshots each task before it runs and restores the snapshot when verification fails. Each task gets one fresh session. It never retries, never pushes, never deploys, and never spends. The operator wakes to a morning briefing.
+            </p>
+
+            <h3 style="color: #1a202c; margin: 32px 0 8px">Completion Criteria &amp; Quality Gates</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              A plan set is complete only when five things happen in one closing step. Every checkbox in <code>PLAN.md</code> is marked, or a dated note names each dropped item. The latest handoff carries <code>WATERFALL: COMPLETE</code> plus the verification command and its result. The set folder moves to PastPlans and the move is logged in <code>MIGRATION-MAP.md</code>. The board rows get their new paths. The manifest is updated if external state changed. Until the folder moves, the set is not complete, whatever its files claim. <code>check-drift.sh</code> exits non-zero when a finished set still sits in CurrentPlans.
+            </p>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              Before the move, the session reviews the whole set for mistakes that a per-session lessons step did not capture. Each distinct mistake class gets one entry in the mistakes ledger.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>Gates never advance without the owner.</strong> At a human checkpoint the session stops and presents the choice as options.</li>
+              <li style="margin-bottom: 8px"><strong>Review by default.</strong> Any change to continuity code or plugin code gets a local code review. Anything that touches auth, credentials, or the Moodle server also gets a security review. <code>_Continuity/verify.sh</code> must exit 0 before the work counts as done.</li>
+              <li style="margin-bottom: 8px"><strong>Proof over narration.</strong> After any external API write, the session reads the object back and pastes the returned id or status.</li>
+            </ul>
+          </div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p class="arc-kicker">Systems</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Agent Governance System</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              Without limits, a session can start as many helper agents as it wants, run them in the background, and report its own success. Two layers replace that with enforcement and evidence.
+            </p>
+            <ol style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>Hard caps in settings.</strong> Three agents at once and three per session. One nested layer of helpers. No background work. Every helper is fixed to Sonnet. Every start and stop is written to an audit log. These caps live in <code>~/.claude/settings.json</code>. A session cannot override them.</li>
+              <li style="margin-bottom: 8px"><strong>Eight behavior rules on top.</strong> Spawn at most three helpers per prompt. No helper starts its own helpers. Wait for each helper to return before the next step. Credit finished work only against files on disk, exit codes, or the audit log, never against the helper's own summary. Take the sidecar lock before writing any shared status file. Report any limit as a <code>CEILING</code> line. A run that ends without its expected files is a failed run. A plan session works inline with at most one reviewer helper.</li>
+            </ol>
+            <p style="margin-top: 0; margin-bottom: 16px">The result is cheaper runs, smaller batches, and checked evidence.</p>
+          </div>
+
+          <div class="canvas" data-diagram="op-subagents"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <h3 style="color: #1a202c; margin: 32px 0 8px">Three-Tier Knowledge Base</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              Information is stored at the most specific level that owns it. Tier 1 is <code>Wiki/index.md</code>, the main wiki. It holds navigation and governance, never an operational fact. Tier 2 is one wiki per workstream folder. Tier 3 is a deep wiki beside the code, and it is authoritative for its own domain. When two tiers disagree, the more specific tier wins. The session fixes the fact at its source. Then <code>/ierhub-current-state</code> syncs each Tier 2 wiki upward and rebuilds <code>0-HitByABus.html</code>, the one-file briefing of the whole business.
+            </p>
+          </div>
+
+          <div class="canvas" data-diagram="op-wiki-tiers"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p class="arc-kicker">Communication</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Automated Communication Protocols</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              Three separate systems send email to buyers and staff. The map below shows every trigger and every message. It exists so that gaps are visible and so that the real buyer experience is known.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>Stripe</strong> sends payment and refund receipts when the dashboard toggle is on.</li>
+              <li style="margin-bottom: 8px"><strong>Moodle LMS</strong> sends the welcome email, password resets, the certificate email, the renewal reminder, and the CE reset notice.</li>
+              <li style="margin-bottom: 8px"><strong>The application</strong> sends staff alerts for refunds, disputes, and contact form messages.</li>
+              <li style="margin-bottom: 8px"><strong>Dormant.</strong> A Moodle payment gateway suite is built but its endpoint is not live. Its emails are shown with a dashed border.</li>
+            </ul>
+          </div>
+
+          <div class="canvas" data-diagram="op-emails"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p class="arc-kicker">Improvement</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Continuous Improvement Cycle</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              Every session ends by answering three questions in its handoff. What failed or surprised this session? What fact had to be re-derived that should have been recorded? What skill or doc change would have prevented it? A durable lesson becomes a feedback memory. Any implied change to a skill or a doc becomes a proposal in <code>10-Plans/SkillProposals/PROPOSALS.md</code> with status proposed. No agent edits the target file directly.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>The owner's morning pass</strong> approves or rejects each entry. Anything not approved stays frozen.</li>
+              <li style="margin-bottom: 8px"><strong>An executor applies</strong> each approved entry per <code>APPLY.md</code>. It backs up the target first and applies only the exact diff shown.</li>
+              <li style="margin-bottom: 8px"><strong>A Monday review</strong> scores whether each change moved the metric it targeted. Two flat reviews make the change a revert candidate. The loop has run since 30 Jul 2026.</li>
+            </ul>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              A mistakes ledger at <code>13-Mistakes/mistakes.md</code> records each real error. A session appends an entry when a lesson traces to an actual error, or when the owner names a mistake mid-session. Each entry records the symptom, the root cause, the cost, the prevention, and where the prevention now lives. An entry closes only when its prevention is codified as a feedback memory or a proposal. A session reads the ledger when it drafts a plan and during preflight. The daily brief reports the open-entry count. A monthly sweep checks every codified link and every open entry. The first sweep is due 13 Sep 2026.
+            </p>
+          </div>
+
+          <div class="canvas" data-diagram="op-improvement"></div>
+
+          <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
+            <p class="arc-kicker">Resilience</p>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Operational Continuity Framework</h3>
+            <p style="margin-top: 0; margin-bottom: 16px">
+              A scheduled job mirrors the workspace into a private repository every day at 12:00, with a catch-up run after the Mac wakes. It copies only allowlisted folders. Credential folders and the payment and funnel tree appear only as a change count. A secret gate blocks any credential before it can be committed. The job renders a one-file <code>wiki.html</code>, writes today's date to <code>heartbeat.txt</code>, then commits and pushes.
+            </p>
+            <ul style="padding-left: 20px">
+              <li style="margin-bottom: 8px"><strong>Dead-man check.</strong> A GitHub Action opens an issue that names the successor when no commit lands for seven days.</li>
+              <li style="margin-bottom: 8px"><strong>Successor runbook.</strong> <code>_Continuity/CONTINUITY.md</code> tells a successor, an attorney, or a partner what the repository is and what to do.</li>
+              <li style="margin-bottom: 8px"><strong>Two known traps.</strong> A scheduled script must not live under Desktop, Documents, or Downloads, because macOS blocks the job before its first line. And a session must never diagnose headless login from inside a sandboxed shell, because the sandbox returns a false expired-token error.</li>
+            </ul>
+          </div>
+
+          <div class="canvas" data-diagram="op-continuity"></div>
+
+        </section>

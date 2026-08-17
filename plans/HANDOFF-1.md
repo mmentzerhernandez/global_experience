@@ -1,141 +1,110 @@
-# HANDOFF-1: id-skills.html CourseFactory v2 refresh
+# HANDOFF-1: automated-curriculum-development-business.html Business Operations rewrite
 
-Written 2026-07-29 at the 50% context checkpoint of the orchestrating session.
-Sessions 1 through 3 of `plans/PLAN.md` were dispatched as Sonnet subagents from that
-session. **Session 4 remains.**
+Written 16 Aug 2026, after Session 1 (all of Task 0 through Task 5, and Task 6
+Steps 1 and 3).
 
-## Verification (run this first)
+## Verification
 
+Run:
 ```
-cd /Users/rabies/global_experience
-git log --oneline -1                  # expect the session 3 commit on coursefactory-v2-refresh
-git status --short                    # expect a clean tree
-grep -c '<section class="panel"' id-skills.html    # expect 13
-grep -c '<h2>Placeholder</h2>' id-skills.html      # expect 0
-grep -c 'id="my-svg"' id-skills.html               # expect 3, must never increase
-grep -c '—' id-skills.html                         # expect 0
-grep -c '\$29' id-skills.html                      # expect 0
-grep -c 'mermaid-wiki-guard' id-skills.html        # expect 5
+/Users/rabies/global_experience/plans/verify-ops-section.sh; echo "exit $?"
 ```
+Expected: every line `ok`, exit 0.
 
-Branch: `coursefactory-v2-refresh`. Nothing has been pushed. `main` is untouched.
-
-If the placeholder count is 2 rather than 0, Session 3 did not finish; re-run the
-Session 3 section of `plans/PLAN.md` before starting Session 4.
-
-## Read these before doing anything
-
-- `docs/superpowers/specs/2026-07-29-id-skills-refresh-design.md`, the owner-approved spec.
-- `docs/superpowers/specs/shell-conventions.md`, how this page is built.
-- `docs/superpowers/specs/content-brief.md`, the only facts that may be published.
-- `plans/PLAN.md`, the task list. Session 4 is what is left.
+Commit to check against: none. Nothing is committed. Every file the plan
+names is staged with `git add` but not committed, because the plan's global
+constraints say never commit or push without the owner's approval.
 
 ## Completed so far
 
-**Session 1** removed the seven retired panels (`1-id-architect` through
-`6-id-qa-auditor` and `rlo-taxonomy`) and their sidebar entries, renamed
-`content-development-workflow` to `session-pipeline` and `pipeline-overview` to
-`coursefactory-overview`, added nine placeholder panels with sidebar entries, and
-changed the page title and h1. Verified at 13 panels, guard intact.
+- Task 0: renamed `id-skills.html` to
+  `automated-curriculum-development-business.html`, wrote the 14-line
+  redirect stub at the old name, updated the four links in `index.html` and
+  the one link in `sitemap.xml`, confirmed the redirect keeps the fragment.
+- Task 1: wrote `plans/verify-ops-section.sh`.
+- Task 2: fixed `diagrams/puppeteer.json`, wrote and rendered all nine
+  diagram sources.
+- Task 3: added the `.arc-kicker` CSS rule, wrote `plans/ops-panel.html`
+  and `plans/replace-ops-panel.py`, and ran the swap. The old panel, 196
+  lines, is now the new 185-line panel with nine empty diagram
+  placeholders.
+- Task 4: wrote `plans/inline-ops-svgs.py` and ran it. All nine SVGs are
+  inlined, each with `width="100%"`, `background-color: transparent`, and
+  a `viewBox` on the root element.
+- Task 5: replaced the sidebar blurb under "2 - Business Operations" from
+  "Memory, Waterfall, Wiki" to "Foundation to Resilience".
+- Task 6, Step 1: ran the language check script on the new panel prose.
+  Result: `semicolons: 0`, `em dashes: 0`, no banned word found.
+- Task 6, Step 3: dispatched the one reviewer subagent allowed by the
+  waterfall rule, foreground, with the prompt from the plan plus the line
+  "You never spawn subagents." Its report: no findings. The diff matches
+  `plans/PLAN.md` exactly on prose, section names, and diagram sources.
+- `plans/PLAN.md` has every step through Task 6 Step 1 and Step 3 marked
+  `[x]`. Three steps remain unmarked: Task 6 Step 2, Step 4, and Step 5.
 
-**Session 2** wrote the CourseFactory v2 parent panel plus the five stage panels, the
-checkers panel, and the gates panel, and inlined two prerendered diagrams. It also
-cleared all 19 dangling drill-links left by Session 1, repointing the six live ones in
-the `business-overview` diagram at `#coursefactory-overview`. Verified: zero dangling
-links, zero em dashes, `my-svg` count down to 3 and never increasing, guard script
-passes `node --check`.
+## Remaining work
 
-**Session 3** (dispatched, verify its result before proceeding) fills the compliance
-engineering and operating panels, inlines their two diagrams, corrects the delivery
-panel's SVG (removes the price, changes retention from four years to two), and updates
-the business overview with current facts and the extended milestone table.
+1. Task 6, Step 2: serve the page and examine it in a real browser at 1280px
+   and 390px wide. This session could not run it. The Claude in Chrome
+   extension reported "Browser extension is not connected" when
+   `tabs_context_mcp` was called. A `curl` check confirmed the page serves
+   with HTTP 200, but that does not confirm layout, diagram overflow, or the
+   absence of horizontal scroll at 390px. Start the server with
+   `python3 -m http.server 8765 --bind 127.0.0.1` from
+   `/Users/rabies/global_experience`, open
+   `http://127.0.0.1:8765/automated-curriculum-development-business.html#operating-system`,
+   confirm the eight kickers, that no label leaves its box, that
+   `op-folders` shows four columns, and no horizontal body scroll at 390px.
+   Stop the server after.
+2. Task 6, Step 4: the owner gate. Do not commit or push. See the `GATE:`
+   line below.
+3. Task 6, Step 5: on approval, commit with the message in the plan, then
+   push only if the owner chose push.
 
-**Diagrams** are authored, rendered, and committed: `diagrams/*.mmd` sources,
-`diagrams/rendered/*.svg` outputs, `diagrams/puppeteer.json` config. All four carry
-unique self-scoped SVG ids.
+## GATE
 
-## Remaining work: Session 4
-
-Execute the "Session 4" section of `plans/PLAN.md` in order. In short:
-
-1. **Mobile audit** at 360, 390, and 430px. No horizontal body scroll, tables stack into
-   cards, tap targets 44px or larger, diagrams open legibly. Fix only by adding rules at
-   the END of the main stylesheet.
-2. **Fill `session-pipeline`** if Session 2 left it stale. Content is in the content
-   brief under "Panel 2". Plan mode, the model switch inside the same session, the three
-   skills reserved for genuine decision forks. No mention of any earlier pipeline
-   generation.
-3. **Update `index.html`.** The linking card copy, alt text, and prose near lines
-   1612-1663, 2036, and 2088 currently say "six-stage AI pipeline". Rewrite for
-   CourseFactory v2. Regenerate `img/id-skills-pipeline.svg` from
-   `diagrams/rendered/coursefactory-overview.svg` if the old thumbnail no longer
-   represents the page.
-4. **Full verification**, the command block at the top of this file plus `node --check`
-   on the extracted guard script.
-5. **GATE.** Present the finished page to the owner. Do not merge, do not push. State
-   plainly that pushing publishes to GitHub Pages.
+GATE: The rewritten Business Operations panel is ready for review at
+`/Users/rabies/global_experience/automated-curriculum-development-business.html#operating-system`.
+Diagram sources are in `/Users/rabies/global_experience/diagrams/`. The
+handoff at `/Users/rabies/global_experience/plans/HANDOFF-1.md` has the full
+session record. A push publishes to
+`https://mmentzerhernandez.github.io/global_experience/automated-curriculum-development-business.html`.
+Recommendation: run the Task 6 Step 2 browser check first, since it has not
+run yet, then commit and push. Options: commit and push now, commit only, or
+list changes to make first.
 
 ## Decisions and constraints discovered
 
-- **Never `Read` a line range in `id-skills.html` that might straddle an inline SVG.**
-  Two subagents burned large amounts of context this way. Use `grep -n` to find
-  boundaries, then `sed -n 'NNNp' id-skills.html | cut -c1-200` to inspect a line.
-- **Inline SVGs into the page with a python substitution script**, never by reading the
-  SVG into context and pasting it.
-- **Responsive CSS must go at the very end of the main stylesheet.** Base rules such as
-  `.path-table` appear later in source than the mid-sheet media blocks, so a mobile rule
-  placed earlier loses at equal specificity even inside a media query. Source order wins.
-- **mermaid-cli needs two workarounds**, both already solved and recorded in
-  `plans/PLAN.md`: run it with `dangerouslyDisableSandbox: true` because npm writes its
-  cache outside the sandbox, and pass `-p diagrams/puppeteer.json` because its bundled
-  puppeteer asks for a Chrome build that is not installed. Always pass `--svgId`.
-- **Backgrounding a local http server also needs `dangerouslyDisableSandbox: true`** (the
-  sandbox blocks its `nice()` call). Bind to 127.0.0.1 and stop it before finishing.
-- **Facts that must not ship**, decided from source conflicts: the course price (sources
-  disagree, $29 versus $58), any claim of "seven checkers" (only six are confirmed as
-  named scripts), and any suggestion the Spanish course is TDLR-approved (it is not).
-  Also never publish entity file numbers, EIN, or server IP addresses.
-- **The delivery diagram had two factual errors** carried from the old page: a hardcoded
-  price and a four-year retention claim where the regulation says two years.
-- A PostToolUse hook re-runs guard hardening after edits to `id-skills.html`. It is
-  idempotent, but check `git status` before any branch operation.
-- Known pre-existing defect, out of scope: three inlined SVGs still share
-  `id="my-svg"`. Do not add to that count; new SVGs get unique ids.
+- The installed Chrome build for mermaid-cli is
+  `mac_arm-152.0.7977.42/chrome-headless-shell-mac-arm64/chrome-headless-shell`,
+  not the `150.0.7871.24` build the plan's July recipe named.
+  `diagrams/puppeteer.json` now points at the installed build.
+- `index.html` carried an unrelated pre-existing change (two list items under
+  "Daily" cleared out) before this session started. That change was not
+  touched and stays in the working tree along with this session's link swap.
+- `npx @mermaid-js/mermaid-cli` prints `npm WARN EBADENGINE` lines on every
+  render because the installed Node is `v20.11.1` and the package wants
+  `>=22.12.0`. The warning is noise. All nine renders finished with exit 0.
+- The Claude in Chrome browser extension was not connected in this session,
+  so the Task 6 Step 2 visual check did not run. A future session or the
+  owner must run it before the commit, or explicitly accept the risk.
 
 ## Exact next step
 
-Run the verification block at the top of this file. If it passes, execute Session 4
-Step 1 of `plans/PLAN.md`: the mobile audit at 360px, adding any fixes only at the end
-of the main stylesheet.
+Run the Task 6 Step 2 browser check, then present the GATE question above to
+the owner and wait for an answer before any commit.
 
-## Pending gate
+## Lessons
 
-`GATE: Session 4 Step 5.` The owner reviews the finished page before anything is merged
-or pushed. Pushing to `main` publishes to GitHub Pages. No session may advance this gate
-on its own.
-
----
-
-## Update: sessions 3 and 4 complete (2026-07-29)
-
-All PLAN.md work is done except the final human gate. Commits `164687b`, `d281053`,
-`1243136`, `d336c29` on `coursefactory-v2-refresh`. Nothing pushed.
-
-Final verification, all passing:
-- 13 panels, 0 placeholders, 0 orphan anchors, guard markers intact, guard script
-  passes `node --check`.
-- 0 em dashes in `id-skills.html` and `index.html`.
-- 0 references to the retired id-* skills, RLO taxonomy, Thinkific, or NotebookLM.
-- 0 occurrences of the disputed price; retention corrected to two years.
-- `id="my-svg"` collisions reduced from 11 to 2 (never increased).
-- No horizontal overflow at 360, 390, or 430px; no tap target under 44px.
-
-Two problems found and fixed during session 4 that earlier sessions missed: the
-`session-pipeline` panel still carried a diagram naming the six retired id-* skills, now
-replaced by `diagrams/session-pipeline.mmd`; and the sidebar still carried stale labels
-and "Placeholder" subtitles.
-
-WATERFALL: COMPLETE (pending the gate below)
-
-GATE: The owner reviews the page before anything merges or pushes. Pushing to `main`
-publishes to GitHub Pages.
+1. What failed or surprised this session: the Claude in Chrome extension was
+   not connected, so the planned browser check at Task 6 Step 2 could not
+   run. A `curl` check substituted for it, which confirms the server
+   response but not the rendered layout.
+2. What fact had to be re-derived: none beyond what Session 1's handoff
+   already recorded, the installed Chrome build path.
+3. What skill or doc change would have prevented it: a preflight check for
+   the Claude in Chrome connection at the start of any plan step that names
+   a browser check, so the gap surfaces before the step is reached rather
+   than during it. This is a candidate for
+   `10-Plans/SkillProposals/PROPOSALS.md`, staged as proposed, not applied
+   here since this workspace is outside IERHUB.com.

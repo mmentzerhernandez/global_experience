@@ -9,19 +9,21 @@ config:
     fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
 ---
 flowchart TD
-    S1["Session 1<br/>works the plan"]:::access
-    HALF{{"Half the session context used"}}:::gate
-    STOP["Work stops cleanly<br/>half-done edits reverted"]:::enforce
-    H1["HANDOFF-1.md"]:::report
-    S2["Session 2<br/>reads the handoff, nothing else"]:::access
-    H2["HANDOFF-2.md"]:::report
-    SN["Repeats until<br/>PLAN.md is fully checked"]:::course
+    S1["Session 1 reads PLAN.md and works"]:::access
+    HALF{{"Is half the context used?"}}:::gate
+    STOP["Finish or revert the current edit"]:::enforce
+    LESS["Answer the three lessons questions"]:::note
+    H1["Write HANDOFF-1.md"]:::report
+    CLEAR["Run /clear, never /compact"]:::enforce
+    S2["Session 2 reads only the handoff"]:::access
+    H2["Write HANDOFF-2.md"]:::report
+    SN["Repeat until PLAN.md is fully checked"]:::course
+    DONE["Final handoff says WATERFALL: COMPLETE"]:::course
 
-    CONTENTS["Each handoff carries<br/>the verification command,<br/>what was completed,<br/>the ordered remainder,<br/>dead ends discovered,<br/>and the exact next step"]:::note
-
-    S1 --> HALF --> STOP --> H1 --> S2
-    S2 --> H2 --> SN
-    CONTENTS -.-> H1
+    S1 --> HALF
+    HALF -->|"No"| S1
+    HALF -->|"Yes"| STOP --> LESS --> H1 --> CLEAR --> S2
+    S2 --> H2 --> SN --> DONE
 
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
     classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000

@@ -9,19 +9,19 @@ config:
     fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
 ---
 flowchart TD
-    T1["Tier 1 · Main wiki<br/>navigation and governance only<br/>never operational facts"]:::people
-    T2["Tier 2 · One wiki per workstream<br/>business-level current state"]:::access
-    T3["Tier 3 · Deep wiki beside the code<br/>authoritative for its own domain"]:::course
+    T1["Tier 1, Wiki/index.md, navigation and governance"]:::people
+    T2["Tier 2, one wiki per workstream folder"]:::access
+    T3["Tier 3, deep wiki beside the code"]:::course
 
-    CONF{{"Two tiers disagree?"}}:::gate
+    CONF{{"Do two tiers disagree?"}}:::gate
     WIN["The more specific tier wins"]:::enforce
-    FIX["Fix at the authoritative source"]:::enforce
-    SYNC["Sync upward"]:::enforce
-    HTML["One self-contained HTML briefing<br/>of the whole business"]:::report
+    FIX["Fix the fact at its source"]:::enforce
+    SYNC["Run /ierhub-current-state to sync upward"]:::enforce
+    HTML["Rebuild 0-CurrentState.html from Tier 1"]:::report
 
-    T3 -->|"rolls up into"| T2
-    T2 -->|"rolls up into"| T1
-    CONF --> WIN --> FIX --> SYNC
+    T3 -->|"Feeds"| T2
+    T2 -->|"Feeds"| T1
+    CONF -->|"Yes"| WIN --> FIX --> SYNC
     SYNC --> T1
     T1 --> HTML
 

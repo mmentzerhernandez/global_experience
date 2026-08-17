@@ -9,25 +9,27 @@ config:
     fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
 ---
 flowchart TD
-    FACT["A fact appears"]:::people
-    KIND{{"What kind of fact?"}}:::gate
+    FACT["A new fact appears"]:::people
+    KIND{{"What kind of fact is it?"}}:::gate
 
-    D["Decision"]:::access
-    P["Progress"]:::access
-    K["Know-how"]:::access
-    C["Code connection"]:::access
+    D["A decision"]:::access
+    P["Progress on a plan"]:::access
+    K["Business knowledge"]:::access
+    C["A code relationship"]:::access
+    R["A retired term"]:::access
 
-    DM["Manifest<br/>~30 judgment calls,<br/>each dated with its reasoning"]:::report
-    PM["Plan folders<br/>PLAN.md and handoffs"]:::enforce
-    KM["Wiki"]:::course
-    CM["Generated graph"]:::sweep
-
+    DM["The manifest, .claude/manifest.json"]:::report
+    PM["The plan folder, PLAN.md and handoffs"]:::enforce
+    KM["The owning wiki"]:::course
+    CM["The generated knowledge graph"]:::sweep
+    RM["10-Plans/RETIRED-TERMS.md"]:::report
 
     FACT --> KIND
     KIND --> D --> DM
     KIND --> P --> PM
     KIND --> K --> KM
     KIND --> C --> CM
+    KIND --> R --> RM
 
     classDef people fill:#ECEFF1,stroke:#455A64,color:#000000
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000

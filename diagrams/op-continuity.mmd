@@ -1,0 +1,37 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    JOB["launchd fires sync.sh at 12:00 daily"]:::access
+    SCAN["Scan the workspace for changes"]:::access
+    LOG["Write one changelog per mirrored folder"]:::report
+    ALLOW["Copy only allowlisted folders into mirror/"]:::enforce
+    SECRET{{"Does the secret gate find a credential?"}}:::gate
+    BLOCK["Block the commit and report"]:::report
+    RENDER["Render wiki.html from the mirror"]:::course
+    BEAT["Write today's date to heartbeat.txt"]:::course
+    PUSH["Commit and push to the private repository"]:::course
+    DEAD{{"Did seven days pass with no commit?"}}:::gate
+    ISSUE["The dead-man action opens an issue for the successor"]:::report
+    RUNBOOK["CONTINUITY.md tells a successor what to do"]:::note
+
+    JOB --> SCAN --> LOG --> ALLOW --> SECRET
+    SECRET -->|"Yes"| BLOCK
+    SECRET -->|"No"| RENDER --> BEAT --> PUSH --> DEAD
+    DEAD -->|"Yes"| ISSUE
+    DEAD -->|"No"| JOB
+    RUNBOOK -.-> ISSUE
+
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000
+    classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:2px
+    classDef note fill:#FFFDE7,stroke:#9E9D24,color:#000000

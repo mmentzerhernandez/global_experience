@@ -12,36 +12,28 @@ config:
     rankSpacing: 70
 ---
 flowchart TD
-    OWNER["Goal is set"]:::people
-
-    FUT["Phase 1 · FuturePlans/<br/>approved, not started<br/>flat dated files, YYYY-MM-DD-topic.md"]:::access
-
-    CUR["Phase 2 · CurrentPlans/set/<br/>active work, one folder per plan set<br/>PLAN.md plus HANDOFF-1 to N"]:::enforce
-
-    WATERFALL["Session waterfall<br/>stop at half context, write HANDOFF-N"]:::enforce
-
-    BOARD["Tasks/WORK-STATUS.md<br/>standing board indexing the active sets"]:::access
-
-    DOD{{"Phase 3 · Definition of done<br/>boxes checked, verification recorded,<br/>folder moved, map logged"}}:::gate
-
-    DRIFT["check-drift.sh<br/>exits non-zero when a finished set<br/>still sits in CurrentPlans"]:::refuse
-
-    PAST["Phase 4 · PastPlans/<br/>complete sets, plan and handoff trail kept"]:::course
-
-    INACT["InactivePlans/<br/>paused or superseded"]:::report
-
-    MAP["MIGRATION-MAP.md<br/>every move logged"]:::report
+    OWNER["The owner approves a goal"]:::people
+    FUT["FuturePlans, one dated file per plan"]:::access
+    CUR["CurrentPlans, one folder per plan set"]:::enforce
+    WATERFALL["Sessions work the plan and write handoffs"]:::enforce
+    BOARD["Tasks/WORK-STATUS.md indexes the active sets"]:::access
+    DOD{{"Does the set meet the definition of done?"}}:::gate
+    REVIEW["Review the whole set for mistakes"]:::note
+    DRIFT["check-drift.sh flags a false completion"]:::refuse
+    PAST["PastPlans, plan and handoff trail kept"]:::course
+    INACT["InactivePlans, paused or superseded"]:::report
+    MAP["MIGRATION-MAP.md logs every move"]:::report
 
     OWNER --> FUT
-    FUT -->|"kickoff moves the file, never copies"| CUR
+    FUT -->|"Kickoff moves it"| CUR
     CUR --> WATERFALL
-    WATERFALL -->|"next session reads the handoff"| CUR
-    CUR -->|"indexed by"| BOARD
+    WATERFALL -->|"Next session"| CUR
+    CUR -->|"Indexed by"| BOARD
     CUR --> DOD
-    DOD -->|"met"| PAST
-    DOD -->|"parked"| INACT
-    DOD -->|"marked complete but not met"| DRIFT
-    DRIFT -->|"flagged for repair"| CUR
+    DOD -->|"Yes"| REVIEW --> PAST
+    DOD -->|"Paused"| INACT
+    DOD -->|"Marked, not met"| DRIFT
+    DRIFT -->|"Repair"| CUR
     PAST --> MAP
 
     classDef people fill:#ECEFF1,stroke:#455A64,color:#000000,stroke-width:2px
@@ -50,4 +42,5 @@ flowchart TD
     classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000,stroke-width:2px
     classDef report fill:#FFEBEE,stroke:#C62828,color:#000000,stroke-width:2px
     classDef refuse fill:#FFEBEE,stroke:#C62828,color:#000000,stroke-width:2px,stroke-dasharray: 5 5
+    classDef note fill:#FFFDE7,stroke:#9E9D24,color:#000000,stroke-width:2px
     classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:3px
