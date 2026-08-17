@@ -396,6 +396,8 @@
 			color: #000;
 			border-left: #ffffff;
 			padding-left: 0.75rem;
+			padding-right: clamp(1rem, 5vw, 4rem);
+			max-width: 600px;
 		}
 
 		.stat-chips {
@@ -880,8 +882,14 @@
 
 		footer {
 			text-align: center;
-			padding: 2rem;
+			padding: 0.4rem;
 			background: transparent;
+		}
+
+		/* Thin footer: the wrapper section keeps the card small too */
+		.section:has(> footer) {
+			padding-top: var(--sp-2);
+			padding-bottom: var(--sp-2);
 		}
 
 		footer p {
@@ -973,6 +981,27 @@
 		.education-section>.role-entry:last-child {
 			border-bottom: none;
 			padding-bottom: 0;
+		}
+
+		/* Invisible two-column table: degrees left, licence and certifications right */
+		.edu-grid {
+			display: grid;
+			grid-template-columns: auto auto;
+			justify-content: center;
+			gap: var(--sp-4) var(--sp-6);
+			align-items: start;
+			width: fit-content;
+			margin-inline: auto;
+		}
+
+		.edu-grid>.edu-col>.role-entry {
+			border-bottom: none;
+		}
+
+		@media (max-width: 768px) {
+			.edu-grid {
+				grid-template-columns: 1fr;
+			}
 		}
 
 		.education-section .role-title {
@@ -1433,9 +1462,10 @@
 						<div class="profile-text">
 							<h2 style="color: #000000;">An International Perspective for Problem Solving</h2>
 							<h4>
-								<li>I'm a big fan of organizing chaos. This was all brought about by over a decade of teaching and educational development from around the world, including two active conflict zones.</li>
+								I enjoy organizing chaos. All brought about by over a decade of teaching and educational development from around the world.
 								<br>
-									<li>I'm a firm believer that accessibiility and good documentation can fix anything.</li>
+									<br>
+							
 
 							</h4>
 							<div class="stat-chips">
@@ -1484,9 +1514,9 @@
 				<div>
 					<h3><i data-lucide="plug" style="display:inline;vertical-align:middle;width:18px;height:18px;margin-right:6px;"></i>Integrations & Logic</h3>
 					<ul>
-						<li>Using Instructional Design principles to help automate workflows.</li>
-						<li>Connecting as many time saving tools as possible to business logic.</li>
-						<li>Using Knowledge Management principles to help software development.</li>
+						<li>Learning more about how Knowledge Management and instructional design principles help software development.</li>
+						<li>Studying for the Security+ certification.</li>
+						
 					</ul>
 				</div>
 				<div>
@@ -1508,7 +1538,7 @@
 	<div>
 					<h3>Accessibility</h3>
 					<ul>
-						<li>Information should be written for comprehension.</li>
+						<li>Information should be written for comprehension for everyone.</li>
 						<li>Disability + Reading = Accessibility Request</li>
 						<li>"Give me the bottom line" = Accessibility Request</li>
 					</ul>
@@ -1602,23 +1632,7 @@
 							<span class="role-date">JUL 2025 – Present</span>
 						</div>
 						<div class="role-company">StructureSense.ai &middot; Remote</div>
-						<div class="role-extra">
-							Tools created:
-							<ul>
-								<li>
-									<a href="https://mermaid.ai/d/ad2142f1-c91e-4b4c-a64e-e0c7ee5407a0"
-										target="_blank" rel="noopener noreferrer">
-										RFP Multi-Source Discovery Automation Pipeline
-									</a>
-								</li>
-								<li>
-									<a href="https://mermaid.ai/d/d9352ab6-f6cb-48d2-9421-fc30033d1eff"
-										target="_blank" rel="noopener noreferrer">
-										Grants.gov Automation Pipeline
-									</a>
-								</li>
-							</ul>
-						</div>
+						
 					</div>
 				</div>
 <h3 style="margin-top: 3rem; color: var(--c-navy);">Global Education &amp; Instructional Design</h3>
@@ -1671,49 +1685,53 @@
 
 
 				<h2 style="color: var(--c-ink); margin-top: 3rem;">Education &amp; Certifications</h2>
-				<div class="education-section">
-					<div class="role-entry">
-						<div class="role-line">
-							<span class="role-title" style="color: var(--c-ink);">Master of Arts, Education</span>
-						</div>
-						<div class="role-company">Digital Media Learning &middot; University of San Francisco - USA
-						</div>
-						<br>
+				<div class="education-section edu-grid">
+					<div class="edu-col">
+						<div class="role-entry">
 							<div class="role-line">
-							<span class="role-title" style="color: var(--c-ink);">Bachelor of Arts, History</span>
-						</div>
-					<div class="role-company">Latin American History &middot; University of San Antonio Texas - USA
-						</div>
-					</div>
-					<div class="role-entry">
-						<div class="role-line">
-							<span class="role-title" style="color: var(--c-ink);">Instructional Design Certifications</span>
-						</div>
-						<div class="role-extra">
-							<ul>
-								<li><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr"
-										target="_blank">Quality Matters - APPQMR</a></li>
-								<li><a href="https://www.qualitymatters.org/professional-development/workshops/AI-for-course-design"
-										target="_blank">Quality Matters - LGAI</a></li>
-								<li><a href="https://www.qualitymatters.org/professional-development/courses/higher-ed-prc"
-										target="_blank">Quality Matters - PRC</a></li>
-							</ul>
+								<span class="role-title" style="color: var(--c-ink);">Master of Arts, Education</span>
+							</div>
+							<div class="role-company">Digital Media Learning &middot; University of San Francisco - USA
+							</div>
+							<br>
+								<div class="role-line">
+								<span class="role-title" style="color: var(--c-ink);">Bachelor of Arts, History</span>
+							</div>
+						<div class="role-company">Latin American History &middot; University of San Antonio Texas - USA
+							</div>
 						</div>
 					</div>
-					<div class="role-entry">
-						<div class="role-line">
-							<span class="role-title" style="color: var(--c-ink);">Electrical Apprentice Licence</span>
+					<div class="edu-col">
+						<div class="role-entry">
+							<div class="role-line">
+								<span class="role-title" style="color: var(--c-ink);">Electrical Apprentice Licence</span>
+							</div>
+							<div class="role-company">License #: <a
+									href="https://www.tdlr.texas.gov/LicenseSearch/SearchResultDetail.asp?1=APPELE00722539&amp;2=AE"
+									target="_blank">722539</a> • 2025- Present</div>
 						</div>
-						<div class="role-company">License #: <a
-								href="https://www.tdlr.texas.gov/LicenseSearch/SearchResultDetail.asp?1=APPELE00722539&amp;2=AE"
-								target="_blank">722539</a> • 2025- Present</div>
+						<div class="role-entry">
+							<div class="role-line">
+								<span class="role-title" style="color: var(--c-ink);">Instructional Design Certifications</span>
+							</div>
+							<div class="role-extra">
+								<ul>
+									<li><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr"
+											target="_blank">Quality Matters - APPQMR</a></li>
+									<li><a href="https://www.qualitymatters.org/professional-development/workshops/AI-for-course-design"
+											target="_blank">Quality Matters - LGAI</a></li>
+									<li><a href="https://www.qualitymatters.org/professional-development/courses/higher-ed-prc"
+											target="_blank">Quality Matters - PRC</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
 		<!-- ── PROJECTS SECTION ── -->
-		<section class="section reveal">
+		<section class="section">
 			<h2>Current Projects</h2>
 
 			<!-- Project 0: ID Skills / Augmented Intelligence Pipeline -->
@@ -1752,8 +1770,7 @@
 					<div class="tech-stack-section">
 						<div class="tech-stack-heading">Built With:</div>
 						<div class="tech-stack-grid">
-							<span class="tech-badge">Claude Code</span>
-							<span class="tech-badge">Multi-Agent Skills</span>
+							<span class="tech-badge">Multi-Agent Orchestration</span>
 							<span class="tech-badge">RAG Pipeline</span>
 							<span class="tech-badge">Moodle LMS</span>
 							<span class="tech-badge">PostgreSQL</span>
