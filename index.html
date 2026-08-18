@@ -712,6 +712,17 @@
 			margin-top: 2rem;
 		}
 
+		/* Beliefs grid: Accessibility spans the full first row, the two cards
+		   below it split the second row 50/50. The max-width:768px block later
+		   in this file collapses .grid to one column, which wins on mobile. */
+		.beliefs-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.beliefs-grid > div:first-child {
+			grid-column: 1 / -1;
+		}
+
 		.grid div {
 			background: var(--c-white);
 			padding: var(--sp-5);
@@ -748,6 +759,84 @@
 			text-align: left;
 			border-bottom: none;
 			padding-bottom: 0;
+		}
+
+		/* Reader table: who is asking, why, and what the ask really is.
+		   The wrapper scrolls sideways so a narrow card never clips the last
+		   column. The max-width:768px block restacks each row as a card. */
+		.table-scroll {
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		/* The .grid div rule above paints every nested div as its own card.
+		   The scroll wrapper is plumbing, not a card, so strip that back. */
+		.grid .table-scroll,
+		.grid .table-scroll:hover {
+			background: none;
+			padding: 0;
+			border: none;
+			border-radius: 0;
+		}
+
+		.reader-table {
+			width: 100%;
+			min-width: 620px;
+			border-collapse: collapse;
+			font-size: var(--fs-small);
+			line-height: 1.5;
+			color: var(--c-ink-soft);
+			table-layout: fixed;
+		}
+
+		/* Fixed shares stop the browser handing the middle columns more room
+		   than their text needs, which left a wide gap before "What They Say". */
+		.reader-table .c-reader {
+			width: 21%;
+		}
+
+		.reader-table .c-barrier {
+			width: 27%;
+		}
+
+		.reader-table .c-say-col {
+			width: 29%;
+		}
+
+		.reader-table .c-is-col {
+			width: 23%;
+		}
+
+		.reader-table th,
+		.reader-table td {
+			text-align: left;
+			vertical-align: top;
+			padding: var(--sp-3) var(--sp-4) var(--sp-3) 0;
+			border-bottom: 1px solid var(--c-border);
+		}
+
+		.reader-table th {
+			color: var(--c-ink);
+			font-weight: 600;
+			white-space: nowrap;
+		}
+
+		.reader-table tbody th {
+			white-space: normal;
+		}
+
+		.reader-table .c-say {
+			font-style: italic;
+		}
+
+		.reader-table .c-is {
+			color: var(--c-navy);
+			font-weight: 600;
+		}
+
+		.reader-table tbody tr:last-child th,
+		.reader-table tbody tr:last-child td {
+			border-bottom: none;
 		}
 
 		.project {
@@ -1274,6 +1363,60 @@
 				gap: 1.5rem;
 			}
 
+			/* Restack the reader table: one card per row, each cell labelled
+			   by its column heading, so nothing scrolls sideways on a phone. */
+			.reader-table {
+				min-width: 0;
+				table-layout: auto;
+			}
+
+			/* The stacked cards are full width, so drop the column shares. */
+			.reader-table .c-reader,
+			.reader-table .c-barrier,
+			.reader-table .c-say-col,
+			.reader-table .c-is-col {
+				width: auto;
+			}
+
+			.reader-table thead {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				overflow: hidden;
+				clip: rect(0 0 0 0);
+				white-space: nowrap;
+			}
+
+			.reader-table tbody tr {
+				display: block;
+				padding-bottom: var(--sp-4);
+				margin-bottom: var(--sp-4);
+				border-bottom: 1px solid var(--c-border);
+			}
+
+			.reader-table tbody tr:last-child {
+				margin-bottom: 0;
+				padding-bottom: 0;
+				border-bottom: none;
+			}
+
+			.reader-table tbody th,
+			.reader-table tbody td {
+				display: block;
+				padding: 0 0 var(--sp-2) 0;
+				border-bottom: none;
+			}
+
+			.reader-table tbody td::before {
+				content: attr(data-label) ": ";
+				display: block;
+				color: var(--c-muted);
+				font-size: var(--fs-tiny);
+				font-style: normal;
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+			}
+
 			.section h2 {
 				font-size: 1.75rem;
 				text-align: center;
@@ -1533,38 +1676,53 @@
 		<!-- ── HOW I THINK ABOUT THE WORK SECTION ── -->
 		<section class="section reveal">
 			<h2>Things I Believe About Work</h2>
-			<div class="grid">
-				
-	<div>
-					<h3>Accessibility</h3>
-					<ul>
-						<li>Information should be written for comprehension for everyone.</li>
-						<li>Disability + Reading = Accessibility Request</li>
-						<li>"Give me the bottom line" = Accessibility Request</li>
-					</ul>
+			<div class="grid beliefs-grid">
+				<div>
+					<h3>Accessibility Removes Barriers</h3>
+					<div class="table-scroll">
+						<table class="reader-table">
+							<thead>
+								<tr>
+									<th class="c-reader" scope="col">The Reader</th>
+									<th class="c-barrier" scope="col">The Barrier</th>
+									<th class="c-say-col" scope="col">What They Say</th>
+									<th class="c-is-col" scope="col">What It Actually Is</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">User with a Disability</th>
+									<td data-label="The Barrier">Cognitive processing limits or reading difficulties</td>
+									<td class="c-say" data-label="What They Say">"I need this in plain text with simpler words."</td>
+									<td class="c-is" data-label="What It Actually Is">An Accessibility Request</td>
+								</tr>
+								<tr>
+									<th scope="row">Busy Executive</th>
+									<td data-label="The Barrier">Severe time constraints and cognitive fatigue</td>
+									<td class="c-say" data-label="What They Say">"Give me the bottom line up front."</td>
+									<td class="c-is" data-label="What It Actually Is">An Accessibility Request</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div>
-					<h3>Documentation </h3>
+					<h3>Clear Documentation</h3>
 					<ul>
-						<li>Helpful documenation allows anyone to jump into any role and finish the job.</li>
+						<li>Helpful documentation allows anyone to jump into any role and finish the job.</li>
+						<li>AI only works well with clear documentation.</li>
 						<li>Gatekeeping information is bad operational security.</li>
-
-						
 					</ul>
 				</div>
-			
+
 				<div>
 					<h3>AI at Work</h3>
 					<ul>
 						<li>AI is a tool, but not a substitute for expertise.</li>
-						<li>AI should be called Augmented Intelligence, not artificial intelligence.</li>
-						<li>No Expertise + AI = Emotional Decision Making</li> 
-						
+						<li>AI should be called augmented intelligence, not artificial intelligence.</li>
+						<li>No Expertise & AI = Emotional Decision Making</li>
 					</ul>
 				</div>
-
-
-
 			</div>
 
 			<!-- ── HOW I DECIDE SUBSECTION ── -->
@@ -1704,7 +1862,7 @@
 					<div class="edu-col">
 						<div class="role-entry">
 							<div class="role-line">
-								<span class="role-title" style="color: var(--c-ink);">Electrical Apprentice Licence</span>
+								<span class="role-title" style="color: var(--c-ink);">Electrical Apprentice License</span>
 							</div>
 							<div class="role-company">License #: <a
 									href="https://www.tdlr.texas.gov/LicenseSearch/SearchResultDetail.asp?1=APPELE00722539&amp;2=AE"
@@ -1873,7 +2031,7 @@
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="search"></i></span>
 							<h4>Find the right RFPs</h4>
-							<p>AI-powered contract discovery tailored to a companies capabilities.</p>
+							<p>AI-powered contract discovery tailored to a company's capabilities.</p>
 						</div>
 						<div class="outcome-card">
 							<span class="icon"><i data-lucide="file-check"></i></span>

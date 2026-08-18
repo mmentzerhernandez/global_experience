@@ -629,9 +629,6 @@
          diagrams were verified to stay inside their nodes when left-aligned;
          every other diagram keeps Mermaid's centered default. Re-verify before
          adding an id here. ── */
-      #operating-system .canvas svg#op-folders-svg .nodeLabel,
-      #operating-system .canvas svg#op-folders-svg .nodeLabel p,
-      #operating-system .canvas svg#op-folders-svg foreignObject > div,
       #operating-system .canvas svg#op-wiki-tiers-svg .nodeLabel,
       #operating-system .canvas svg#op-wiki-tiers-svg .nodeLabel p,
       #operating-system .canvas svg#op-wiki-tiers-svg foreignObject > div,
@@ -769,10 +766,8 @@
           <div class="detail-note" style="max-width: none">
 <p class="section-label">The Market Challenge</p>
             <p class="lede">
-              The
-              <a href="https://www.tdlr.texas.gov/tdlrce.htm" target="_blank" rel="noopener noreferrer"
-                >Texas Dept. of Licensing &amp; Regulation (TDLR)</a
-              >
+              The <b><a href="https://www.tdlr.texas.gov/tdlrce.htm" target="_blank" rel="noopener noreferrer"
+                >Texas Dept. of Licensing &amp; Regulation (TDLR)</a></b>
               requires continuing education across 38+ regulated trades, representing a target market of nearly 1 million working professionals in Texas. <br><br> Since maintaining these licenses legally requires annual, biannual, or multi-year continuing education, it creates a potential recurring revenue stream. Currently <strong>nine different courses</strong> are scheduled to be developed, hosted, approved by TDLR, and then marketed.
             </p>
             <p class="section-label">The Business Pipeline</p>
@@ -789,16 +784,16 @@
       <tbody>
         <tr>
           <td class="c-step">1</td>
-          <td class="c-name">Provider Approval</td>
+          <td class="c-name">TDLR Approval</td>
           <td class="c-status"><span class="status-badge completed">Completed</span></td>
           <td>Business approved by TDLR on <strong>May 15, 2026</strong>.</td>
         </tr>
         <tr>
           <td class="c-step">2</td>
-          <td class="c-name">Course Approval (1 of 9)</td>
+          <td class="c-name">Course #1 Approval</td>
           <td class="c-status"><span class="status-badge completed">Completed</span></td>
           <td>
-             <strong>Course 1 of 9</strong> planned courses was approved by TDLR on <strong>June 22, 2026</strong> - Texas Electrician License Renewal - English.
+             <strong>Texas Electrician License Renewal (English)</strong>- Course 1 of 9 planned courses was approved by TDLR on <strong>June 22, 2026</strong>.
           </td>
         </tr>
         <tr class="hurdle-row">
@@ -809,10 +804,10 @@
         </tr>
               <tr>
           <td class="c-step">4</td>
-          <td class="c-name">Course Approval (2 of 9)</td>
+          <td class="c-name">Course #2 Approval</td>
           <td class="c-status"><span class="status-badge completed">Completed</span></td>
           <td>
-             <strong>Course 2 of 9</strong> planned courses was approved by TDLR on <strong>July 29, 2026</strong> - Texas Electrician License Renewal - Spanish.
+                <strong>Texas Electrician License Renewal (Spanish)</strong>- Course 2 of 9 planned courses was approved by TDLR on <strong>July 29, 2026</strong>.
           </td>
         </tr>
         <tr>
@@ -820,15 +815,15 @@
           <td class="c-name">Curricula to Social Media</td>
           <td class="c-status"><span class="status-badge review">In Progress</span></td>
           <td>
-            Currently converting the curriculua pipeline to an automated social media distribution pipeline to market Course 1. Future courses will be added once they get TDLR approval.
+            Currently converting the curriculum pipeline to an automated social media distribution pipeline to market the English and Spanish electrician courses. 
           </td>
         </tr>
         <tr>
           <td class="c-step">6</td>
           <td class="c-name">Scale & Repeat Cycle</td>
-          <td class="c-status"><span class="status-badge review">In Progress</span></td>
+          <td class="c-status"><span class="status-badge review">The Goal</span></td>
           <td>
-            With the blueprint proven, the cycle continues: design, submit, and secure TDLR approval for <strong>Courses 2-9</strong>. Then market to the remaining niche demographics across the TDLR professional workforce.
+            From idea to paying customers, the goal is to scale the remaining TDLR continuing education courses to targeted TDLR professionals.
           </td>
         </tr>
       </tbody>
@@ -2864,7 +2859,7 @@
 
           <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
             <p style="margin-top: 16px; margin-bottom: 16px">
-              The business runs via the eight listed  processes below:
+              The business runs via the eight listed processes below:
             </p>
             <ul style="padding-left: 20px; margin-top: 0; margin-bottom: 16px">
               <li style="margin-bottom: 8px"><strong>Knowledge Management</strong> sets one home for each fact.</li>
@@ -2946,7 +2941,7 @@
             <p class="arc-kicker">Execution</p>
             <h3 style="color: #1a202c; margin: 0 0 8px">Plan Execution Lifecycle</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
-              Each plan has different models, complete different parts of the work to run as efficiently and cheaply as possible.
+              Each plan uses different models to complete different parts of the work, to run as efficiently and cheaply as possible.
             </p>
             <ul style="padding-left: 20px">
               <li style="margin-bottom: 8px"><strong>Fable</strong> designs the architecture and writes the plan.</li>
@@ -2980,7 +2975,7 @@
           <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
             <h3 style="color: #1a202c; margin: 32px 0 8px">Three-Tier Knowledge Base</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
-              Information is stored in tiered wikis. Tier 1 is <code>Wiki/index.md</code>, the main wiki. It holds navigation and governance, never operational facts. Tier 2 is one wiki per operation folder. Tier 3 is a deep wiki that organizes connections between reference documents and the code base. When two tiers disagree, the more detailed tier wins. Everyday a sync runs <code>/ierhub-current-state</code> syncs each T upward and rebuilds <code>0-CurrentState.html</code>, the one-file briefing of the whole business.
+              Information is stored in tiered wikis. Tier 1 is <code>Wiki/index.md</code>, the main wiki. It holds navigation and governance, never operational facts. Tier 2 is one wiki per operation folder. Tier 3 is a deep wiki that organizes connections between reference documents and the code base. When two tiers disagree, the more detailed tier wins. Every day a sync runs <code>/ierhub-current-state</code> syncs each tier upward and rebuilds <code>0-CurrentState.html</code>, the one-file briefing of the whole business.
             </p>
           </div>
 
@@ -2990,7 +2985,7 @@
 
           <div style="max-width: 800px; margin: 0 0 8px; line-height: 1.6; color: #333">
             <p class="arc-kicker">Communication</p>
-            <h3 style="color: #1a202c; margin: 0 0 8px">Automated Communication Protocols</h3>
+            <h3 style="color: #1a202c; margin: 0 0 8px">Automated Emails</h3>
             <p style="margin-top: 0; margin-bottom: 16px">
               Three separate systems send email to buyers and staff. The map below shows every trigger and every message. It exists so that gaps are visible and so that the real buyer experience is known.
             </p>
@@ -3013,9 +3008,9 @@
               Every session ends by answering three questions in its handoff. What failed or surprised this session? What fact had to be re-derived that should have been recorded? What skill or doc change would have prevented it? A durable lesson becomes a feedback memory. Any implied change to a skill or a doc becomes a proposal in <code>10-Plans/SkillProposals/PROPOSALS.md</code> with status proposed. No agent edits the target file directly.
             </p>
             <ul style="padding-left: 20px">
-              <li style="margin-bottom: 8px"><strong>Daily Morning Review</strong>- Approves or rejects each entry. Anything not approved stays frozen.</li>
-              <li style="margin-bottom: 8px"><strong>A Haiku agen applies</strong>-  Each approved entry per <code>APPLY.md</code>. It backs up the target first and applies only the exact diff shown.</li>
-              <li style="margin-bottom: 8px"><strong>End of Week Review</strong>-  Scores whether each change moved the metric it targeted. Two flat reviews make the change a revert candidate. The loop has run since 30 Jul 2026.</li>
+              <li style="margin-bottom: 8px"><strong>Daily Morning Review</strong> - Approves or rejects each entry. Anything not approved stays frozen.</li>
+              <li style="margin-bottom: 8px"><strong>A Haiku agent applies</strong> - Each approved entry per <code>APPLY.md</code>. It backs up the target first and applies only the exact diff shown.</li>
+              <li style="margin-bottom: 8px"><strong>End of Week Review</strong> - Scores whether each change moved the metric it targeted. Two flat reviews make the change a revert candidate. The loop has run since 30 Jul 2026.</li>
             </ul>
             <p style="margin-top: 0; margin-bottom: 16px">
               A mistakes ledger at <code>13-Mistakes/mistakes.md</code> records each real error. A session appends an entry when a lesson traces to an actual error, or when the owner names a mistake mid-session. Each entry records the symptom, the root cause, the cost, the prevention, and where the prevention now lives. An entry closes only when its prevention is codified as a feedback memory or a proposal. A session reads the ledger when it drafts a plan and during preflight. The daily brief reports the open-entry count. A monthly sweep checks every codified link and every open entry.
@@ -3034,7 +3029,7 @@
             </p>
             <ul style="padding-left: 20px">
               <li style="margin-bottom: 8px"><strong>Dead-man check.</strong> A GitHub Action opens an issue that names the successor when no commit lands for seven days.</li>
-              <li style="margin-bottom: 8px"><strong>Successor runbook.</strong> <code>_Continuity/CONTINUITY.md</code> tells a successor, an attorney, or a partner what the repository is and what to do.</li>
+              <li style="margin-bottom: 8px"><strong>Successor runbook.</strong> <code>_Continuity/CONTINUITY.md</code> tells a successor, an attorney, or a partner what the repository is and what to do next.</li>
          
             </ul>
           </div>
