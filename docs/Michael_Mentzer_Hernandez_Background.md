@@ -29,6 +29,10 @@ This document provides a comprehensive overview of the professional background, 
 
 ## Professional Experience
 
+### KronosGroup.Health
+**Software Developer (Aug 2026–Present) · Remote**
+- **Focus:** Software development for healthcare technology.
+
 ### Meta (Facebook, Instagram, Threads)
 **Learning Solutions Partner / Learning Consultant (2022–2025)**
 - **Focus:** Global Operations Learning Organization (Malicious Activity Silo).
