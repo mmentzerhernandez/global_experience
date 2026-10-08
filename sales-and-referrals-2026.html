@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <!-- Built by lane-flow/build_sales_page.py. Edit the generator and build again, never this file. -->
+  <title>Sales, July to October 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Mobile first: these rules are the phone layout. Each min-width query below adds the wider layout. */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:  #dcebfe;
+      --color-white:  #ffffff;
+      --color-ink:    #000000;
+      --color-soft:   #333333;
+      --color-accent: #5294ff;
+      --color-focal:  #0033a0;
+      --font-sans:    'DM Sans', system-ui, sans-serif;
+      --font-mono:    'Space Mono', ui-monospace, monospace;
+    }
+    html, body { background: var(--color-paper); }
+    body {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.55;
+      font-weight: 500;
+      color: var(--color-ink);
+      padding: 24px 16px 48px;
+    }
+    .frame { max-width: 1040px; margin: 0 auto; }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    h1 { font-size: clamp(1.35rem, 1.05rem + 0.9vw, 2rem); font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; }
+    h2 { font-size: clamp(1.05rem, 0.9rem + 0.35vw, 1.25rem); font-weight: 700; line-height: 1.3; margin-bottom: 0.25rem; }
+    .lede { color: var(--color-soft); margin-bottom: 1.5rem; max-width: 60ch; }
+    .totals { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .totals + .totals { margin-top: 0.5rem; }
+    .totals:last-of-type { margin-bottom: 2.5rem; }
+    .card {
+      background: var(--color-white);
+      border: 2px solid var(--color-ink);
+      border-radius: 5px;
+      box-shadow: 4px 4px 0 0 var(--color-ink);
+      padding: 1rem 1.25rem;
+    }
+    .card.focal { background: var(--color-accent); }
+    .card .num { font-size: 1.75rem; font-weight: 700; line-height: 1.1; }
+    .card .sub { font-family: var(--font-mono); font-size: 0.7rem; margin-top: 0.25rem; }
+    section { margin-bottom: 2.5rem; }
+    .note { color: var(--color-soft); font-size: 0.9rem; margin-bottom: 1rem; max-width: 70ch; }
+    ul.note { padding-left: 1.25rem; }
+    ul.note li { margin-bottom: 0.25rem; }
+
+    /* Two versions of each diagram: .narrow for phones and touch screens, .wide for screens from 900px with a mouse. */
+    .wide { display: none; }
+    .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    svg { display: block; width: 100%; height: auto; }
+
+    /* Vertical timeline, phone layout */
+    .tl { list-style: none; margin: 0 0 0 10px; padding: 0 0 0 22px; border-left: 2px solid var(--color-ink); }
+    .tl li {
+      position: relative;
+      background: var(--color-white);
+      border: 2px solid var(--color-ink);
+      border-radius: 5px;
+      box-shadow: 3px 3px 0 0 var(--color-ink);
+      padding: 0.6rem 0.9rem;
+      margin-bottom: 0.9rem;
+    }
+    .tl li::before {
+      content: "";
+      position: absolute;
+      left: -33px;
+      top: 14px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--color-white);
+      border: 2px solid var(--color-ink);
+    }
+    .tl li.focal { background: var(--color-accent); }
+    .tl li.later { background: rgba(0, 0, 0, 0.04); border-style: dashed; box-shadow: none; }
+    .tl .tl-date { display: block; font-weight: 700; }
+    .tl .tl-sub, .tl .tl-who { display: block; font-family: var(--font-mono); font-size: 0.7rem; }
+    .tl .tl-who { color: var(--color-soft); margin-top: 0.2rem; }
+
+    /* Stacked flow chart, phone layout. Every row is a button at least 48px tall. */
+    .mstage { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin: 1.25rem 0 0.5rem; }
+    .mstage:first-child { margin-top: 0; }
+    .mstage + .mrows::before { content: none; }
+    .mrows { list-style: none; }
+    .mrow {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      font: inherit;
+      text-align: left;
+      color: var(--color-ink);
+      background: var(--color-white);
+      border: 2px solid var(--color-ink);
+      border-radius: 5px;
+      box-shadow: 3px 3px 0 0 var(--color-ink);
+      cursor: pointer;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    .mrow .mbar { position: absolute; left: 0; top: 0; bottom: 0; opacity: 0.2; }
+    .mrow .mlabel, .mrow .mval { position: relative; }
+    .mrow .mlabel { font-weight: 700; }
+    .mrow .mval { font-family: var(--font-mono); font-size: 0.7rem; text-align: right; white-space: nowrap; }
+    .mrow.focal { border-color: var(--color-focal); }
+    .mrow:focus-visible { outline: 3px solid var(--color-focal); outline-offset: 2px; }
+    .mlanes.selecting .mrow { opacity: 0.45; }
+    .mlanes.selecting .mrow.on { opacity: 1; background: var(--color-focal); color: var(--color-white); border-color: var(--color-focal); }
+    .mfold { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-soft); margin-bottom: 8px; }
+    .mstatus {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--color-white);
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+    }
+
+    /* Paid ads against free referral, phone layout */
+    .avr .avr-group { display: grid; gap: 0.75rem; }
+    .avr .card { padding: 0.75rem 1rem; }
+    .avr .card.change { border-style: dashed; }
+    .avr .card h3 { font-size: 1rem; font-weight: 700; }
+    .avr .card p { font-family: var(--font-mono); font-size: 0.7rem; }
+    .avr .step { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-align: center; margin: 0.6rem 0; }
+    .avr .total { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; border-top: 2px solid var(--color-ink); padding-top: 0.5rem; margin-top: 0.75rem; }
+
+    .lane-flow-status { font-family: var(--font-mono); font-size: 0.75rem; margin-top: 0.75rem; padding: 0.75rem 1rem;
+      background: var(--color-white); border: 1px solid rgba(0, 0, 0, 0.25); border-radius: 5px; }
+    #referral-landing { max-width: 720px; }
+    #traffic-to-money g[tabindex]:focus, #referral-landing g[tabindex]:focus { outline: none; }
+    #traffic-to-money g[tabindex]:focus-visible .row-card, #referral-landing g[tabindex]:focus-visible .row-card { stroke: var(--color-ink); stroke-width: 2; }
+
+    @media (min-width: 640px) {
+      body { padding: 32px 24px 56px; }
+      .totals { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+      .avr .avr-group.paid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 900px) {
+      body { padding: 48px 16px; }
+      section { margin-bottom: 3rem; }
+    }
+    /* The wide diagrams draw rows under 44px on a tablet, so a touch screen keeps the 48px buttons. */
+    @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+      .wide { display: block; }
+      .narrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+<p><a href="automated-curriculum-development-business.html">&larr; Automating Curriculum Development as a Business</a></p>
+<h1>IERHUB.com Sales, July to October 2026</h1>
+<p class="lede">01 Jul 2026 to 08 Oct 2026.</p>
+<div class="totals">
+<div class="card focal"><p class="eyebrow">Total Sales</p><p class="num">$555.78</p><p class="sub">All paid ads shut off 01 SEP 2026</p></div>
+<div class="card"><p class="eyebrow">October Sales, to 08 Oct</p><p class="num">$99.95</p><p class="sub">5 payments, 1 refunded</p></div>
+<div class="card"><p class="eyebrow">September Sales</p><p class="num">$279.86</p><p class="sub">14 payments</p></div>
+<div class="card"><p class="eyebrow">August Sales</p><p class="num">$137.96</p><p class="sub">5 payments</p></div>
+<div class="card"><p class="eyebrow">July Sales</p><p class="num">$58.00</p><p class="sub">1 payment</p></div>
+</div>
+<div class="totals">
+<div class="card"><p class="eyebrow">Sales from ChatGPT</p><p class="num">56.5%</p><p class="sub">13 of 23 buyers</p></div>
+<div class="card"><p class="eyebrow">Sales from the top 3 landing pages</p><p class="num">82.6%</p><p class="sub">19 of 23 buyers: Spanish course, Home and /es, Role pages</p></div>
+<div class="card"><p class="eyebrow">October against September, days 1 to 8</p><p class="num">+300%</p><p class="sub">4 sales against 1. $79.96 against $19.99.</p></div>
+<div class="card"><p class="eyebrow">October against July, days 1 to 8</p><p class="num">+300%</p><p class="sub">4 sales against 1. $79.96 against $58.00.</p></div>
+</div>
+<div class="totals">
+<div class="card"><p class="eyebrow">Average daily visitors</p><p class="num">16.5</p><p class="sub">1,632 daily visitors added over 99 days from 02 Jul. Last 30 days: 8.6 a day.</p></div>
+<div class="card"><p class="eyebrow">Average monthly visitors</p><p class="num">512</p><p class="sub">Jul 471, Aug 788, Sep 277. October to 08 Oct: 33.</p></div>
+<div class="card"><p class="eyebrow">Bounce rate, top 3 landing pages</p><p class="num">69.9%</p><p class="sub">Home / 66.6%, Spanish course 74.2%, English course 70.5%. Weighted by visits.</p></div>
+<div class="card"><p class="eyebrow">AI visibility: visits from AI assistants</p><p class="num">2.3%</p><p class="sub">41 of 1,767 visits (chatgpt.com 41). 13 of 23 buyers came from an AI assistant.</p></div>
+</div>
+<section><h2>July 2026: 1 payment, $58.00</h2><p class="note">By the source of the buyer: Google Ads 1. Amounts: 1 at $58.00.</p><ol class="tl narrow">
+<li class="focal"><span class="tl-date">07 Jul</span><span class="tl-sub">$58.00 · Google Ads</span><span class="tl-who">Customer 1, $58.00, Google Ads.</span></li>
+</ol><div class="wide scroll"><svg viewBox="0 96 880 144" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="sales-jul-title sales-jul-desc">
+<title id="sales-jul-title">Sales in July 2026</title>
+<desc id="sales-jul-desc">Timeline of July 2026 showing 1 payment: 07 Jul, $58.00 · Google Ads.</desc>
+<rect y="96" width="880" height="144" fill="#dcebfe"/>
+<line x1="64" y1="200" x2="784" y2="200" stroke="#000000" stroke-width="2"/>
+<line x1="64" y1="192" x2="64" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="280" y1="192" x2="280" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="520" y1="192" x2="520" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="760" y1="192" x2="760" y2="208" stroke="#000000" stroke-width="2"/>
+<g font-family="'Space Mono', monospace" font-size="8" font-weight="700" letter-spacing="0.1em" text-anchor="middle" fill="#000000"><text x="64" y="224">JUL 1</text><text x="280" y="224">JUL 10</text><text x="520" y="224">JUL 20</text><text x="760" y="224">JUL 30</text></g>
+<line x1="208" y1="164" x2="208" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 1, $58.00, Google Ads.</title>
+<rect x="152" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="148" y="120" width="120" height="40" rx="5" fill="#5294ff" stroke="#000000" stroke-width="2"/>
+<text x="208" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">07 Jul</text>
+<text x="208" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$58.00 · Google Ads</text></g>
+<circle cx="212" cy="204" r="8" fill="#000000"/><circle cx="208" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+</svg></div></section>
+<section><h2>August 2026: 5 payments, $137.96</h2><p class="note">By the source of the buyer: Google organic 2, ChatGPT 2, Direct 1. Amounts: 4 at $19.99, 1 at $58.00.</p><ol class="tl narrow">
+<li class=""><span class="tl-date">14 Aug</span><span class="tl-sub">$19.99 · Organic</span><span class="tl-who">Customer 2, $19.99, Google organic.</span></li>
+<li class=""><span class="tl-date">24 Aug</span><span class="tl-sub">$19.99 · Organic</span><span class="tl-who">Customer 3, $19.99, Google organic.</span></li>
+<li class="focal"><span class="tl-date">27 Aug · 2 sales</span><span class="tl-sub">$19.99 + $58.00</span><span class="tl-who">Customer 4, $19.99, ChatGPT. Customer 5, $58.00, Direct.</span></li>
+<li class=""><span class="tl-date">28 Aug</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 6, $19.99, ChatGPT.</span></li>
+</ol><div class="wide scroll"><svg viewBox="0 40 880 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="sales-aug-title sales-aug-desc">
+<title id="sales-aug-title">Sales in August 2026</title>
+<desc id="sales-aug-desc">Timeline of August 2026 showing 5 payments: 14 Aug, $19.99 · Organic. 24 Aug, $19.99 · Organic. 27 Aug, $19.99 + $58.00. 28 Aug, $19.99 · ChatGPT.</desc>
+<rect y="40" width="880" height="256" fill="#dcebfe"/>
+<line x1="64" y1="200" x2="784" y2="200" stroke="#000000" stroke-width="2"/>
+<line x1="64" y1="192" x2="64" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="280" y1="192" x2="280" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="520" y1="192" x2="520" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="760" y1="192" x2="760" y2="208" stroke="#000000" stroke-width="2"/>
+<g font-family="'Space Mono', monospace" font-size="8" font-weight="700" letter-spacing="0.1em" text-anchor="middle" fill="#000000"><text x="64" y="224">AUG 1</text><text x="280" y="224">AUG 10</text><text x="520" y="224">AUG 20</text><text x="760" y="224">AUG 30</text></g>
+<line x1="376" y1="164" x2="376" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 2, $19.99, Google organic.</title>
+<rect x="320" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="316" y="120" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="376" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">14 Aug</text>
+<text x="376" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · Organic</text></g>
+<line x1="616" y1="164" x2="616" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 3, $19.99, Google organic.</title>
+<rect x="560" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="556" y="120" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="616" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">24 Aug</text>
+<text x="616" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · Organic</text></g>
+<line x1="688" y1="208" x2="688" y2="240" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 4, $19.99, ChatGPT. Customer 5, $58.00, Direct.</title>
+<rect x="632" y="244" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="628" y="240" width="120" height="40" rx="5" fill="#5294ff" stroke="#000000" stroke-width="2"/>
+<text x="688" y="258" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">27 Aug · 2 sales</text>
+<text x="688" y="272" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 + $58.00</text></g>
+<line x1="712" y1="100" x2="712" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 6, $19.99, ChatGPT.</title>
+<rect x="656" y="60" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="652" y="56" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="712" y="74" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">28 Aug</text>
+<text x="712" y="88" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<circle cx="380" cy="204" r="8" fill="#000000"/><circle cx="376" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="620" cy="204" r="8" fill="#000000"/><circle cx="616" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="692" cy="204" r="8" fill="#000000"/><circle cx="688" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="716" cy="204" r="8" fill="#000000"/><circle cx="712" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+</svg></div></section>
+<section><h2>September 2026: 14 payments, $279.86</h2><p class="note">By the source of the buyer: ChatGPT 9, Not yet known 3, Direct 1, Google organic 1. Amounts: 14 at $19.99.</p><ol class="tl narrow">
+<li class=""><span class="tl-date">02 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 7, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">09 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 8, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">11 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 9, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">13 Sep</span><span class="tl-sub">$19.99 · Unknown</span><span class="tl-who">Customer 10, $19.99, Not yet known.</span></li>
+<li class=""><span class="tl-date">14 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 11, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">17 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 12, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">18 Sep</span><span class="tl-sub">$19.99 · Direct</span><span class="tl-who">Customer 13, $19.99, Direct.</span></li>
+<li class=""><span class="tl-date">22 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 14, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">23 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 15, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">27 Sep</span><span class="tl-sub">$19.99 · ChatGPT</span><span class="tl-who">Customer 16, $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">28 Sep</span><span class="tl-sub">$19.99 · Organic</span><span class="tl-who">Customer 17, $19.99, Google organic.</span></li>
+<li class="focal"><span class="tl-date">30 Sep · 3 sales</span><span class="tl-sub">$19.99 × 3</span><span class="tl-who">Customer 18, $19.99, Not yet known. Customer 19, $19.99, ChatGPT. Customer 20, $19.99, Not yet known.</span></li>
+</ol><div class="wide scroll"><svg viewBox="0 40 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="sales-sep-title sales-sep-desc">
+<title id="sales-sep-title">Sales in September 2026</title>
+<desc id="sales-sep-desc">Timeline of September 2026 showing 14 payments: 02 Sep, $19.99 · ChatGPT. 09 Sep, $19.99 · ChatGPT. 11 Sep, $19.99 · ChatGPT. 13 Sep, $19.99 · Unknown. 14 Sep, $19.99 · ChatGPT. 17 Sep, $19.99 · ChatGPT. 18 Sep, $19.99 · Direct. 22 Sep, $19.99 · ChatGPT. 23 Sep, $19.99 · ChatGPT. 27 Sep, $19.99 · ChatGPT. 28 Sep, $19.99 · Organic. 30 Sep, $19.99 × 3.</desc>
+<rect y="40" width="880" height="320" fill="#dcebfe"/>
+<line x1="64" y1="200" x2="784" y2="200" stroke="#000000" stroke-width="2"/>
+<line x1="64" y1="192" x2="64" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="280" y1="192" x2="280" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="520" y1="192" x2="520" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="760" y1="192" x2="760" y2="208" stroke="#000000" stroke-width="2"/>
+<g font-family="'Space Mono', monospace" font-size="8" font-weight="700" letter-spacing="0.1em" text-anchor="middle" fill="#000000"><text x="64" y="224">SEP 1</text><text x="280" y="224">SEP 10</text><text x="520" y="224">SEP 20</text><text x="760" y="224">SEP 30</text></g>
+<line x1="88" y1="164" x2="88" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 7, $19.99, ChatGPT.</title>
+<rect x="32" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="28" y="120" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="88" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">02 Sep</text>
+<text x="88" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="256" y1="164" x2="256" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 8, $19.99, ChatGPT.</title>
+<rect x="200" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="196" y="120" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="256" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">09 Sep</text>
+<text x="256" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="304" y1="208" x2="304" y2="240" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 9, $19.99, ChatGPT.</title>
+<rect x="248" y="244" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="244" y="240" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="304" y="258" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">11 Sep</text>
+<text x="304" y="272" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="352" y1="100" x2="352" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 10, $19.99, Not yet known.</title>
+<rect x="296" y="60" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="292" y="56" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="352" y="74" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">13 Sep</text>
+<text x="352" y="88" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · Unknown</text></g>
+<line x1="376" y1="208" x2="376" y2="304" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 11, $19.99, ChatGPT.</title>
+<rect x="320" y="308" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="316" y="304" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="376" y="322" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">14 Sep</text>
+<text x="376" y="336" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="448" y1="164" x2="448" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 12, $19.99, ChatGPT.</title>
+<rect x="392" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="388" y="120" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="448" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">17 Sep</text>
+<text x="448" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="472" y1="208" x2="472" y2="240" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 13, $19.99, Direct.</title>
+<rect x="416" y="244" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="412" y="240" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="472" y="258" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">18 Sep</text>
+<text x="472" y="272" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · Direct</text></g>
+<line x1="568" y1="100" x2="568" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 14, $19.99, ChatGPT.</title>
+<rect x="512" y="60" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="508" y="56" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="568" y="74" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">22 Sep</text>
+<text x="568" y="88" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="592" y1="164" x2="592" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 15, $19.99, ChatGPT.</title>
+<rect x="536" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="532" y="120" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="592" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">23 Sep</text>
+<text x="592" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="688" y1="208" x2="688" y2="240" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 16, $19.99, ChatGPT.</title>
+<rect x="632" y="244" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="628" y="240" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="688" y="258" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">27 Sep</text>
+<text x="688" y="272" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · ChatGPT</text></g>
+<line x1="712" y1="100" x2="712" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 17, $19.99, Google organic.</title>
+<rect x="656" y="60" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="652" y="56" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="712" y="74" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">28 Sep</text>
+<text x="712" y="88" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · Organic</text></g>
+<line x1="760" y1="164" x2="760" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 18, $19.99, Not yet known. Customer 19, $19.99, ChatGPT. Customer 20, $19.99, Not yet known.</title>
+<rect x="704" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="700" y="120" width="120" height="40" rx="5" fill="#5294ff" stroke="#000000" stroke-width="2"/>
+<text x="760" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">30 Sep · 3 sales</text>
+<text x="760" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 × 3</text></g>
+<circle cx="92" cy="204" r="8" fill="#000000"/><circle cx="88" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="260" cy="204" r="8" fill="#000000"/><circle cx="256" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="308" cy="204" r="8" fill="#000000"/><circle cx="304" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="356" cy="204" r="8" fill="#000000"/><circle cx="352" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="380" cy="204" r="8" fill="#000000"/><circle cx="376" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="452" cy="204" r="8" fill="#000000"/><circle cx="448" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="476" cy="204" r="8" fill="#000000"/><circle cx="472" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="572" cy="204" r="8" fill="#000000"/><circle cx="568" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="596" cy="204" r="8" fill="#000000"/><circle cx="592" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="692" cy="204" r="8" fill="#000000"/><circle cx="688" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="716" cy="204" r="8" fill="#000000"/><circle cx="712" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="764" cy="204" r="8" fill="#000000"/><circle cx="760" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+</svg></div></section>
+<section><h2>October 2026, to 08 Oct: 5 payments, $99.95</h2><p class="note">By the source of the buyer: ChatGPT 2, Bing organic 1. Customer 13 paid a second time on 03 Oct. Customer 22 paid a second time on 04 Oct, and that payment is refunded. Amounts: 5 at $19.99. The month is not over: 9 to 31 Oct have no data yet.</p><ol class="tl narrow">
+<li class=""><span class="tl-date">03 Oct</span><span class="tl-sub">$19.99 · repeat</span><span class="tl-who">Customer 13 (repeat), $19.99, Direct.</span></li>
+<li class="focal"><span class="tl-date">04 Oct · 3 sales</span><span class="tl-sub">$19.99 × 3 · 1 refunded</span><span class="tl-who">Customer 21, $19.99, ChatGPT. Customer 22, $19.99, ChatGPT. Customer 22 (repeat, refunded), $19.99, ChatGPT.</span></li>
+<li class=""><span class="tl-date">06 Oct</span><span class="tl-sub">$19.99 · Bing</span><span class="tl-who">Customer 23, $19.99, Bing organic.</span></li>
+<li class="later"><span class="tl-date">9 to 31 Oct</span><span class="tl-sub">Not yet</span></li>
+</ol><div class="wide scroll"><svg viewBox="0 40 880 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="sales-oct-title sales-oct-desc">
+<title id="sales-oct-title">Sales in October 2026, to 08 Oct</title>
+<desc id="sales-oct-desc">Timeline of October 2026 showing 5 payments: 03 Oct, $19.99 · repeat. 04 Oct, $19.99 × 3 · 1 refunded. 06 Oct, $19.99 · Bing.</desc>
+<rect y="40" width="880" height="256" fill="#dcebfe"/>
+<rect x="244" y="180" width="552" height="32" rx="5" fill="rgba(0,0,0,0.04)" stroke="#000000" stroke-width="2" stroke-dasharray="4,4"/>
+<text x="520" y="168" font-family="'Space Mono', monospace" font-size="8" font-weight="700" letter-spacing="0.1em" text-anchor="middle">9 TO 31 OCT, NOT YET</text>
+<line x1="64" y1="200" x2="784" y2="200" stroke="#000000" stroke-width="2"/>
+<line x1="64" y1="192" x2="64" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="280" y1="192" x2="280" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="520" y1="192" x2="520" y2="208" stroke="#000000" stroke-width="2"/>
+<line x1="760" y1="192" x2="760" y2="208" stroke="#000000" stroke-width="2"/>
+<g font-family="'Space Mono', monospace" font-size="8" font-weight="700" letter-spacing="0.1em" text-anchor="middle" fill="#000000"><text x="64" y="224">OCT 1</text><text x="280" y="224">OCT 10</text><text x="520" y="224">OCT 20</text><text x="760" y="224">OCT 30</text></g>
+<line x1="112" y1="164" x2="112" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 13 (repeat), $19.99, Direct.</title>
+<rect x="56" y="124" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="52" y="120" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="112" y="138" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">03 Oct</text>
+<text x="112" y="152" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · repeat</text></g>
+<line x1="136" y1="208" x2="136" y2="240" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 21, $19.99, ChatGPT. Customer 22, $19.99, ChatGPT. Customer 22 (repeat, refunded), $19.99, ChatGPT.</title>
+<rect x="80" y="244" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="76" y="240" width="120" height="40" rx="5" fill="#5294ff" stroke="#000000" stroke-width="2"/>
+<text x="136" y="258" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">04 Oct · 3 sales</text>
+<text x="136" y="272" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 × 3 · 1 refunded</text></g>
+<line x1="184" y1="100" x2="184" y2="192" stroke="#000000" stroke-width="2"/>
+<g><title>Customer 23, $19.99, Bing organic.</title>
+<rect x="128" y="60" width="120" height="40" rx="5" fill="#000000"/>
+<rect x="124" y="56" width="120" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<text x="184" y="74" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">06 Oct</text>
+<text x="184" y="88" font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">$19.99 · Bing</text></g>
+<circle cx="116" cy="204" r="8" fill="#000000"/><circle cx="112" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="140" cy="204" r="8" fill="#000000"/><circle cx="136" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+<circle cx="188" cy="204" r="8" fill="#000000"/><circle cx="184" cy="200" r="8" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+</svg></div></section>
+<section><h2>Where the 23 buyers came from, and where they landed</h2><p class="note">ChatGPT sent 13 of 23 buyers at $0.00 of ad cost, and 11 of those 13 landed on the Spanish course page. Google Ads cost $236.31 for 1 buyer. The source of customer 10, 18, 20 is not yet known. The landing page of customer 10, 14, 20, 21 is inferred, not verified. The landing page of customer 18 is not yet known. Each buyer counts once, by the first purchase. The length of a bar, or the thickness of a band on a wide screen, is its number of sales. Select a row to follow it.</p><div class="narrow mlanes" id="referral-landing-m">
+<h3 class="mstage">Referred from</h3><ul class="mrows">
+<li><button type="button" class="mrow focal" data-id="chatgpt" aria-pressed="false"><span class="mbar" style="width:100.0%;background:#0033a0"></span><span class="mlabel">ChatGPT</span><span class="mval">Sales: 13<br>Cost: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="google-organic" aria-pressed="false"><span class="mbar" style="width:23.1%;background:#8a94a6"></span><span class="mlabel">Google organic</span><span class="mval">Sales: 3<br>Cost: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="unknown" aria-pressed="false"><span class="mbar" style="width:23.1%;background:#8a94a6"></span><span class="mlabel">Not yet known</span><span class="mval">Sales: 3<br>Cost: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="direct" aria-pressed="false"><span class="mbar" style="width:15.4%;background:#8a94a6"></span><span class="mlabel">Direct</span><span class="mval">Sales: 2<br>Cost: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="bing" aria-pressed="false"><span class="mbar" style="width:7.7%;background:#8a94a6"></span><span class="mlabel">Bing organic</span><span class="mval">Sales: 1<br>Cost: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="google-cpc" aria-pressed="false"><span class="mbar" style="width:7.7%;background:#000000"></span><span class="mlabel">Google Ads</span><span class="mval">Sales: 1<br>Cost: $236.31</span></button></li>
+</ul>
+<h3 class="mstage">Landing page</h3><ul class="mrows">
+<li><button type="button" class="mrow focal" data-id="page-course-es" aria-pressed="false"><span class="mbar" style="width:100.0%;background:#8a94a6"></span><span class="mlabel">Spanish course</span><span class="mval">12</span></button></li>
+<li><button type="button" class="mrow" data-id="page-home" aria-pressed="false"><span class="mbar" style="width:33.3%;background:#8a94a6"></span><span class="mlabel">Home and /es</span><span class="mval">4</span></button></li>
+<li><button type="button" class="mrow" data-id="page-role" aria-pressed="false"><span class="mbar" style="width:25.0%;background:#8a94a6"></span><span class="mlabel">Role pages</span><span class="mval">3</span></button></li>
+<li><button type="button" class="mrow" data-id="page-course-en" aria-pressed="false"><span class="mbar" style="width:16.7%;background:#8a94a6"></span><span class="mlabel">English course</span><span class="mval">2</span></button></li>
+<li><button type="button" class="mrow" data-id="page-/founder" aria-pressed="false"><span class="mbar" style="width:8.3%;background:#8a94a6"></span><span class="mlabel">/founder</span><span class="mval">1</span></button></li>
+<li><button type="button" class="mrow" data-id="page-unknown" aria-pressed="false"><span class="mbar" style="width:8.3%;background:#8a94a6"></span><span class="mlabel">Not yet known</span><span class="mval">1</span></button></li>
+</ul>
+<p class="mstatus" aria-live="polite">ChatGPT: 13 sales, $259.87, ad cost $0.00. Landed on: Spanish course (11), English course (1), /founder (1).</p>
+<script type="application/json" class="mdata">{"links": {"chatgpt": ["page-/founder", "page-course-en", "page-course-es"], "page-course-es": ["chatgpt", "unknown"], "unknown": ["page-course-en", "page-course-es", "page-unknown"], "google-organic": ["page-home", "page-role"], "page-home": ["direct", "google-cpc", "google-organic"], "direct": ["page-home"], "google-cpc": ["page-home"], "page-role": ["bing", "google-organic"], "bing": ["page-role"], "page-course-en": ["chatgpt", "unknown"], "page-/founder": ["chatgpt"], "page-unknown": ["unknown"]}, "details": {"chatgpt": "ChatGPT: 13 sales, $259.87, ad cost $0.00. Landed on: Spanish course (11), English course (1), /founder (1).", "google-organic": "Google organic: 3 sales, $59.97, ad cost $0.00. Landed on: Home and /es (1), Role pages (2).", "unknown": "Not yet known: 3 sales, $59.97, ad cost $0.00. Landed on: Spanish course (1), English course (1), Not yet known (1).", "direct": "Direct: 2 sales, $77.99, ad cost $0.00. Landed on: Home and /es (2).", "bing": "Bing organic: 1 sale, $19.99, ad cost $0.00. Landed on: Role pages (1).", "google-cpc": "Google Ads: 1 sale, $58.00, ad cost $236.31. Landed on: Home and /es (1).", "page-course-es": "Spanish course: 12 sales, $239.88. From: ChatGPT (11), Not yet known (1). Inferred landing page: customer 10, 21.", "page-home": "Home and /es: 4 sales, $155.98. From: Google organic (1), Direct (2), Google Ads (1).", "page-role": "Role pages: 3 sales, $59.97. From: Google organic (2), Bing organic (1).", "page-course-en": "English course: 2 sales, $39.98. From: ChatGPT (1), Not yet known (1). Inferred landing page: customer 20.", "page-/founder": "/founder: 1 sale, $19.99. From: ChatGPT (1). Inferred landing page: customer 14.", "page-unknown": "Not yet known: 1 sale, $19.99. From: Not yet known (1)."}}</script>
+</div><div class="wide scroll"><style>
+#referral-landing { --bg: #dcebfe; --ink: #000000; --ink-soft: #333333; --muted: #6b7280; --line: rgba(0, 0, 0, 0.25);
+  --card: #ffffff; --grid: #ffffff; --accent: #0033a0; }
+#referral-landing { font-family: 'DM Sans', system-ui, sans-serif; }
+#referral-landing .card, #referral-landing .row-card { box-shadow: none; border: 0; background: none; padding: 0; }
+#referral-landing text { fill: var(--ink); font-family: inherit; }
+#referral-landing .header { font-size: 13px; font-weight: 700; }
+#referral-landing .label { font-size: 12px; }
+#referral-landing .value { font-size: 9px; font-family: ui-monospace, Menlo, Consolas, monospace; fill: var(--ink-soft); }
+#referral-landing .bar { fill-opacity: 0.9; }
+#referral-landing .grid { fill: var(--grid); stroke: var(--line); }
+#referral-landing .dot { fill: var(--ink); fill-opacity: 0.75; }
+#referral-landing .card { fill: var(--card); stroke: var(--line); fill-opacity: 0.92; }
+#referral-landing .card-label { font-size: 12px; fill: var(--ink-soft); }
+#referral-landing .fold { fill: var(--ink-soft); }
+#referral-landing .conn { fill: none; stroke-width: 1.2; stroke-opacity: 0.6; }
+#referral-landing .focal .label, #referral-landing .hot .label, #referral-landing text.focal, #referral-landing text.hot { fill: var(--accent); font-weight: 700; }
+#referral-landing .focal .bar, #referral-landing .hot .bar { fill: var(--accent) !important; fill-opacity: 1; }
+#referral-landing .ribbon.focal, #referral-landing .ribbon.hot { fill: var(--accent) !important; fill-opacity: 0.85 !important; }
+#referral-landing .dot.focal, #referral-landing .dot.hot { fill: var(--accent); fill-opacity: 1; }
+#referral-landing .conn.focal, #referral-landing .conn.hot { stroke: var(--accent) !important; stroke-width: 2.4; stroke-opacity: 1; }
+#referral-landing .dim { opacity: 0.55; }
+#referral-landing .header { font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; }
+#referral-landing .label { font-weight: 700; }
+#referral-landing .value { font-family: 'Space Mono', ui-monospace, monospace; fill: var(--ink); }
+#referral-landing .row-card { fill: var(--card); stroke: var(--line); stroke-width: 1; }
+#referral-landing .share { fill-opacity: 0.16; }
+#referral-landing .card { fill: var(--card); stroke: var(--line); stroke-width: 1; fill-opacity: 1; }
+#referral-landing .flow { stroke: none; fill-opacity: 0.35; }
+#referral-landing .ribbon { fill-opacity: 0.35; }
+#referral-landing .flow.focal, #referral-landing .flow.hot { fill: var(--accent) !important; fill-opacity: 0.9 !important; stroke: var(--accent);
+  stroke-width: 1.5; }
+#referral-landing .focal .row-card, #referral-landing .hot .row-card { fill: var(--accent); stroke: var(--accent); }
+#referral-landing .focal .label, #referral-landing .hot .label, #referral-landing .focal .value, #referral-landing .hot .value { fill: #ffffff; }
+#referral-landing .focal .share, #referral-landing .hot .share { fill: #ffffff !important; fill-opacity: 0.22; }
+#referral-landing .dim { opacity: 1; }
+#referral-landing g.row { transform-box: fill-box; transform-origin: center; transition: transform 0.2s, opacity 0.2s; }
+#referral-landing.selecting g.row.focal { transform: scale(1.12); filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)); }
+#referral-landing.selecting g.row.dim { transform: scale(0.92); opacity: 0.4; }
+#referral-landing.selecting .flow.focal, #referral-landing.selecting .ribbon.focal { stroke: var(--accent); stroke-width: 4; }
+#referral-landing.selecting .flow.dim, #referral-landing.selecting .ribbon.dim { fill: #808080 !important; fill-opacity: 0.3 !important; opacity: 1; }
+#referral-landing.selecting .dim { opacity: 0.3; }
+</style>
+<svg id="referral-landing" class="lane-flow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 538 344" role="img" aria-labelledby="referral-landing-title referral-landing-desc" data-has-focal="yes">
+<title id="referral-landing-title">Where the 23 buyers came from, and where they landed</title>
+<desc id="referral-landing-desc">23 buyers from 6 sources landed on 6 pages. ChatGPT sent 13 buyers at no ad cost, and 11 of them landed on the Spanish course page.</desc>
+<text class="header" x="24.0" y="28">Referred from</text>
+<g class="row focal" data-entity="chatgpt">
+<rect class="row-card" x="16.0" y="59.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="59.0" width="110.8" height="38" rx="5" fill="#0033a0"/>
+<text class="label" data-entity="chatgpt" x="24.0" y="82.0" font-size="12">ChatGPT</text>
+<text class="value" x="204.0" y="77.0" text-anchor="end" font-size="10">Sales: 13</text>
+<text class="value" x="204.0" y="89.0" text-anchor="end" font-size="10">Cost: $0.00</text>
+</g>
+<g class="row dim" data-entity="google-organic">
+<rect class="row-card" x="16.0" y="103.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="103.0" width="25.6" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="google-organic" x="24.0" y="126.0" font-size="12">Google organic</text>
+<text class="value" x="204.0" y="121.0" text-anchor="end" font-size="10">Sales: 3</text>
+<text class="value" x="204.0" y="133.0" text-anchor="end" font-size="10">Cost: $0.00</text>
+</g>
+<g class="row dim" data-entity="unknown">
+<rect class="row-card" x="16.0" y="147.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="147.0" width="25.6" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="unknown" x="24.0" y="170.0" font-size="12">Not yet known</text>
+<text class="value" x="204.0" y="165.0" text-anchor="end" font-size="10">Sales: 3</text>
+<text class="value" x="204.0" y="177.0" text-anchor="end" font-size="10">Cost: $0.00</text>
+</g>
+<g class="row dim" data-entity="direct">
+<rect class="row-card" x="16.0" y="191.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="191.0" width="17.0" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="direct" x="24.0" y="214.0" font-size="12">Direct</text>
+<text class="value" x="204.0" y="209.0" text-anchor="end" font-size="10">Sales: 2</text>
+<text class="value" x="204.0" y="221.0" text-anchor="end" font-size="10">Cost: $0.00</text>
+</g>
+<g class="row dim" data-entity="bing">
+<rect class="row-card" x="16.0" y="235.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="235.0" width="8.5" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="bing" x="24.0" y="258.0" font-size="12">Bing organic</text>
+<text class="value" x="204.0" y="253.0" text-anchor="end" font-size="10">Sales: 1</text>
+<text class="value" x="204.0" y="265.0" text-anchor="end" font-size="10">Cost: $0.00</text>
+</g>
+<g class="row dim" data-entity="google-cpc">
+<rect class="row-card" x="16.0" y="279.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="279.0" width="8.5" height="38" rx="5" fill="#000000"/>
+<text class="label" data-entity="google-cpc" x="24.0" y="302.0" font-size="12">Google Ads</text>
+<text class="value" x="204.0" y="297.0" text-anchor="end" font-size="10">Sales: 1</text>
+<text class="value" x="204.0" y="309.0" text-anchor="end" font-size="10">Cost: $236.31</text>
+</g>
+<text class="header" x="334.0" y="28">Landing page</text>
+<g class="row rank focal" data-entity="page-course-es">
+<rect class="row-card" x="326.0" y="59.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="59.0" width="91.8" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-course-es" x="334.0" y="82.0" font-size="12">Spanish course</text>
+<text class="value" x="494.0" y="83.0" text-anchor="end" font-size="11">12</text>
+</g>
+<g class="row rank dim" data-entity="page-home">
+<rect class="row-card" x="326.0" y="103.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="103.0" width="30.6" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-home" x="334.0" y="126.0" font-size="12">Home and /es</text>
+<text class="value" x="494.0" y="127.0" text-anchor="end" font-size="11">4</text>
+</g>
+<g class="row rank dim" data-entity="page-role">
+<rect class="row-card" x="326.0" y="147.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="147.0" width="23.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-role" x="334.0" y="170.0" font-size="12">Role pages</text>
+<text class="value" x="494.0" y="171.0" text-anchor="end" font-size="11">3</text>
+</g>
+<g class="row rank dim" data-entity="page-course-en">
+<rect class="row-card" x="326.0" y="191.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="191.0" width="15.3" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-course-en" x="334.0" y="214.0" font-size="12">English course</text>
+<text class="value" x="494.0" y="215.0" text-anchor="end" font-size="11">2</text>
+</g>
+<g class="row rank dim" data-entity="page-/founder">
+<rect class="row-card" x="326.0" y="235.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="235.0" width="7.7" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-/founder" x="334.0" y="258.0" font-size="12">/founder</text>
+<text class="value" x="494.0" y="259.0" text-anchor="end" font-size="11">1</text>
+</g>
+<g class="row rank dim" data-entity="page-unknown">
+<rect class="row-card" x="326.0" y="279.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="279.0" width="7.7" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-unknown" x="334.0" y="302.0" font-size="12">Not yet known</text>
+<text class="value" x="494.0" y="303.0" text-anchor="end" font-size="11">1</text>
+</g>
+<path class="flow focal" data-entity="chatgpt" data-outcome="page-course-es" d="M212.0,61.0 C269.0,61.0 269.0,62.3 326.0,62.3 L326.0,91.1 C269.0,91.1 269.0,89.8 212.0,89.8 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-home" d="M212.0,207.4 C269.0,207.4 269.0,119.4 326.0,119.4 L326.0,124.6 C269.0,124.6 269.0,212.6 212.0,212.6 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="page-role" d="M212.0,120.7 C269.0,120.7 269.0,162.1 326.0,162.1 L326.0,167.3 C269.0,167.3 269.0,125.9 212.0,125.9 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="unknown" data-outcome="page-course-es" d="M212.0,162.1 C269.0,162.1 269.0,91.1 326.0,91.1 L326.0,93.7 C269.0,93.7 269.0,164.7 212.0,164.7 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="page-home" d="M212.0,118.1 C269.0,118.1 269.0,116.8 326.0,116.8 L326.0,119.4 C269.0,119.4 269.0,120.7 212.0,120.7 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-cpc" data-outcome="page-home" d="M212.0,296.7 C269.0,296.7 269.0,124.6 326.0,124.6 L326.0,127.2 C269.0,127.2 269.0,299.3 212.0,299.3 Z" fill="#000000"/>
+<path class="flow dim" data-entity="bing" data-outcome="page-role" d="M212.0,252.7 C269.0,252.7 269.0,167.3 326.0,167.3 L326.0,169.9 C269.0,169.9 269.0,255.3 212.0,255.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="chatgpt" data-outcome="page-course-en" d="M212.0,89.8 C269.0,89.8 269.0,207.4 326.0,207.4 L326.0,210.0 C269.0,210.0 269.0,92.4 212.0,92.4 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="unknown" data-outcome="page-course-en" d="M212.0,164.7 C269.0,164.7 269.0,210.0 326.0,210.0 L326.0,212.6 C269.0,212.6 269.0,167.3 212.0,167.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="chatgpt" data-outcome="page-/founder" d="M212.0,92.4 C269.0,92.4 269.0,252.7 326.0,252.7 L326.0,255.3 C269.0,255.3 269.0,95.0 212.0,95.0 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="unknown" data-outcome="page-unknown" d="M212.0,167.3 C269.0,167.3 269.0,296.7 326.0,296.7 L326.0,299.3 C269.0,299.3 269.0,169.9 212.0,169.9 Z" fill="#8a94a6"/>
+</svg>
+<p class="lane-flow-status" id="referral-landing-status" aria-live="polite">ChatGPT: 13 sales, $259.87, ad cost $0.00. Landed on: Spanish course (11), English course (1), /founder (1).</p>
+<script type="application/json" id="referral-landing-details">{"chatgpt": "ChatGPT: 13 sales, $259.87, ad cost $0.00. Landed on: Spanish course (11), English course (1), /founder (1).", "google-organic": "Google organic: 3 sales, $59.97, ad cost $0.00. Landed on: Home and /es (1), Role pages (2).", "unknown": "Not yet known: 3 sales, $59.97, ad cost $0.00. Landed on: Spanish course (1), English course (1), Not yet known (1).", "direct": "Direct: 2 sales, $77.99, ad cost $0.00. Landed on: Home and /es (2).", "bing": "Bing organic: 1 sale, $19.99, ad cost $0.00. Landed on: Role pages (1).", "google-cpc": "Google Ads: 1 sale, $58.00, ad cost $236.31. Landed on: Home and /es (1).", "page-course-es": "Spanish course: 12 sales, $239.88. From: ChatGPT (11), Not yet known (1). Inferred landing page: customer 10, 21.", "page-home": "Home and /es: 4 sales, $155.98. From: Google organic (1), Direct (2), Google Ads (1).", "page-role": "Role pages: 3 sales, $59.97. From: Google organic (2), Bing organic (1).", "page-course-en": "English course: 2 sales, $39.98. From: ChatGPT (1), Not yet known (1). Inferred landing page: customer 20.", "page-/founder": "/founder: 1 sale, $19.99. From: ChatGPT (1). Inferred landing page: customer 14.", "page-unknown": "Not yet known: 1 sale, $19.99. From: Not yet known (1)."}</script>
+<script>
+(function () {
+  var prefix = "referral-landing";
+  var svg = document.getElementById(prefix);
+  if (!svg) { return; }
+  var status = document.getElementById(prefix + "-status");
+  var detailsTag = document.getElementById(prefix + "-details");
+  var details = detailsTag ? JSON.parse(detailsTag.textContent) : {};
+  var parts = Array.prototype.slice.call(svg.querySelectorAll("g[data-entity], path[data-entity]"));
+  var conns = parts.filter(function (el) { return el.hasAttribute("data-outcome"); });
+  var initial = parts.map(function (el) { return el.getAttribute("class"); });
+  var initialText = status ? status.textContent : "";
+  var order = Array.prototype.slice.call(svg.children);
+  function clear() {
+    svg.classList.remove("selecting");
+    order.forEach(function (el) { svg.appendChild(el); });
+    parts.forEach(function (el, n) { el.setAttribute("class", initial[n]); el.removeAttribute("aria-pressed"); });
+    if (status) { status.textContent = initialText; }
+  }
+  svg.addEventListener("click", function (ev) {
+    if (!ev.target.closest("g[data-entity]")) { clear(); }
+  });
+  function select(id) {
+    svg.classList.add("selecting");
+    var ids = {};
+    ids[id] = true;
+    conns.forEach(function (c) {
+      if (c.getAttribute("data-entity") === id) { ids[c.getAttribute("data-outcome")] = true; }
+      if (c.getAttribute("data-outcome") === id) { ids[c.getAttribute("data-entity")] = true; }
+    });
+    parts.forEach(function (el) {
+      var ent = el.getAttribute("data-entity");
+      var out = el.getAttribute("data-outcome");
+      var on = out !== null ? (ent === id || out === id) : ids[ent] === true;
+      el.classList.toggle("focal", on);
+      el.classList.toggle("dim", !on);
+      if (el.tagName.toLowerCase() === "g") { el.setAttribute("aria-pressed", ent === id ? "true" : "false"); }
+    });
+    parts.forEach(function (el) {
+      if (el.tagName.toLowerCase() === "g" && el.classList.contains("focal")) { svg.appendChild(el); }
+    });
+    if (status) { status.textContent = details[id] || ""; }
+  }
+  parts.forEach(function (el) {
+    if (el.tagName.toLowerCase() !== "g") { return; }
+    var id = el.getAttribute("data-entity");
+    el.style.cursor = "pointer";
+    el.setAttribute("tabindex", "0");
+    el.addEventListener("click", function () { select(id); });
+    el.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(id); }
+    });
+  });
+})();
+</script>
+</div></section>
+<section><h2>Paid ads: $401.75 spent, 1 sale, $58.00. ChatGPT referrals: $0.00 spent, 13 sales, $259.87</h2><ul class="note"><li>Google Ads, Meta Ads and ChatGPT Ads ran in July and August 2026. All three are paused.</li><li>No ad spent money after August 2026. Last check: 08 Oct 2026.</li><li>On 11 Sep 2026 pull request #8 made the site easier for AI agents to read.</li><li>The first free ChatGPT referral sale came on 27 Aug 2026, before that change.</li><li>4 of the 13 referral sales came before the change. The site was already readable to agents.</li></ul><div class="narrow avr"><p class="eyebrow">Paid ads, Jul to Aug 2026</p><div class="avr-group paid"><div class="card"><h3>Google Ads</h3><p>$236.31 · 318 clicks</p><p>1 sale · $58.00</p></div><div class="card"><h3>Meta Ads</h3><p>$85.44 · 604 clicks</p><p>0 sales</p></div><div class="card"><h3>ChatGPT Ads</h3><p>$80.00 · 7 sessions</p><p>0 sales</p></div></div><p class="total">PAID: $401.75, 1 SALE, $58.00</p><p class="step">THE CHANGE, SEP 2026</p><div class="card change"><h3>Ads paused, site made readable to AI agents</h3><p>No ad spend after Aug 2026</p><p>Pull request #8, live 11 Sep 2026</p><p>llms.txt · JSON-LD · markdown copies</p><p>Server-rendered course pages</p><p>GA4: 41 chatgpt.com sessions to 08 Oct</p></div><p class="step">FREE REFERRAL, FROM 27 AUG</p><div class="card focal"><h3>ChatGPT referral, free</h3><p>$0.00 spent</p><p>13 sales · $259.87</p><p>27 Aug to 04 Oct 2026</p></div><p class="total">FREE: $0.00, 13 SALES, $259.87</p></div><div class="wide scroll">      <svg viewBox="0 0 880 408" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ads-vs-referral-title ads-vs-referral-desc">
+        <title id="ads-vs-referral-title">Paid ads versus free ChatGPT referrals</title>
+        <desc id="ads-vs-referral-desc">Flow from three paid ad channels, through the September 2026 change that paused ads and made the site readable to AI agents, to free ChatGPT referrals. PAID: $401.75, 1 SALE, $58.00. FREE: $0.00, 13 SALES, $259.87.</desc>
+        <defs>
+          <marker id="av-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#000000"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#dcebfe"/>
+
+        <g font-family="'Space Mono', monospace" font-size="8" font-weight="700" letter-spacing="0.18em" text-anchor="middle">
+          <text x="138" y="44">PAID ADS, JUL TO AUG 2026</text>
+          <text x="452" y="44">THE CHANGE, SEP 2026</text>
+          <text x="732" y="44">FREE REFERRAL, FROM 27 AUG</text>
+        </g>
+
+        <!-- Connectors first -->
+        <g fill="none" stroke="#000000" stroke-width="2" marker-end="url(#av-arrow)">
+          <path d="M232,100 H280 Q288,100 288,108 V152 Q288,160 296,160 H348"/>
+          <line x1="232" y1="204" x2="348" y2="204"/>
+          <path d="M232,308 H280 Q288,308 288,300 V256 Q288,248 296,248 H348"/>
+          <line x1="556" y1="204" x2="628" y2="204"/>
+        </g>
+        <g font-family="'Space Mono', monospace" font-size="8" letter-spacing="0.06em" text-anchor="middle">
+          <rect x="236" y="80" width="48" height="12" rx="2" fill="#dcebfe"/><text x="256" y="89">1 SALE</text>
+          <rect x="236" y="184" width="48" height="12" rx="2" fill="#dcebfe"/><text x="256" y="193">0 SALES</text>
+          <rect x="236" y="288" width="48" height="12" rx="2" fill="#dcebfe"/><text x="256" y="297">0 SALES</text>
+          <rect x="568" y="184" width="48" height="12" rx="2" fill="#dcebfe"/><text x="592" y="193">13 SALES</text>
+        </g>
+
+        <!-- Left: three paid channels -->
+        <rect x="52" y="68" width="180" height="72" rx="5" fill="#000000"/>
+        <rect x="48" y="64" width="180" height="72" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+        <rect x="52" y="172" width="180" height="72" rx="5" fill="#000000"/>
+        <rect x="48" y="168" width="180" height="72" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+        <rect x="52" y="276" width="180" height="72" rx="5" fill="#000000"/>
+        <rect x="48" y="272" width="180" height="72" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+
+        <!-- Centre: the change -->
+        <rect x="356" y="124" width="200" height="176" rx="5" fill="#000000"/>
+        <rect x="352" y="120" width="200" height="176" rx="5" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-dasharray="5,4"/>
+
+        <!-- Right: free referral, focal -->
+        <rect x="636" y="160" width="200" height="104" rx="5" fill="#000000"/>
+        <rect x="632" y="156" width="200" height="104" rx="5" fill="#5294ff" stroke="#000000" stroke-width="2"/>
+
+        <g font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+          <text x="138" y="92">Google Ads</text>
+          <text x="138" y="196">Meta Ads</text>
+          <text x="138" y="300">ChatGPT Ads</text>
+          <text x="452" y="152">Ads paused</text>
+          <text x="452" y="196">Site made readable to AI agents</text>
+          <text x="732" y="192">ChatGPT referral, free</text>
+        </g>
+        <g font-family="'Space Mono', monospace" font-size="8" text-anchor="middle">
+          <text x="138" y="108">$236.31 · 318 clicks</text>
+          <text x="138" y="124">1 sale · $58.00</text>
+          <text x="138" y="212">$85.44 · 604 clicks</text>
+          <text x="138" y="228">0 sales</text>
+          <text x="138" y="316">$80.00 · 7 sessions</text>
+          <text x="138" y="332">0 sales</text>
+          <text x="452" y="168">no ad spend after Aug 2026</text>
+          <text x="452" y="212">pull request #8, live 11 Sep 2026</text>
+          <text x="452" y="228">llms.txt · JSON-LD · markdown copies</text>
+          <text x="452" y="244">server-rendered course pages</text>
+          <text x="452" y="272">GA4: 41 chatgpt.com sessions to 08 Oct</text>
+          <text x="732" y="212">$0.00 spent</text>
+          <text x="732" y="228">13 sales · $259.87</text>
+          <text x="732" y="244">27 Aug to 04 Oct 2026</text>
+        </g>
+
+        <!-- Column totals -->
+        <line x1="48" y1="372" x2="228" y2="372" stroke="#000000" stroke-width="2"/>
+        <line x1="632" y1="372" x2="832" y2="372" stroke="#000000" stroke-width="2"/>
+        <g font-family="'Space Mono', monospace" font-size="8" font-weight="700" letter-spacing="0.1em" text-anchor="middle">
+          <text x="138" y="392">PAID: $401.75, 1 SALE, $58.00</text>
+          <text x="732" y="392">FREE: $0.00, 13 SALES, $259.87</text>
+        </g>
+      </svg>
+</div></section>
+<section><h2>From 1,767 visits to $515.80</h2><ul class="note"><li>1,767 visits from 9 sources landed on 73 pages, 02 Jul 2026 to 08 Oct 2026.</li><li>Paid ads sent 759 visits: Meta Ads 447, Google Ads 305, ChatGPT Ads 7. They made 1 sale.</li><li>ChatGPT sent 41 free visits. 24 of them landed on the Spanish course page. 13 sales came from these visits.</li><li>Every stage is sorted from largest to smallest. On a wide screen the stages run left to right, and the thickness of a band is its number of visits. On a phone the stages run top to bottom.</li><li>6 pages made money. 61 more pages, with 107 visits, are folded into one card.</li><li>Sales and Revenue count 22 of 23 buyers, the buyers with a known landing page.</li><li>Blue is the selected path. Dark grey is paid ads. Light grey is free search, direct and social.</li><li>Select a source to follow its visits to the pages. Select a page to see which sources fed it.</li></ul><div class="narrow mlanes" id="traffic-to-money-m">
+<h3 class="mstage">Total web traffic</h3><ul class="mrows">
+<li><button type="button" class="mrow" data-id="direct" aria-pressed="false"><span class="mbar" style="width:100.0%;background:#8a94a6"></span><span class="mlabel">Direct</span><span class="mval">Visits: 811<br>Spent: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="meta" aria-pressed="false"><span class="mbar" style="width:55.1%;background:#000000"></span><span class="mlabel">Meta Ads</span><span class="mval">Visits: 447<br>Spent: $85.44</span></button></li>
+<li><button type="button" class="mrow" data-id="google-cpc" aria-pressed="false"><span class="mbar" style="width:37.6%;background:#000000"></span><span class="mlabel">Google Ads</span><span class="mval">Visits: 305<br>Spent: $236.31</span></button></li>
+<li><button type="button" class="mrow" data-id="google-organic" aria-pressed="false"><span class="mbar" style="width:9.6%;background:#8a94a6"></span><span class="mlabel">Google organic</span><span class="mval">Visits: 78<br>Spent: $0.00</span></button></li>
+<li><button type="button" class="mrow focal" data-id="chatgpt" aria-pressed="false"><span class="mbar" style="width:5.1%;background:#0033a0"></span><span class="mlabel">ChatGPT, free</span><span class="mval">Visits: 41<br>Spent: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="other" aria-pressed="false"><span class="mbar" style="width:4.8%;background:#8a94a6"></span><span class="mlabel">Other</span><span class="mval">Visits: 39<br>Spent: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="facebook" aria-pressed="false"><span class="mbar" style="width:3.9%;background:#8a94a6"></span><span class="mlabel">Facebook</span><span class="mval">Visits: 32<br>Spent: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="bing" aria-pressed="false"><span class="mbar" style="width:0.9%;background:#8a94a6"></span><span class="mlabel">Bing organic</span><span class="mval">Visits: 7<br>Spent: $0.00</span></button></li>
+<li><button type="button" class="mrow" data-id="chatgpt-ads" aria-pressed="false"><span class="mbar" style="width:0.9%;background:#000000"></span><span class="mlabel">ChatGPT Ads</span><span class="mval">Visits: 7<br>Spent: $80.00</span></button></li>
+</ul>
+<h3 class="mstage">Landing page</h3><ul class="mrows">
+<li><button type="button" class="mrow" data-id="page" aria-pressed="false"><span class="mbar" style="width:100.0%;background:#8a94a6"></span><span class="mlabel">Home /</span><span class="mval">723</span></button></li>
+<li><button type="button" class="mrow focal" data-id="page-courses-texas-electricians-4hr-ce-es" aria-pressed="false"><span class="mbar" style="width:74.1%;background:#8a94a6"></span><span class="mlabel">Spanish course</span><span class="mval">536</span></button></li>
+<li><button type="button" class="mrow" data-id="page-courses-texas-electricians-4hr-ce" aria-pressed="false"><span class="mbar" style="width:12.2%;background:#8a94a6"></span><span class="mlabel">English course</span><span class="mval">88</span></button></li>
+<li><button type="button" class="mrow" data-id="page-es" aria-pressed="false"><span class="mbar" style="width:12.0%;background:#8a94a6"></span><span class="mlabel">Spanish home</span><span class="mval">87</span></button></li>
+<li><button type="button" class="mrow" data-id="page-generator" aria-pressed="false"><span class="mbar" style="width:10.2%;background:#8a94a6"></span><span class="mlabel">/generator</span><span class="mval">74</span></button></li>
+<li><button type="button" class="mrow" data-id="page-not-set" aria-pressed="false"><span class="mbar" style="width:9.4%;background:#8a94a6"></span><span class="mlabel">(not set)</span><span class="mval">68</span></button></li>
+<li><button type="button" class="mrow" data-id="pagerole-pages" aria-pressed="false"><span class="mbar" style="width:5.8%;background:#8a94a6"></span><span class="mlabel">Role pages</span><span class="mval">42</span></button></li>
+<li><button type="button" class="mrow" data-id="page-refund" aria-pressed="false"><span class="mbar" style="width:1.2%;background:#8a94a6"></span><span class="mlabel">/refund</span><span class="mval">9</span></button></li>
+<li><button type="button" class="mrow" data-id="page-renew-journeyman-electrician-es" aria-pressed="false"><span class="mbar" style="width:1.2%;background:#8a94a6"></span><span class="mlabel">Renew JM, ES</span><span class="mval">9</span></button></li>
+<li><button type="button" class="mrow" data-id="page-tools-journeyman-practice-test" aria-pressed="false"><span class="mbar" style="width:1.2%;background:#8a94a6"></span><span class="mlabel">Practice test</span><span class="mval">9</span></button></li>
+<li><button type="button" class="mrow" data-id="page-founder" aria-pressed="false"><span class="mbar" style="width:1.1%;background:#8a94a6"></span><span class="mlabel">/founder</span><span class="mval">8</span></button></li>
+<li><button type="button" class="mrow" data-id="page-knowledge-base-by-license-journeyman-electrician" aria-pressed="false"><span class="mbar" style="width:1.0%;background:#8a94a6"></span><span class="mlabel">Journeyman KB</span><span class="mval">7</span></button></li>
+<li class="mfold">61 more pages, 107 in total</li>
+</ul>
+<h3 class="mstage">Sales</h3><ul class="mrows">
+<li><button type="button" class="mrow focal" data-id="page-courses-texas-electricians-4hr-ce-es" aria-pressed="false"><span class="mbar" style="width:100.0%;background:#8a94a6"></span><span class="mlabel">Spanish course</span><span class="mval">12</span></button></li>
+<li><button type="button" class="mrow" data-id="page" aria-pressed="false"><span class="mbar" style="width:25.0%;background:#8a94a6"></span><span class="mlabel">Home /</span><span class="mval">3</span></button></li>
+<li><button type="button" class="mrow" data-id="pagerole-pages" aria-pressed="false"><span class="mbar" style="width:25.0%;background:#8a94a6"></span><span class="mlabel">Role pages</span><span class="mval">3</span></button></li>
+<li><button type="button" class="mrow" data-id="page-courses-texas-electricians-4hr-ce" aria-pressed="false"><span class="mbar" style="width:16.7%;background:#8a94a6"></span><span class="mlabel">English course</span><span class="mval">2</span></button></li>
+<li><button type="button" class="mrow" data-id="page-es" aria-pressed="false"><span class="mbar" style="width:8.3%;background:#8a94a6"></span><span class="mlabel">Spanish home</span><span class="mval">1</span></button></li>
+<li><button type="button" class="mrow" data-id="page-founder" aria-pressed="false"><span class="mbar" style="width:8.3%;background:#8a94a6"></span><span class="mlabel">/founder</span><span class="mval">1</span></button></li>
+</ul>
+<h3 class="mstage">Revenue</h3><ul class="mrows">
+<li><button type="button" class="mrow focal" data-id="page-courses-texas-electricians-4hr-ce-es" aria-pressed="false"><span class="mbar" style="width:100.0%;background:#8a94a6"></span><span class="mlabel">Spanish course</span><span class="mval">$239.88</span></button></li>
+<li><button type="button" class="mrow" data-id="page" aria-pressed="false"><span class="mbar" style="width:40.8%;background:#8a94a6"></span><span class="mlabel">Home /</span><span class="mval">$97.98</span></button></li>
+<li><button type="button" class="mrow" data-id="pagerole-pages" aria-pressed="false"><span class="mbar" style="width:25.0%;background:#8a94a6"></span><span class="mlabel">Role pages</span><span class="mval">$59.97</span></button></li>
+<li><button type="button" class="mrow" data-id="page-es" aria-pressed="false"><span class="mbar" style="width:24.2%;background:#8a94a6"></span><span class="mlabel">Spanish home</span><span class="mval">$58.00</span></button></li>
+<li><button type="button" class="mrow" data-id="page-courses-texas-electricians-4hr-ce" aria-pressed="false"><span class="mbar" style="width:16.7%;background:#8a94a6"></span><span class="mlabel">English course</span><span class="mval">$39.98</span></button></li>
+<li><button type="button" class="mrow" data-id="page-founder" aria-pressed="false"><span class="mbar" style="width:8.3%;background:#8a94a6"></span><span class="mlabel">/founder</span><span class="mval">$19.99</span></button></li>
+</ul>
+<p class="mstatus" aria-live="polite">ChatGPT: 41 visits, $0.00 spent, landed on 5 of the 12 drawn pages. Buyers from ChatGPT: 13 sales, $259.87.</p>
+<script type="application/json" class="mdata">{"links": {"direct": ["page", "page-about", "page-bf2cdbd7f84850cabc71bfc3b43ff0ead46c915d8080fd98a2f5719a25d8bc94-txt", "page-billing", "page-bingo-templates", "page-bingo-templates-blank", "page-bingo-templates-educational", "page-bingo-templates-entertainment-media", "page-bingo-templates-fun", "page-bingo-templates-icebreaker", "page-bingo-templates-music", "page-bingo-templates-number-bingo", "page-bingo-templates-occasions-events", "page-bingo-templates-office", "page-bingo-templates-popular", "page-bingo-templates-road-trip", "page-bingo-templates-sports", "page-blog", "page-checkout-success", "page-checkout-success-es", "page-coming-soon", "page-coming-soon-b", "page-coming-soon-b-es", "page-coming-soon-c", "page-coming-soon-c-es", "page-coming-soon-d", "page-coming-soon-d-es", "page-coming-soon-e", "page-coming-soon-e-es", "page-coming-soon-f", "page-coming-soon-f-es", "page-contact", "page-courses", "page-courses-texas-electricians-4hr-ce", "page-courses-texas-electricians-4hr-ce-es", "page-dashboard", "page-data-deletion", "page-documents", "page-es", "page-forms-elc-lic-005-es", "page-founder", "page-free", "page-generator", "page-help-center", "page-how-it-works", "page-knowledge-base", "page-knowledge-base-by-license-journeyman-electrician", "page-knowledge-base-by-license-master-electrician-es", "page-knowledge-base-es", "page-knowledge-base-faqs", "page-knowledge-base-faqs-es", "page-not-set", "page-preview-home", "page-privacy", "page-refund", "page-renew-journeyman-electrician-es", "page-renew-master-sign-electrician", "page-renewal-deadline", "page-reviews", "page-saved-cards", "page-tdlr-reporting", "page-terms", "page-testimonials", "page-tools-journeyman-practice-test", "page-tools-journeyman-practice-test-es", "page-u-click", "page-users-sign-in", "page-wp-admin", "pagerole-pages"], "page": ["bing", "direct", "facebook", "google-cpc", "google-organic", "meta", "other"], "meta": ["page", "page-courses-texas-electricians-4hr-ce-es", "page-es"], "google-cpc": ["page", "page-checkout-success", "page-courses-texas-electricians-4hr-ce-es", "page-es", "page-not-set", "pagerole-pages"], "google-organic": ["page", "page-courses-texas-electricians-4hr-ce", "page-courses-texas-electricians-4hr-ce-es", "page-founder", "page-knowledge-base-by-license-apprentice-electrician-es", "page-knowledge-base-by-license-master-electrician-es", "page-not-set", "page-renew-apprentice-electrician-es", "pagerole-pages"], "other": ["page", "page-checkout-success", "page-courses-texas-electricians-4hr-ce", "page-courses-texas-electricians-4hr-ce-es", "page-es", "page-not-set", "page-tools-journeyman-practice-test-es", "page-u-click"], "facebook": ["page", "page-courses-texas-electricians-4hr-ce-es", "page-es"], "bing": ["page", "page-not-set", "page-renew-apprentice-electrician", "page-renew-apprentice-electrician-es", "page-tools-journeyman-practice-test-es", "pagerole-pages"], "page-courses-texas-electricians-4hr-ce-es": ["chatgpt", "direct", "facebook", "google-cpc", "google-organic", "meta", "other"], "chatgpt": ["page-checkout-success-es", "page-courses-texas-electricians-4hr-ce-es", "page-es", "page-founder", "page-help-center", "page-not-set", "page-tools-journeyman-practice-test", "page-tools-journeyman-practice-test-es", "page-verify"], "page-courses-texas-electricians-4hr-ce": ["chatgpt-ads", "direct", "google-organic", "other"], "chatgpt-ads": ["page-courses-texas-electricians-4hr-ce"], "page-es": ["chatgpt", "direct", "facebook", "google-cpc", "meta", "other"], "page-generator": ["direct"], "page-not-set": ["bing", "chatgpt", "direct", "google-cpc", "google-organic", "other"], "pagerole-pages": ["bing", "direct", "google-cpc", "google-organic"], "page-refund": ["direct"], "page-renew-journeyman-electrician-es": ["direct"], "page-tools-journeyman-practice-test": ["chatgpt", "direct"], "page-founder": ["chatgpt", "direct", "google-organic"], "page-knowledge-base-by-license-journeyman-electrician": ["direct"], "page-coming-soon-b": ["direct"], "page-knowledge-base-faqs": ["direct"], "page-u-click": ["direct", "other"], "page-help-center": ["chatgpt", "direct"], "page-tools-journeyman-practice-test-es": ["bing", "chatgpt", "direct", "other"], "page-knowledge-base-faqs-es": ["direct"], "page-blog": ["direct"], "page-knowledge-base-by-license-master-electrician-es": ["direct", "google-organic"], "page-renew-apprentice-electrician-es": ["bing", "google-organic"], "page-checkout-success": ["direct", "google-cpc", "other"], "page-bingo-templates": ["direct"], "page-coming-soon": ["direct"], "page-coming-soon-b-es": ["direct"], "page-coming-soon-f": ["direct"], "page-courses": ["direct"], "page-how-it-works": ["direct"], "page-knowledge-base": ["direct"], "page-knowledge-base-es": ["direct"], "page-privacy": ["direct"], "page-renewal-deadline": ["direct"], "page-terms": ["direct"], "page-verify": ["chatgpt"], "page-knowledge-base-by-license-apprentice-electrician-es": ["google-organic"], "page-checkout-success-es": ["chatgpt", "direct"], "page-about": ["direct"], "page-bf2cdbd7f84850cabc71bfc3b43ff0ead46c915d8080fd98a2f5719a25d8bc94-txt": ["direct"], "page-billing": ["direct"], "page-bingo-templates-blank": ["direct"], "page-bingo-templates-educational": ["direct"], "page-bingo-templates-entertainment-media": ["direct"], "page-bingo-templates-fun": ["direct"], "page-bingo-templates-icebreaker": ["direct"], "page-bingo-templates-music": ["direct"], "page-bingo-templates-number-bingo": ["direct"], "page-bingo-templates-occasions-events": ["direct"], "page-bingo-templates-office": ["direct"], "page-bingo-templates-popular": ["direct"], "page-bingo-templates-road-trip": ["direct"], "page-bingo-templates-sports": ["direct"], "page-coming-soon-c": ["direct"], "page-coming-soon-c-es": ["direct"], "page-coming-soon-d": ["direct"], "page-coming-soon-d-es": ["direct"], "page-coming-soon-e": ["direct"], "page-coming-soon-e-es": ["direct"], "page-coming-soon-f-es": ["direct"], "page-contact": ["direct"], "page-dashboard": ["direct"], "page-data-deletion": ["direct"], "page-documents": ["direct"], "page-forms-elc-lic-005-es": ["direct"], "page-free": ["direct"], "page-preview-home": ["direct"], "page-renew-master-sign-electrician": ["direct"], "page-reviews": ["direct"], "page-saved-cards": ["direct"], "page-tdlr-reporting": ["direct"], "page-testimonials": ["direct"], "page-users-sign-in": ["direct"], "page-wp-admin": ["direct"], "page-renew-apprentice-electrician": ["bing"]}, "details": {"direct": "Direct: 811 visits, $0.00 spent, landed on 12 of the 12 drawn pages. Buyers from Direct: 2 sales, $77.99.", "meta": "Meta Ads: 447 visits, $85.44 spent, landed on 3 of the 12 drawn pages. Buyers from Meta Ads: 0 sales, $0.00.", "google-cpc": "Google Ads: 305 visits, $236.31 spent, landed on 5 of the 12 drawn pages. Buyers from Google Ads: 1 sale, $58.00.", "google-organic": "Google organic: 78 visits, $0.00 spent, landed on 6 of the 12 drawn pages. Buyers from Google organic: 3 sales, $59.97.", "chatgpt": "ChatGPT: 41 visits, $0.00 spent, landed on 5 of the 12 drawn pages. Buyers from ChatGPT: 13 sales, $259.87.", "other": "Other: 39 visits, $0.00 spent, landed on 5 of the 12 drawn pages. Buyers from Other: 0 sales, $0.00.", "facebook": "Facebook: 32 visits, $0.00 spent, landed on 3 of the 12 drawn pages. Buyers from Facebook: 0 sales, $0.00.", "bing": "Bing organic: 7 visits, $0.00 spent, landed on 3 of the 12 drawn pages. Buyers from Bing organic: 1 sale, $19.99.", "chatgpt-ads": "ChatGPT Ads: 7 visits, $80.00 spent, landed on 1 of the 12 drawn pages. Buyers from ChatGPT Ads: 0 sales, $0.00.", "page": "Home /: 723 visits from Direct, Meta Ads, Google Ads, Google organic, Other, Facebook, Bing organic. Sales that landed on this page: 3 sales, $97.98.", "page-courses-texas-electricians-4hr-ce-es": "Spanish course: 536 visits from Direct, Meta Ads, Google Ads, Google organic, ChatGPT, Other, Facebook. Sales that landed on this page: 12 sales, $239.88.", "page-courses-texas-electricians-4hr-ce": "English course: 88 visits from Direct, Google organic, Other, ChatGPT Ads. Sales that landed on this page: 2 sales, $39.98.", "page-es": "Spanish home: 87 visits from Direct, Meta Ads, Google Ads, ChatGPT, Other, Facebook. Sales that landed on this page: 1 sale, $58.00.", "page-generator": "/generator: 74 visits from Direct. Sales that landed on this page: 0 sales, $0.00.", "page-not-set": "(not set): 68 visits from Direct, Google Ads, Google organic, ChatGPT, Other, Bing organic. Sales that landed on this page: 0 sales, $0.00.", "pagerole-pages": "Role pages: 42 visits from Direct, Google Ads, Google organic, Bing organic. Sales that landed on this page: 3 sales, $59.97.", "page-refund": "/refund: 9 visits from Direct. Sales that landed on this page: 0 sales, $0.00.", "page-renew-journeyman-electrician-es": "Renew JM, ES: 9 visits from Direct. Sales that landed on this page: 0 sales, $0.00.", "page-tools-journeyman-practice-test": "Practice test: 9 visits from Direct, ChatGPT. Sales that landed on this page: 0 sales, $0.00.", "page-founder": "/founder: 8 visits from Direct, Google organic, ChatGPT. Sales that landed on this page: 1 sale, $19.99.", "page-knowledge-base-by-license-journeyman-electrician": "Journeyman KB: 7 visits from Direct. Sales that landed on this page: 0 sales, $0.00."}}</script>
+</div><div class="wide scroll"><style>
+#traffic-to-money { --bg: #dcebfe; --ink: #000000; --ink-soft: #333333; --muted: #6b7280; --line: rgba(0, 0, 0, 0.25);
+  --card: #ffffff; --grid: #ffffff; --accent: #0033a0; }
+#traffic-to-money { font-family: 'DM Sans', system-ui, sans-serif; }
+#traffic-to-money .card, #traffic-to-money .row-card { box-shadow: none; border: 0; background: none; padding: 0; }
+#traffic-to-money text { fill: var(--ink); font-family: inherit; }
+#traffic-to-money .header { font-size: 13px; font-weight: 700; }
+#traffic-to-money .label { font-size: 12px; }
+#traffic-to-money .value { font-size: 9px; font-family: ui-monospace, Menlo, Consolas, monospace; fill: var(--ink-soft); }
+#traffic-to-money .bar { fill-opacity: 0.9; }
+#traffic-to-money .grid { fill: var(--grid); stroke: var(--line); }
+#traffic-to-money .dot { fill: var(--ink); fill-opacity: 0.75; }
+#traffic-to-money .card { fill: var(--card); stroke: var(--line); fill-opacity: 0.92; }
+#traffic-to-money .card-label { font-size: 12px; fill: var(--ink-soft); }
+#traffic-to-money .fold { fill: var(--ink-soft); }
+#traffic-to-money .conn { fill: none; stroke-width: 1.2; stroke-opacity: 0.6; }
+#traffic-to-money .focal .label, #traffic-to-money .hot .label, #traffic-to-money text.focal, #traffic-to-money text.hot { fill: var(--accent); font-weight: 700; }
+#traffic-to-money .focal .bar, #traffic-to-money .hot .bar { fill: var(--accent) !important; fill-opacity: 1; }
+#traffic-to-money .ribbon.focal, #traffic-to-money .ribbon.hot { fill: var(--accent) !important; fill-opacity: 0.85 !important; }
+#traffic-to-money .dot.focal, #traffic-to-money .dot.hot { fill: var(--accent); fill-opacity: 1; }
+#traffic-to-money .conn.focal, #traffic-to-money .conn.hot { stroke: var(--accent) !important; stroke-width: 2.4; stroke-opacity: 1; }
+#traffic-to-money .dim { opacity: 0.55; }
+#traffic-to-money .header { font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; }
+#traffic-to-money .label { font-weight: 700; }
+#traffic-to-money .value { font-family: 'Space Mono', ui-monospace, monospace; fill: var(--ink); }
+#traffic-to-money .row-card { fill: var(--card); stroke: var(--line); stroke-width: 1; }
+#traffic-to-money .share { fill-opacity: 0.16; }
+#traffic-to-money .card { fill: var(--card); stroke: var(--line); stroke-width: 1; fill-opacity: 1; }
+#traffic-to-money .flow { stroke: none; fill-opacity: 0.35; }
+#traffic-to-money .ribbon { fill-opacity: 0.35; }
+#traffic-to-money .flow.focal, #traffic-to-money .flow.hot { fill: var(--accent) !important; fill-opacity: 0.9 !important; stroke: var(--accent);
+  stroke-width: 1.5; }
+#traffic-to-money .focal .row-card, #traffic-to-money .hot .row-card { fill: var(--accent); stroke: var(--accent); }
+#traffic-to-money .focal .label, #traffic-to-money .hot .label, #traffic-to-money .focal .value, #traffic-to-money .hot .value { fill: #ffffff; }
+#traffic-to-money .focal .share, #traffic-to-money .hot .share { fill: #ffffff !important; fill-opacity: 0.22; }
+#traffic-to-money .dim { opacity: 1; }
+#traffic-to-money g.row { transform-box: fill-box; transform-origin: center; transition: transform 0.2s, opacity 0.2s; }
+#traffic-to-money.selecting g.row.focal { transform: scale(1.12); filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)); }
+#traffic-to-money.selecting g.row.dim { transform: scale(0.92); opacity: 0.4; }
+#traffic-to-money.selecting .flow.focal, #traffic-to-money.selecting .ribbon.focal { stroke: var(--accent); stroke-width: 4; }
+#traffic-to-money.selecting .flow.dim, #traffic-to-money.selecting .ribbon.dim { fill: #808080 !important; fill-opacity: 0.3 !important; opacity: 1; }
+#traffic-to-money.selecting .dim { opacity: 0.3; }
+</style>
+<svg id="traffic-to-money" class="lane-flow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1118 652" role="img" aria-labelledby="traffic-to-money-title traffic-to-money-desc" data-has-focal="yes">
+<title id="traffic-to-money-title">From 1,767 visits to $515.80</title>
+<desc id="traffic-to-money-desc">1,767 GA4 sessions from 9 sources landed on 73 pages. 22 sales worth $515.80 came from 6 of those pages. The blue path is ChatGPT to the Spanish course page.</desc>
+<path class="ribbon focal" data-entity="page-courses-texas-electricians-4hr-ce-es" d="M502.0,105.0 C559.0,105.0 559.0,61.0 616.0,61.0 L616.0,95.0 C559.0,95.0 559.0,139.0 502.0,139.0 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page" d="M502.0,73.8 C559.0,73.8 559.0,117.8 616.0,117.8 L616.0,126.2 C559.0,126.2 559.0,82.2 502.0,82.2 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="pagerole-pages" d="M502.0,337.8 C559.0,337.8 559.0,161.8 616.0,161.8 L616.0,170.2 C559.0,170.2 559.0,346.2 502.0,346.2 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page-courses-texas-electricians-4hr-ce" d="M502.0,163.2 C559.0,163.2 559.0,207.2 616.0,207.2 L616.0,212.8 C559.0,212.8 559.0,168.8 502.0,168.8 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page-es" d="M502.0,208.6 C559.0,208.6 559.0,252.6 616.0,252.6 L616.0,255.4 C559.0,255.4 559.0,211.4 502.0,211.4 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page-founder" d="M502.0,516.6 C559.0,516.6 559.0,296.6 616.0,296.6 L616.0,299.4 C559.0,299.4 559.0,519.4 502.0,519.4 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon focal" data-entity="page-courses-texas-electricians-4hr-ce-es" d="M792.0,61.0 C849.0,61.0 849.0,61.0 906.0,61.0 L906.0,95.0 C849.0,95.0 849.0,95.0 792.0,95.0 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page" d="M792.0,115.1 C849.0,115.1 849.0,115.1 906.0,115.1 L906.0,128.9 C849.0,128.9 849.0,128.9 792.0,128.9 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="pagerole-pages" d="M792.0,161.8 C849.0,161.8 849.0,161.8 906.0,161.8 L906.0,170.2 C849.0,170.2 849.0,170.2 792.0,170.2 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page-es" d="M792.0,249.9 C849.0,249.9 849.0,205.9 906.0,205.9 L906.0,214.1 C849.0,214.1 849.0,258.1 792.0,258.1 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page-courses-texas-electricians-4hr-ce" d="M792.0,207.2 C849.0,207.2 849.0,251.2 906.0,251.2 L906.0,256.8 C849.0,256.8 849.0,212.8 792.0,212.8 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<path class="ribbon dim" data-entity="page-founder" d="M792.0,296.6 C849.0,296.6 849.0,296.6 906.0,296.6 L906.0,299.4 C849.0,299.4 849.0,299.4 792.0,299.4 Z" fill="var(--muted)" fill-opacity="0.28"/>
+<text class="header" x="24.0" y="28">Total web traffic</text>
+<g class="row dim" data-entity="direct">
+<rect class="row-card" x="16.0" y="59.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="59.0" width="90.0" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="direct" x="24.0" y="82.0" font-size="12">Direct</text>
+<text class="value" x="204.0" y="77.0" text-anchor="end" font-size="10">Visits: 811</text>
+<text class="value" x="204.0" y="89.0" text-anchor="end" font-size="10">Spent: $0.00</text>
+</g>
+<g class="row dim" data-entity="meta">
+<rect class="row-card" x="16.0" y="103.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="103.0" width="49.6" height="38" rx="5" fill="#000000"/>
+<text class="label" data-entity="meta" x="24.0" y="126.0" font-size="12">Meta Ads</text>
+<text class="value" x="204.0" y="121.0" text-anchor="end" font-size="10">Visits: 447</text>
+<text class="value" x="204.0" y="133.0" text-anchor="end" font-size="10">Spent: $85.44</text>
+</g>
+<g class="row dim" data-entity="google-cpc">
+<rect class="row-card" x="16.0" y="147.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="147.0" width="33.8" height="38" rx="5" fill="#000000"/>
+<text class="label" data-entity="google-cpc" x="24.0" y="170.0" font-size="12">Google Ads</text>
+<text class="value" x="204.0" y="165.0" text-anchor="end" font-size="10">Visits: 305</text>
+<text class="value" x="204.0" y="177.0" text-anchor="end" font-size="10">Spent: $236.31</text>
+</g>
+<g class="row dim" data-entity="google-organic">
+<rect class="row-card" x="16.0" y="191.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="191.0" width="8.7" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="google-organic" x="24.0" y="214.0" font-size="12">Google organic</text>
+<text class="value" x="204.0" y="209.0" text-anchor="end" font-size="10">Visits: 78</text>
+<text class="value" x="204.0" y="221.0" text-anchor="end" font-size="10">Spent: $0.00</text>
+</g>
+<g class="row focal" data-entity="chatgpt">
+<rect class="row-card" x="16.0" y="235.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="235.0" width="4.5" height="38" rx="5" fill="#0033a0"/>
+<text class="label" data-entity="chatgpt" x="24.0" y="258.0" font-size="12">ChatGPT, free</text>
+<text class="value" x="204.0" y="253.0" text-anchor="end" font-size="10">Visits: 41</text>
+<text class="value" x="204.0" y="265.0" text-anchor="end" font-size="10">Spent: $0.00</text>
+</g>
+<g class="row dim" data-entity="other">
+<rect class="row-card" x="16.0" y="279.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="279.0" width="4.3" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="other" x="24.0" y="302.0" font-size="12">Other</text>
+<text class="value" x="204.0" y="297.0" text-anchor="end" font-size="10">Visits: 39</text>
+<text class="value" x="204.0" y="309.0" text-anchor="end" font-size="10">Spent: $0.00</text>
+</g>
+<g class="row dim" data-entity="facebook">
+<rect class="row-card" x="16.0" y="323.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="323.0" width="3.5" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="facebook" x="24.0" y="346.0" font-size="12">Facebook</text>
+<text class="value" x="204.0" y="341.0" text-anchor="end" font-size="10">Visits: 32</text>
+<text class="value" x="204.0" y="353.0" text-anchor="end" font-size="10">Spent: $0.00</text>
+</g>
+<g class="row dim" data-entity="bing">
+<rect class="row-card" x="16.0" y="367.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="367.0" width="0.8" height="38" rx="5" fill="#8a94a6"/>
+<text class="label" data-entity="bing" x="24.0" y="390.0" font-size="12">Bing organic</text>
+<text class="value" x="204.0" y="385.0" text-anchor="end" font-size="10">Visits: 7</text>
+<text class="value" x="204.0" y="397.0" text-anchor="end" font-size="10">Spent: $0.00</text>
+</g>
+<g class="row dim" data-entity="chatgpt-ads">
+<rect class="row-card" x="16.0" y="411.0" width="196" height="38" rx="5"/>
+<rect class="share" x="16.0" y="411.0" width="0.8" height="38" rx="5" fill="#000000"/>
+<text class="label" data-entity="chatgpt-ads" x="24.0" y="434.0" font-size="12">ChatGPT Ads</text>
+<text class="value" x="204.0" y="429.0" text-anchor="end" font-size="10">Visits: 7</text>
+<text class="value" x="204.0" y="441.0" text-anchor="end" font-size="10">Spent: $80.00</text>
+</g>
+<text class="header" x="334.0" y="28">Landing page</text>
+<g class="row rank dim" data-entity="page">
+<rect class="row-card" x="326.0" y="59.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="59.0" width="72.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page" x="334.0" y="82.0" font-size="12">Home /</text>
+<text class="value" x="494.0" y="83.0" text-anchor="end" font-size="11">723</text>
+</g>
+<g class="row rank focal" data-entity="page-courses-texas-electricians-4hr-ce-es">
+<rect class="row-card" x="326.0" y="103.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="103.0" width="53.4" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-courses-texas-electricians-4hr-ce-es" x="334.0" y="126.0" font-size="12">Spanish course</text>
+<text class="value" x="494.0" y="127.0" text-anchor="end" font-size="11">536</text>
+</g>
+<g class="row rank dim" data-entity="page-courses-texas-electricians-4hr-ce">
+<rect class="row-card" x="326.0" y="147.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="147.0" width="8.8" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-courses-texas-electricians-4hr-ce" x="334.0" y="170.0" font-size="12">English course</text>
+<text class="value" x="494.0" y="171.0" text-anchor="end" font-size="11">88</text>
+</g>
+<g class="row rank dim" data-entity="page-es">
+<rect class="row-card" x="326.0" y="191.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="191.0" width="8.7" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-es" x="334.0" y="214.0" font-size="12">Spanish home</text>
+<text class="value" x="494.0" y="215.0" text-anchor="end" font-size="11">87</text>
+</g>
+<g class="row rank dim" data-entity="page-generator">
+<rect class="row-card" x="326.0" y="235.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="235.0" width="7.4" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-generator" x="334.0" y="258.0" font-size="12">/generator</text>
+<text class="value" x="494.0" y="259.0" text-anchor="end" font-size="11">74</text>
+</g>
+<g class="row rank dim" data-entity="page-not-set">
+<rect class="row-card" x="326.0" y="279.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="279.0" width="6.8" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-not-set" x="334.0" y="302.0" font-size="12">(not set)</text>
+<text class="value" x="494.0" y="303.0" text-anchor="end" font-size="11">68</text>
+</g>
+<g class="row rank dim" data-entity="pagerole-pages">
+<rect class="row-card" x="326.0" y="323.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="323.0" width="4.2" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="pagerole-pages" x="334.0" y="346.0" font-size="12">Role pages</text>
+<text class="value" x="494.0" y="347.0" text-anchor="end" font-size="11">42</text>
+</g>
+<g class="row rank dim" data-entity="page-refund">
+<rect class="row-card" x="326.0" y="367.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="367.0" width="0.9" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-refund" x="334.0" y="390.0" font-size="12">/refund</text>
+<text class="value" x="494.0" y="391.0" text-anchor="end" font-size="11">9</text>
+</g>
+<g class="row rank dim" data-entity="page-renew-journeyman-electrician-es">
+<rect class="row-card" x="326.0" y="411.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="411.0" width="0.9" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-renew-journeyman-electrician-es" x="334.0" y="434.0" font-size="12">Renew JM, ES</text>
+<text class="value" x="494.0" y="435.0" text-anchor="end" font-size="11">9</text>
+</g>
+<g class="row rank dim" data-entity="page-tools-journeyman-practice-test">
+<rect class="row-card" x="326.0" y="455.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="455.0" width="0.9" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-tools-journeyman-practice-test" x="334.0" y="478.0" font-size="12">Practice test</text>
+<text class="value" x="494.0" y="479.0" text-anchor="end" font-size="11">9</text>
+</g>
+<g class="row rank dim" data-entity="page-founder">
+<rect class="row-card" x="326.0" y="499.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="499.0" width="0.8" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-founder" x="334.0" y="522.0" font-size="12">/founder</text>
+<text class="value" x="494.0" y="523.0" text-anchor="end" font-size="11">8</text>
+</g>
+<g class="row rank dim" data-entity="page-knowledge-base-by-license-journeyman-electrician">
+<rect class="row-card" x="326.0" y="543.0" width="176" height="38" rx="5"/>
+<rect class="share" x="326.0" y="543.0" width="0.7" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-knowledge-base-by-license-journeyman-electrician" x="334.0" y="566.0" font-size="12">Journeyman KB</text>
+<text class="value" x="494.0" y="567.0" text-anchor="end" font-size="11">7</text>
+</g>
+<rect class="card" x="340.0" y="593.0" width="156.0" height="32" rx="3"/>
+<rect class="card" x="337.0" y="590.0" width="156.0" height="32" rx="3"/>
+<rect class="card" x="334.0" y="587.0" width="156.0" height="32" rx="3"/>
+<text class="label fold" x="340.0" y="610.0" font-size="12">61 more pages</text>
+<text class="value" x="454.0" y="610.0">107</text>
+<path class="flow dim" data-entity="meta" data-outcome="page-courses-texas-electricians-4hr-ce-es" d="M212.0,113.2 C269.0,113.2 269.0,113.0 326.0,113.0 L326.0,130.0 C269.0,130.0 269.0,130.2 212.0,130.2 Z" fill="#000000"/>
+<path class="flow dim" data-entity="direct" data-outcome="page" d="M212.0,59.0 C269.0,59.0 269.0,61.5 326.0,61.5 L326.0,76.9 C269.0,76.9 269.0,74.4 212.0,74.4 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-cpc" data-outcome="page" d="M212.0,157.7 C269.0,157.7 269.0,77.9 326.0,77.9 L326.0,89.4 C269.0,89.4 269.0,169.3 212.0,169.3 Z" fill="#000000"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-courses-texas-electricians-4hr-ce-es" d="M212.0,74.4 C269.0,74.4 269.0,109.0 326.0,109.0 L326.0,113.0 C269.0,113.0 269.0,78.4 212.0,78.4 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="folded" d="M212.0,93.3 C269.0,93.3 269.0,601.6 326.0,601.6 L326.0,605.4 C269.0,605.4 269.0,97.0 212.0,97.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-courses-texas-electricians-4hr-ce" d="M212.0,78.4 C269.0,78.4 269.0,162.9 326.0,162.9 L326.0,166.1 C269.0,166.1 269.0,81.5 212.0,81.5 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-generator" d="M212.0,82.5 C269.0,82.5 269.0,252.4 326.0,252.4 L326.0,255.6 C269.0,255.6 269.0,85.6 212.0,85.6 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="page" d="M212.0,206.0 C269.0,206.0 269.0,89.4 326.0,89.4 L326.0,91.5 C269.0,91.5 269.0,208.0 212.0,208.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-not-set" d="M212.0,85.6 C269.0,85.6 269.0,294.6 326.0,294.6 L326.0,296.4 C269.0,296.4 269.0,87.3 212.0,87.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="meta" data-outcome="page-es" d="M212.0,130.2 C269.0,130.2 269.0,207.7 326.0,207.7 L326.0,209.3 C269.0,209.3 269.0,131.8 212.0,131.8 Z" fill="#000000"/>
+<path class="flow focal" data-entity="chatgpt" data-outcome="page-courses-texas-electricians-4hr-ce-es" d="M212.0,251.0 C269.0,251.0 269.0,132.0 326.0,132.0 L326.0,133.0 C269.0,133.0 269.0,252.0 212.0,252.0 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="meta" data-outcome="page" d="M212.0,112.2 C269.0,112.2 269.0,76.9 326.0,76.9 L326.0,77.9 C269.0,77.9 269.0,113.2 212.0,113.2 Z" fill="#000000"/>
+<path class="flow dim" data-entity="other" data-outcome="page" d="M212.0,295.0 C269.0,295.0 269.0,91.5 326.0,91.5 L326.0,92.5 C269.0,92.5 269.0,296.0 212.0,296.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="facebook" data-outcome="page" d="M212.0,340.5 C269.0,340.5 269.0,92.5 326.0,92.5 L326.0,93.5 C269.0,93.5 269.0,341.5 212.0,341.5 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="bing" data-outcome="page" d="M212.0,384.0 C269.0,384.0 269.0,93.5 326.0,93.5 L326.0,94.5 C269.0,94.5 269.0,385.0 212.0,385.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-cpc" data-outcome="page-courses-texas-electricians-4hr-ce-es" d="M212.0,169.3 C269.0,169.3 269.0,130.0 326.0,130.0 L326.0,131.0 C269.0,131.0 269.0,170.3 212.0,170.3 Z" fill="#000000"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="page-courses-texas-electricians-4hr-ce-es" d="M212.0,208.0 C269.0,208.0 269.0,131.0 326.0,131.0 L326.0,132.0 C269.0,132.0 269.0,209.0 212.0,209.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="other" data-outcome="page-courses-texas-electricians-4hr-ce-es" d="M212.0,296.0 C269.0,296.0 269.0,133.0 326.0,133.0 L326.0,134.0 C269.0,134.0 269.0,297.0 212.0,297.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="facebook" data-outcome="page-courses-texas-electricians-4hr-ce-es" d="M212.0,341.5 C269.0,341.5 269.0,134.0 326.0,134.0 L326.0,135.0 C269.0,135.0 269.0,342.5 212.0,342.5 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="page-courses-texas-electricians-4hr-ce" d="M212.0,209.0 C269.0,209.0 269.0,166.1 326.0,166.1 L326.0,167.1 C269.0,167.1 269.0,210.0 212.0,210.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="other" data-outcome="page-courses-texas-electricians-4hr-ce" d="M212.0,297.0 C269.0,297.0 269.0,167.1 326.0,167.1 L326.0,168.1 C269.0,168.1 269.0,298.0 212.0,298.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="chatgpt-ads" data-outcome="page-courses-texas-electricians-4hr-ce" d="M212.0,429.5 C269.0,429.5 269.0,168.1 326.0,168.1 L326.0,169.1 C269.0,169.1 269.0,430.5 212.0,430.5 Z" fill="#000000"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-es" d="M212.0,81.5 C269.0,81.5 269.0,206.7 326.0,206.7 L326.0,207.7 C269.0,207.7 269.0,82.5 212.0,82.5 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-cpc" data-outcome="page-es" d="M212.0,170.3 C269.0,170.3 269.0,209.3 326.0,209.3 L326.0,210.3 C269.0,210.3 269.0,171.3 212.0,171.3 Z" fill="#000000"/>
+<path class="flow dim" data-entity="chatgpt" data-outcome="page-es" d="M212.0,252.0 C269.0,252.0 269.0,210.3 326.0,210.3 L326.0,211.3 C269.0,211.3 269.0,253.0 212.0,253.0 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="other" data-outcome="page-es" d="M212.0,298.0 C269.0,298.0 269.0,211.3 326.0,211.3 L326.0,212.3 C269.0,212.3 269.0,299.0 212.0,299.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="facebook" data-outcome="page-es" d="M212.0,342.5 C269.0,342.5 269.0,212.3 326.0,212.3 L326.0,213.3 C269.0,213.3 269.0,343.5 212.0,343.5 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-cpc" data-outcome="page-not-set" d="M212.0,171.3 C269.0,171.3 269.0,296.4 326.0,296.4 L326.0,297.4 C269.0,297.4 269.0,172.3 212.0,172.3 Z" fill="#000000"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="page-not-set" d="M212.0,210.0 C269.0,210.0 269.0,297.4 326.0,297.4 L326.0,298.4 C269.0,298.4 269.0,211.0 212.0,211.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="chatgpt" data-outcome="page-not-set" d="M212.0,253.0 C269.0,253.0 269.0,298.4 326.0,298.4 L326.0,299.4 C269.0,299.4 269.0,254.0 212.0,254.0 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="other" data-outcome="page-not-set" d="M212.0,299.0 C269.0,299.0 269.0,299.4 326.0,299.4 L326.0,300.4 C269.0,300.4 269.0,300.0 212.0,300.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="bing" data-outcome="page-not-set" d="M212.0,385.0 C269.0,385.0 269.0,300.4 326.0,300.4 L326.0,301.4 C269.0,301.4 269.0,386.0 212.0,386.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="pagerole-pages" d="M212.0,87.3 C269.0,87.3 269.0,340.0 326.0,340.0 L326.0,341.0 C269.0,341.0 269.0,88.3 212.0,88.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-cpc" data-outcome="pagerole-pages" d="M212.0,172.3 C269.0,172.3 269.0,341.0 326.0,341.0 L326.0,342.0 C269.0,342.0 269.0,173.3 212.0,173.3 Z" fill="#000000"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="pagerole-pages" d="M212.0,211.0 C269.0,211.0 269.0,342.0 326.0,342.0 L326.0,343.0 C269.0,343.0 269.0,212.0 212.0,212.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="bing" data-outcome="pagerole-pages" d="M212.0,386.0 C269.0,386.0 269.0,343.0 326.0,343.0 L326.0,344.0 C269.0,344.0 269.0,387.0 212.0,387.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-refund" d="M212.0,88.3 C269.0,88.3 269.0,385.5 326.0,385.5 L326.0,386.5 C269.0,386.5 269.0,89.3 212.0,89.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-renew-journeyman-electrician-es" d="M212.0,89.3 C269.0,89.3 269.0,429.5 326.0,429.5 L326.0,430.5 C269.0,430.5 269.0,90.3 212.0,90.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-tools-journeyman-practice-test" d="M212.0,90.3 C269.0,90.3 269.0,473.0 326.0,473.0 L326.0,474.0 C269.0,474.0 269.0,91.3 212.0,91.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="chatgpt" data-outcome="page-tools-journeyman-practice-test" d="M212.0,254.0 C269.0,254.0 269.0,474.0 326.0,474.0 L326.0,475.0 C269.0,475.0 269.0,255.0 212.0,255.0 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-founder" d="M212.0,91.3 C269.0,91.3 269.0,516.5 326.0,516.5 L326.0,517.5 C269.0,517.5 269.0,92.3 212.0,92.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="page-founder" d="M212.0,212.0 C269.0,212.0 269.0,517.5 326.0,517.5 L326.0,518.5 C269.0,518.5 269.0,213.0 212.0,213.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="chatgpt" data-outcome="page-founder" d="M212.0,255.0 C269.0,255.0 269.0,518.5 326.0,518.5 L326.0,519.5 C269.0,519.5 269.0,256.0 212.0,256.0 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="direct" data-outcome="page-knowledge-base-by-license-journeyman-electrician" d="M212.0,92.3 C269.0,92.3 269.0,561.5 326.0,561.5 L326.0,562.5 C269.0,562.5 269.0,93.3 212.0,93.3 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="other" data-outcome="folded" d="M212.0,300.0 C269.0,300.0 269.0,608.4 326.0,608.4 L326.0,609.4 C269.0,609.4 269.0,301.0 212.0,301.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="chatgpt" data-outcome="folded" d="M212.0,256.0 C269.0,256.0 269.0,607.4 326.0,607.4 L326.0,608.4 C269.0,608.4 269.0,257.0 212.0,257.0 Z" fill="#0033a0"/>
+<path class="flow dim" data-entity="bing" data-outcome="folded" d="M212.0,387.0 C269.0,387.0 269.0,609.4 326.0,609.4 L326.0,610.4 C269.0,610.4 269.0,388.0 212.0,388.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-organic" data-outcome="folded" d="M212.0,213.0 C269.0,213.0 269.0,606.4 326.0,606.4 L326.0,607.4 C269.0,607.4 269.0,214.0 212.0,214.0 Z" fill="#8a94a6"/>
+<path class="flow dim" data-entity="google-cpc" data-outcome="folded" d="M212.0,173.3 C269.0,173.3 269.0,605.4 326.0,605.4 L326.0,606.4 C269.0,606.4 269.0,174.3 212.0,174.3 Z" fill="#000000"/>
+<text class="header" x="624.0" y="28">Sales</text>
+<g class="row focal" data-entity="page-courses-texas-electricians-4hr-ce-es">
+<rect class="row-card" x="616.0" y="59.0" width="176" height="38" rx="5"/>
+<rect class="share" x="616.0" y="59.0" width="96.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-courses-texas-electricians-4hr-ce-es" x="624.0" y="82.0" font-size="12">Spanish course</text>
+<text class="value" x="784.0" y="83.0" text-anchor="end" font-size="11">12</text>
+</g>
+<g class="row dim" data-entity="page">
+<rect class="row-card" x="616.0" y="103.0" width="176" height="38" rx="5"/>
+<rect class="share" x="616.0" y="103.0" width="24.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page" x="624.0" y="126.0" font-size="12">Home /</text>
+<text class="value" x="784.0" y="127.0" text-anchor="end" font-size="11">3</text>
+</g>
+<g class="row dim" data-entity="pagerole-pages">
+<rect class="row-card" x="616.0" y="147.0" width="176" height="38" rx="5"/>
+<rect class="share" x="616.0" y="147.0" width="24.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="pagerole-pages" x="624.0" y="170.0" font-size="12">Role pages</text>
+<text class="value" x="784.0" y="171.0" text-anchor="end" font-size="11">3</text>
+</g>
+<g class="row dim" data-entity="page-courses-texas-electricians-4hr-ce">
+<rect class="row-card" x="616.0" y="191.0" width="176" height="38" rx="5"/>
+<rect class="share" x="616.0" y="191.0" width="16.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-courses-texas-electricians-4hr-ce" x="624.0" y="214.0" font-size="12">English course</text>
+<text class="value" x="784.0" y="215.0" text-anchor="end" font-size="11">2</text>
+</g>
+<g class="row dim" data-entity="page-es">
+<rect class="row-card" x="616.0" y="235.0" width="176" height="38" rx="5"/>
+<rect class="share" x="616.0" y="235.0" width="8.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-es" x="624.0" y="258.0" font-size="12">Spanish home</text>
+<text class="value" x="784.0" y="259.0" text-anchor="end" font-size="11">1</text>
+</g>
+<g class="row dim" data-entity="page-founder">
+<rect class="row-card" x="616.0" y="279.0" width="176" height="38" rx="5"/>
+<rect class="share" x="616.0" y="279.0" width="8.0" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-founder" x="624.0" y="302.0" font-size="12">/founder</text>
+<text class="value" x="784.0" y="303.0" text-anchor="end" font-size="11">1</text>
+</g>
+<text class="header" x="914.0" y="28">Revenue</text>
+<g class="row focal" data-entity="page-courses-texas-electricians-4hr-ce-es">
+<rect class="row-card" x="906.0" y="59.0" width="176" height="38" rx="5"/>
+<rect class="share" x="906.0" y="59.0" width="81.9" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-courses-texas-electricians-4hr-ce-es" x="914.0" y="82.0" font-size="12">Spanish course</text>
+<text class="value" x="1074.0" y="83.0" text-anchor="end" font-size="11">$239.88</text>
+</g>
+<g class="row dim" data-entity="page">
+<rect class="row-card" x="906.0" y="103.0" width="176" height="38" rx="5"/>
+<rect class="share" x="906.0" y="103.0" width="33.4" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page" x="914.0" y="126.0" font-size="12">Home /</text>
+<text class="value" x="1074.0" y="127.0" text-anchor="end" font-size="11">$97.98</text>
+</g>
+<g class="row dim" data-entity="pagerole-pages">
+<rect class="row-card" x="906.0" y="147.0" width="176" height="38" rx="5"/>
+<rect class="share" x="906.0" y="147.0" width="20.5" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="pagerole-pages" x="914.0" y="170.0" font-size="12">Role pages</text>
+<text class="value" x="1074.0" y="171.0" text-anchor="end" font-size="11">$59.97</text>
+</g>
+<g class="row dim" data-entity="page-es">
+<rect class="row-card" x="906.0" y="191.0" width="176" height="38" rx="5"/>
+<rect class="share" x="906.0" y="191.0" width="19.8" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-es" x="914.0" y="214.0" font-size="12">Spanish home</text>
+<text class="value" x="1074.0" y="215.0" text-anchor="end" font-size="11">$58.00</text>
+</g>
+<g class="row dim" data-entity="page-courses-texas-electricians-4hr-ce">
+<rect class="row-card" x="906.0" y="235.0" width="176" height="38" rx="5"/>
+<rect class="share" x="906.0" y="235.0" width="13.6" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-courses-texas-electricians-4hr-ce" x="914.0" y="258.0" font-size="12">English course</text>
+<text class="value" x="1074.0" y="259.0" text-anchor="end" font-size="11">$39.98</text>
+</g>
+<g class="row dim" data-entity="page-founder">
+<rect class="row-card" x="906.0" y="279.0" width="176" height="38" rx="5"/>
+<rect class="share" x="906.0" y="279.0" width="6.8" height="38" rx="5" fill="var(--muted)"/>
+<text class="label" data-entity="page-founder" x="914.0" y="302.0" font-size="12">/founder</text>
+<text class="value" x="1074.0" y="303.0" text-anchor="end" font-size="11">$19.99</text>
+</g>
+</svg>
+<p class="lane-flow-status" id="traffic-to-money-status" aria-live="polite">ChatGPT: 41 visits, $0.00 spent, landed on 5 of the 12 drawn pages. Buyers from ChatGPT: 13 sales, $259.87.</p>
+<script type="application/json" id="traffic-to-money-details">{"direct": "Direct: 811 visits, $0.00 spent, landed on 12 of the 12 drawn pages. Buyers from Direct: 2 sales, $77.99.", "meta": "Meta Ads: 447 visits, $85.44 spent, landed on 3 of the 12 drawn pages. Buyers from Meta Ads: 0 sales, $0.00.", "google-cpc": "Google Ads: 305 visits, $236.31 spent, landed on 5 of the 12 drawn pages. Buyers from Google Ads: 1 sale, $58.00.", "google-organic": "Google organic: 78 visits, $0.00 spent, landed on 6 of the 12 drawn pages. Buyers from Google organic: 3 sales, $59.97.", "chatgpt": "ChatGPT: 41 visits, $0.00 spent, landed on 5 of the 12 drawn pages. Buyers from ChatGPT: 13 sales, $259.87.", "other": "Other: 39 visits, $0.00 spent, landed on 5 of the 12 drawn pages. Buyers from Other: 0 sales, $0.00.", "facebook": "Facebook: 32 visits, $0.00 spent, landed on 3 of the 12 drawn pages. Buyers from Facebook: 0 sales, $0.00.", "bing": "Bing organic: 7 visits, $0.00 spent, landed on 3 of the 12 drawn pages. Buyers from Bing organic: 1 sale, $19.99.", "chatgpt-ads": "ChatGPT Ads: 7 visits, $80.00 spent, landed on 1 of the 12 drawn pages. Buyers from ChatGPT Ads: 0 sales, $0.00.", "page": "Home /: 723 visits from Direct, Meta Ads, Google Ads, Google organic, Other, Facebook, Bing organic. Sales that landed on this page: 3 sales, $97.98.", "page-courses-texas-electricians-4hr-ce-es": "Spanish course: 536 visits from Direct, Meta Ads, Google Ads, Google organic, ChatGPT, Other, Facebook. Sales that landed on this page: 12 sales, $239.88.", "page-courses-texas-electricians-4hr-ce": "English course: 88 visits from Direct, Google organic, Other, ChatGPT Ads. Sales that landed on this page: 2 sales, $39.98.", "page-es": "Spanish home: 87 visits from Direct, Meta Ads, Google Ads, ChatGPT, Other, Facebook. Sales that landed on this page: 1 sale, $58.00.", "page-generator": "/generator: 74 visits from Direct. Sales that landed on this page: 0 sales, $0.00.", "page-not-set": "(not set): 68 visits from Direct, Google Ads, Google organic, ChatGPT, Other, Bing organic. Sales that landed on this page: 0 sales, $0.00.", "pagerole-pages": "Role pages: 42 visits from Direct, Google Ads, Google organic, Bing organic. Sales that landed on this page: 3 sales, $59.97.", "page-refund": "/refund: 9 visits from Direct. Sales that landed on this page: 0 sales, $0.00.", "page-renew-journeyman-electrician-es": "Renew JM, ES: 9 visits from Direct. Sales that landed on this page: 0 sales, $0.00.", "page-tools-journeyman-practice-test": "Practice test: 9 visits from Direct, ChatGPT. Sales that landed on this page: 0 sales, $0.00.", "page-founder": "/founder: 8 visits from Direct, Google organic, ChatGPT. Sales that landed on this page: 1 sale, $19.99.", "page-knowledge-base-by-license-journeyman-electrician": "Journeyman KB: 7 visits from Direct. Sales that landed on this page: 0 sales, $0.00."}</script>
+<script>
+(function () {
+  var prefix = "traffic-to-money";
+  var svg = document.getElementById(prefix);
+  if (!svg) { return; }
+  var status = document.getElementById(prefix + "-status");
+  var detailsTag = document.getElementById(prefix + "-details");
+  var details = detailsTag ? JSON.parse(detailsTag.textContent) : {};
+  var parts = Array.prototype.slice.call(svg.querySelectorAll("g[data-entity], path[data-entity]"));
+  var conns = parts.filter(function (el) { return el.hasAttribute("data-outcome"); });
+  var initial = parts.map(function (el) { return el.getAttribute("class"); });
+  var initialText = status ? status.textContent : "";
+  var order = Array.prototype.slice.call(svg.children);
+  function clear() {
+    svg.classList.remove("selecting");
+    order.forEach(function (el) { svg.appendChild(el); });
+    parts.forEach(function (el, n) { el.setAttribute("class", initial[n]); el.removeAttribute("aria-pressed"); });
+    if (status) { status.textContent = initialText; }
+  }
+  svg.addEventListener("click", function (ev) {
+    if (!ev.target.closest("g[data-entity]")) { clear(); }
+  });
+  function select(id) {
+    svg.classList.add("selecting");
+    var ids = {};
+    ids[id] = true;
+    conns.forEach(function (c) {
+      if (c.getAttribute("data-entity") === id) { ids[c.getAttribute("data-outcome")] = true; }
+      if (c.getAttribute("data-outcome") === id) { ids[c.getAttribute("data-entity")] = true; }
+    });
+    parts.forEach(function (el) {
+      var ent = el.getAttribute("data-entity");
+      var out = el.getAttribute("data-outcome");
+      var on = out !== null ? (ent === id || out === id) : ids[ent] === true;
+      el.classList.toggle("focal", on);
+      el.classList.toggle("dim", !on);
+      if (el.tagName.toLowerCase() === "g") { el.setAttribute("aria-pressed", ent === id ? "true" : "false"); }
+    });
+    parts.forEach(function (el) {
+      if (el.tagName.toLowerCase() === "g" && el.classList.contains("focal")) { svg.appendChild(el); }
+    });
+    if (status) { status.textContent = details[id] || ""; }
+  }
+  parts.forEach(function (el) {
+    if (el.tagName.toLowerCase() !== "g") { return; }
+    var id = el.getAttribute("data-entity");
+    el.style.cursor = "pointer";
+    el.setAttribute("tabindex", "0");
+    el.addEventListener("click", function () { select(id); });
+    el.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(id); }
+    });
+  });
+})();
+</script>
+</div></section>
+<script>
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll(".mlanes"), function (box) {
+    var data = JSON.parse(box.querySelector(".mdata").textContent);
+    var status = box.querySelector(".mstatus");
+    var first = status.textContent;
+    var rows = box.querySelectorAll(".mrow");
+    var current = null;
+    function clear() {
+      current = null;
+      box.classList.remove("selecting");
+      Array.prototype.forEach.call(rows, function (r) { r.classList.remove("on"); r.setAttribute("aria-pressed", "false"); });
+      status.textContent = first;
+    }
+    Array.prototype.forEach.call(rows, function (b) {
+      b.addEventListener("click", function () {
+        var id = b.getAttribute("data-id");
+        if (current === id) { clear(); return; }
+        current = id;
+        var on = {};
+        on[id] = true;
+        (data.links[id] || []).forEach(function (x) { on[x] = true; });
+        box.classList.add("selecting");
+        Array.prototype.forEach.call(rows, function (r) {
+          var rid = r.getAttribute("data-id");
+          r.classList.toggle("on", on[rid] === true);
+          r.setAttribute("aria-pressed", rid === id ? "true" : "false");
+        });
+        status.textContent = data.details[id] || "";
+      });
+    });
+  });
+})();
+</script>
+</div></body></html>
