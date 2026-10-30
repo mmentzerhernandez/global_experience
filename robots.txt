@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /global_experience/sales-and-referrals-2026.html
 Allow: /
 
 # --- Major search engines ---
