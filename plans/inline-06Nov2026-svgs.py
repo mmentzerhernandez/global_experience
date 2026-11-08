@@ -5,7 +5,9 @@ Usage:
   inline-06Nov2026-svgs.py              inline every rendered SVG that exists, then rebuild the fallback
   inline-06Nov2026-svgs.py --fallback   rebuild the fallback only
 
-The fallback is a script block at the end of the page. It draws each placeholder that has no
+The fallback is a script block at the end of the page. The Mermaid script tag carries an SRI hash
+that matches the hash jsDelivr publishes for mermaid@11.4.1. "antiscript" keeps the click links
+and removes script tags from labels. It draws each placeholder that has no
 rendered SVG yet, in the browser, from its .mmd source. When no placeholder remains, the block
 is removed, so the page loads no Mermaid library.
 """
@@ -15,14 +17,14 @@ DIAG = "/Users/rabies/global_experience/diagrams"
 REND = DIAG + "/rendered"
 NAMES = ["business-overview", "session-pipeline", "dwell-gate", "plan-run", "operating-loop", "op-records"]
 START, END = "<!-- diagram-fallback:start -->", "<!-- diagram-fallback:end -->"
-FALLBACK_JS = """<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+FALLBACK_JS = """<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
     <script id="diagram-fallback-src" type="application/json">%s</script>
     <script>
       /* Draw each diagram that is not rendered into the page yet, then run the label guard again.
          The guard marks each canvas it sets up, so a second run sets up only the new diagrams. */
       (async function () {
         var src = JSON.parse(document.getElementById("diagram-fallback-src").textContent);
-        mermaid.initialize({ startOnLoad: false, securityLevel: "loose", flowchart: { htmlLabels: true } });
+        mermaid.initialize({ startOnLoad: false, securityLevel: "antiscript", flowchart: { htmlLabels: true } });
         for (var name in src) {
           var hole = document.querySelector('.canvas[data-diagram="' + name + '"]');
           if (!hole) continue;
