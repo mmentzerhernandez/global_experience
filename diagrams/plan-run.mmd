@@ -1,0 +1,58 @@
+%%{init: {'theme': 'base', 'themeVariables': {'background': '#ffffff', 'mainBkg': '#ffffff', 'clusterBkg': '#f8f9fa', 'clusterBorder': '#dee2e6', 'edgeLabelBackground': '#ffffff', 'primaryTextColor': '#0f172a', 'lineColor': '#64748b'}}}%%
+flowchart TD
+    S(["Owner names one feature"]) --> R{"Which command?"}
+    R -- "/new-feature" --> NF["new-feature.sh creates the feature"]
+    R -- "/herdr-plan-run" --> HP["Skill checks the plan folder"]
+    HP --> RC["Resource check writes RESOURCES.md"]
+    RC --> D1{"Disk free 8 GB or more?"}
+    NF --> D1
+    D1 -- No --> X1(["Refuse and print the done lines"])
+    D1 -- Yes --> D2{"Fewer than 3 worktrees?"}
+    D2 -- No --> X1
+    D2 -- Yes --> F["Fetch origin with prune"]
+    F --> B["Branch from origin/main, never local main"]
+    B --> W["Make the worktree folder"]
+    W --> I{"Same lock file as main?"}
+    I -- Yes --> C["Clone node_modules in seconds"]
+    I -- No --> N["Run npm ci"]
+    C --> P["Plan folder, port, idle watcher"]
+    N --> P
+    P --> G["Director runs every group in herdr"]
+    G --> PR["Last item pushes and opens the pull request"]
+    PR --> PB["Pull request body holds the done line"]
+    PB --> RV["ierhub-pr-review measures every claim"]
+    RV --> M["Owner merges on GitHub"]
+    M --> RD["GitHub deletes the remote branch"]
+    RD --> DN["Owner runs new-feature.sh --done name"]
+    subgraph DONE["What --done does"]
+        direction TB
+        T["Prove the branch is on origin/main"]
+        T --> K["Stop the idle watcher and dev server"]
+        K --> RM["Remove the worktree"]
+        RM --> PR2["Run git worktree prune"]
+        PR2 --> BD["Delete the local branch"]
+        BD --> PP["Move the plan folder to PastPlans"]
+    end
+    DN --> T
+    PP --> E(["Disk holds no finished work"])
+    WK["Monday job writes WORKTREE-STATUS.md"] -.-> DM{"Any merged worktree left?"}
+    DM -- Yes --> DA["Run done-merged for every merged row"]
+    DA --> DN
+    DM -- No --> E
+
+    classDef today fill:#ffffff,stroke:#475569,color:#0f172a,stroke-width:2px;
+    classDef new fill:#eef2f7,stroke:#0033A0,color:#0f172a,stroke-width:2px,stroke-dasharray:6 4;
+    classDef stop fill:#fde8e8,stroke:#b91c1c,color:#1a0000,stroke-width:2px;
+    classDef done fill:#e6f4ea,stroke:#1b7f3b,color:#06260f,stroke-width:2px;
+    class S,R,NF,HP,RC,F,B,W,N,P,G,PR,RV,M,DN,T,RM,PR2,BD,PP today;
+    class D1,D2,I,C,PB,RD,K,WK,DM,DA new;
+    class X1 stop;
+    class E done;
+
+    subgraph Legend
+        direction LR
+        L1["Exists today"]:::today
+        L2["Built by the tooling plan"]:::new
+        L3["Refusal, nothing written"]:::stop
+        L4["End state"]:::done
+    end

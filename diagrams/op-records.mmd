@@ -1,0 +1,54 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#f0f3ff"
+    primaryBorderColor: "#002fa7"
+    primaryTextColor: "#2c3e50"
+    lineColor: "#002fa7"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
+---
+flowchart TD
+    subgraph WEEK["About once a week: the wikis"]
+        T3["Tier 3, deep wiki beside the code"]:::course
+        T2["Tier 2, one wiki per workstream folder"]:::access
+        T1["Tier 1, Wiki/index.md, navigation and governance"]:::people
+        CONF{{"Do two tiers disagree?"}}:::gate
+        WIN["The more specific tier wins"]:::enforce
+        FIX["Fix the fact at its source"]:::enforce
+        SYNC["Run /ierhub-current-state to sync upward"]:::enforce
+        HTML["Rebuild 0-HitByABus.html from Tier 1"]:::report
+        T3 -->|"feeds"| T2 -->|"feeds"| T1
+        CONF -->|"Yes"| WIN --> FIX --> SYNC --> T1 --> HTML
+    end
+
+    subgraph DAY["Every day at 12:00: the mirror"]
+        JOB["launchd starts sync.sh"]:::access
+        SCAN["Scan the workspace for changes"]:::access
+        LOG["Write one changelog per mirrored folder"]:::report
+        ALLOW["Copy only allowlisted folders into mirror/"]:::enforce
+        SECRET{{"Does the secret gate find a credential?"}}:::gate
+        BLOCK["Block the commit and report"]:::report
+        RENDER["Render wiki.html from the mirror"]:::course
+        BEAT["Write the date to heartbeat.txt"]:::course
+        PUSH["Commit and push to the private repository"]:::course
+        DEAD{{"Did seven days pass with no commit?"}}:::gate
+        ISSUE["A GitHub Action opens an issue for the successor"]:::report
+        RUNBOOK["CONTINUITY.md tells a successor what to do"]:::note
+        JOB --> SCAN --> LOG --> ALLOW --> SECRET
+        SECRET -->|"Yes"| BLOCK
+        SECRET -->|"No"| RENDER --> BEAT --> PUSH --> DEAD
+        DEAD -->|"Yes"| ISSUE
+        RUNBOOK -.-> ISSUE
+    end
+
+    T1 -.->|"scanned every day"| SCAN
+
+    classDef people fill:#ECEFF1,stroke:#455A64,color:#000000,stroke-width:2px
+    classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000,stroke-width:2px
+    classDef course fill:#E8F5E9,stroke:#2E7D32,color:#000000,stroke-width:2px
+    classDef enforce fill:#FFF3E0,stroke:#E65100,color:#000000,stroke-width:2px
+    classDef report fill:#FFEBEE,stroke:#C62828,color:#000000,stroke-width:2px
+    classDef refuse fill:#FFEBEE,stroke:#C62828,color:#000000,stroke-width:2px,stroke-dasharray: 5 5
+    classDef note fill:#FFFDE7,stroke:#9E9D24,color:#000000,stroke-width:2px
+    classDef gate fill:#F9A825,stroke:#7A5200,color:#1A1200,stroke-width:3px

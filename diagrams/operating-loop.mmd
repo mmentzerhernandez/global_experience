@@ -15,26 +15,39 @@ flowchart TD
     OWNER["The owner approves a goal"]:::people
     FUT["FuturePlans, one dated file per plan"]:::access
     CUR["CurrentPlans, one folder per plan set"]:::enforce
-    WATERFALL["Sessions work the plan and write handoffs"]:::enforce
-    BOARD["Tasks/WORK-STATUS.md indexes the active sets"]:::access
+    BOARD["WORK-STATUS.md lists the active set"]:::access
+
+    subgraph WF["Session waterfall"]
+        S1["A session reads PLAN.md and works"]:::access
+        MORE{{"Is every PLAN.md item checked?"}}:::gate
+        HALF{{"Is half the context used?"}}:::gate
+        STOP["Finish or revert the current edit"]:::enforce
+        LESS["Answer the three lessons questions"]:::note
+        HAND["Write the next HANDOFF file"]:::report
+        CLEAR["Run /clear, never /compact"]:::enforce
+        NEXT["The next session reads only the handoff"]:::access
+        S1 --> MORE
+        MORE -->|"No"| HALF
+        HALF -->|"No"| S1
+        HALF -->|"Yes"| STOP --> LESS --> HAND --> CLEAR --> NEXT --> S1
+    end
+
+    FINAL["Final handoff says WATERFALL: COMPLETE"]:::course
     DOD{{"Does the set meet the definition of done?"}}:::gate
+    DRIFT["check-drift.sh finds a false completion"]:::refuse
     REVIEW["Review the whole set for mistakes"]:::note
-    DRIFT["check-drift.sh flags a false completion"]:::refuse
-    PAST["PastPlans, plan and handoff trail kept"]:::course
-    INACT["InactivePlans, paused or superseded"]:::report
-    MAP["MIGRATION-MAP.md logs every move"]:::report
+    PAST["PastPlans keeps the plan and handoffs"]:::course
+    MAP["MIGRATION-MAP.md logs the move"]:::report
+    INACT["InactivePlans keeps a paused set"]:::report
 
     OWNER --> FUT
-    FUT -->|"Kickoff moves it"| CUR
-    CUR --> WATERFALL
-    WATERFALL -->|"Next session"| CUR
-    CUR -->|"Indexed by"| BOARD
-    CUR --> DOD
-    DOD -->|"Yes"| REVIEW --> PAST
-    DOD -->|"Paused"| INACT
-    DOD -->|"Marked, not met"| DRIFT
-    DRIFT -->|"Repair"| CUR
-    PAST --> MAP
+    FUT -->|"kickoff moves it"| CUR
+    CUR --> BOARD --> S1
+    MORE -->|"Yes"| FINAL --> DOD
+    DOD -->|"Yes"| REVIEW --> PAST --> MAP
+    DOD -->|"No"| DRIFT
+    DRIFT -->|"repair"| S1
+    S1 -.->|"paused"| INACT
 
     classDef people fill:#ECEFF1,stroke:#455A64,color:#000000,stroke-width:2px
     classDef access fill:#E3F2FD,stroke:#1565C0,color:#000000,stroke-width:2px
