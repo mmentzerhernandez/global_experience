@@ -1,0 +1,24 @@
+flowchart TD
+    LEARNER(["Texas license holder takes the course"])
+    PAY["Pay by card through Stripe"]
+    ENROLL["Enroll and record the license type and number"]
+    LOGIN["Log in and confirm identity"]
+    M1["Module 1, 50 minutes"]
+    M2["Module 2, 50 minutes"]
+    M3["Module 3, 50 minutes"]
+    M4["Module 4, 50 minutes"]
+    SEAT{{"Seat time of 50 minutes met in every module?"}}
+    NODUP{{"First completion this year?"}}
+    COMP["Course complete, all four modules met"]
+    CERT(["Certificate PDF by email with a verification code"])
+    ROSTER["Roster to TDLR within 7 days"]
+    RETAIN["Records kept two years"]
+    ADMIN["Provider admin manages courses and rosters"]
+    AUDITOR["TDLR auditor reviews, read only"]
+    LEARNER -->|"start"| PAY --> ENROLL --> LOGIN -->|"enter course"| M1
+    M1 -->|"unlock next"| M2 -->|"unlock next"| M3 -->|"unlock next"| M4 -->|"check seat time"| SEAT
+    SEAT -->|"Yes"| NODUP -->|"Yes"| COMP
+    COMP -->|"then"| CERT
+    COMP -->|"send completion"| ROSTER --> RETAIN
+    ADMIN -.-> ROSTER
+    AUDITOR -.-> RETAIN

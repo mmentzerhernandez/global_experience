@@ -34,15 +34,11 @@ Measured by this session on 08 Nov 2026:
 
 ## Remaining work
 
-1. The owner opens the page and looks at every panel, mainly the 6 diagrams that the browser draws: `open /Users/rabies/global_experience/automated-curriculum-development-business.html`. If a diagram shows "did not render", fix its source in `/Users/rabies/global_experience/diagrams/`.
-2. The owner runs the render command in a normal terminal. It bakes the 6 SVG files into the page and removes the fallback block:
-   ```
-   cd /Users/rabies/global_experience && export npm_config_cache=/tmp/npm-mmdc PUPPETEER_SKIP_DOWNLOAD=1 && for n in business-overview session-pipeline dwell-gate plan-run operating-loop op-records; do npx -y @mermaid-js/mermaid-cli -i diagrams/$n.mmd -o diagrams/rendered/$n.svg --svgId $n-svg -b transparent -c diagrams/mermaid-config.json -p diagrams/puppeteer-chrome.json || echo "RENDER FAILED: $n"; done && python3 plans/inline-06Nov2026-svgs.py
-   ```
-3. Check every panel in Claude in Chrome, when the owner allows a local server.
-4. A separate task: add a graph refresh to `/ierhub-current-state`. Not started.
-5. Commit when the owner asks. The commit holds the page, `diagrams/`, and the files in `plans/` of this update. It does not hold `sales-and-referrals-2026.html`.
-6. Two old CSS rules for `op-wiki-tiers-svg` and `op-waterfall-svg` stay in the page. Those diagrams are gone, so the rules do nothing. Remove them in the next edit of the page.
+Update 08 Nov 2026, 16:00: the render ran. The 6 diagrams are baked into the page, and the fallback block is gone. Commit `3d11c52` is pushed to `main`. The verification counts above for placeholders and the fallback are now 0.
+
+1. The owner looks at every panel on https://mmentzerhernandez.github.io/global_experience/automated-curriculum-development-business.html. No session has looked at the rendered diagrams in a browser.
+2. A separate task: add a graph refresh to `/ierhub-current-state`. Not started.
+3. Two old CSS rules for `op-wiki-tiers-svg` and `op-waterfall-svg` stay in the page. Those diagrams are gone, so the rules do nothing. Remove them in the next edit of the page.
 
 ## Decisions and constraints
 
@@ -52,7 +48,7 @@ Measured by this session on 08 Nov 2026:
 
 ## Exact next step
 
-Ask the owner if the page looks correct in the browser (remaining work item 1). Put the page path in the question: `/Users/rabies/global_experience/automated-curriculum-development-business.html`.
+Ask the owner if the live page looks correct (remaining work item 1). Put the page address in the question.
 
 ## Kickoff prompt for the new session
 

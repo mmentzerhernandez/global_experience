@@ -9,73 +9,41 @@ config:
     fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif"
 ---
 flowchart TD
-    subgraph g_found["Organize the Company"]
-        direction LR
-        n1["Apr 21, 2026: SOS opens the portal"]:::found
-        n2["Apr 24, 2026: SOS reinstates the company"]:::found
-        n3["May 15, 2026: TDLR CE Provider 2520"]:::gov
-        n1 -->|"then"| n2 -->|"then"| n3
-    end
+    n0(["The company is reinstated, TDLR CE Provider 2520"]):::found
+    bA["Get the rules for the subject"]:::work
+    bB["Write the outline"]:::work
+    bC["Make the Moodle course"]:::work
+    bD["Write the English text"]:::work
+    bG1{{"Does a person approve the text?"}}:::gov
+    bE["Write the Spanish text"]:::work
+    bF["Test the seat time"]:::work
+    bG["Check every page"]:::work
+    bH{{"Does TDLR approve the course?"}}:::gov
+    bI["Website page and checkout"]:::served
+    m1["Free guides, city pages, ads, code cards"]:::work
+    m4["ierhub.com brings license holders"]:::served
+    k1["License holders and employers buy seats"]:::found
+    d1["Pay with Stripe"]:::work
+    d2["Check the TDLR license"]:::comply
+    d3["Count the seat time"]:::comply
+    d4["Send the certificate PDF"]:::served
+    c1["Roster to TDLR within 7 days"]:::comply
+    c2(["Records kept 2 years, auditor reads"]):::comply
 
-    subgraph g_build["Build the Course"]
-        direction LR
-        bA["Get the rules for the subject"]:::work
-        bB["Write the outline"]:::work
-        bC["Make the Moodle course"]:::work
-        bD["Write the English text"]:::work
-        bG1{{"Person approves the text"}}:::gov
-        bE["Write the Spanish text"]:::work
-        bF["Test the seat time"]:::work
-        bG["Check every page"]:::work
-        bH{{"TDLR approves the course"}}:::gov
-        bI["Website page and checkout"]:::served
-        bA --> bB --> bC --> bD --> bG1 --> bE --> bF --> bG --> bH --> bI
-    end
-
-    subgraph g_marketing["Marketing"]
-        direction LR
-        m1["Free CE guides"]:::work
-        m2["City pages and Google Ads"]:::work
-        m3["Quick reference cards"]:::work
-        m4["ierhub.com"]:::served
-        m1 --> m4
-        m2 --> m4
-        m3 --> m4
-    end
-
-    subgraph g_market["The Market"]
-        direction LR
-        k1["License holders who read English"]:::served
-        k2["License holders who read Spanish"]:::served
-        k3["Employers who buy seats for crews"]:::served
-    end
-
-    subgraph g_delivery["Deliver the Course"]
-        direction LR
-        d1["Pay with Stripe"]:::work
-        d2["Check the TDLR license"]:::comply
-        d3["Count the seat time"]:::comply
-        d4["Send the certificate PDF"]:::served
-        d1 -->|"then"| d2 -->|"then"| d3 -->|"then"| d4
-        DRILLDELIV(["Open the delivery platform"]):::drill
-    end
-
-    subgraph g_compliance["Report to TDLR"]
-        direction LR
-        c1["Roster within 7 days"]:::comply
-        c2["Records kept 2 years"]:::comply
-        c3["Auditor access, read only"]:::comply
-    end
-
-    g_found -->|"applies for approval"| g_build
-    g_build -->|"markets the course"| g_marketing
-    g_marketing -->|"reaches"| g_market
-    g_market -->|"enroll"| g_delivery
-    g_delivery -->|"sends completions"| g_compliance
-    g_compliance -.->|"renewal"| g_market
+    n0 -->|"applies"| bA --> bB --> bC --> bD --> bG1
+    bG1 -->|"Yes"| bE
+    bG1 -.->|"No"| bD
+    bE --> bF --> bG --> bH
+    bH -->|"Yes"| bI
+    bH -.->|"No"| fx["Fix the findings and resubmit"]:::work
+    fx -.-> bA
+    bI --> m4
+    m1 --> m4
+    m4 --> k1 --> d1 -->|"then"| d2 -->|"then"| d3 -->|"then"| d4
+    d4 -->|"completion"| c1 --> c2
+    c2 -.->|"renewal, one year later"| k1
 
     click bD href "#session-pipeline"
-    click DRILLDELIV href "#tx4hrce-delivery"
 
     classDef found fill:#ECEFF1,stroke:#455A64,color:#1A2024
     classDef gov fill:#E3F2FD,stroke:#1565C0,color:#0D2B4E,stroke-width:2px
